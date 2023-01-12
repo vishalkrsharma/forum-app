@@ -16,8 +16,8 @@ export default function Signup() {
   };
 
   return (
-    <div className='mx-auto h-screen'>
-      <form className='mx-auto flex justify-center items-center flex-col h-screen gap-6 relative w-80'>
+    <div className='mx-auto h-screen p-5'>
+      <form className='mx-auto flex justify-top items-center flex-col h-screen gap-6 relative w-80'>
         <img className='h-44 mx-auto' src={logoWithLabel} alt={logoWithLabel} />
         <div className='text-xl text-primary font-medium'>Sign Up</div>
         <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='email'>
@@ -54,7 +54,7 @@ export default function Signup() {
           className='text-secondary text-2xl hover:text-primary absolute'
           type='button'
           onClick={() => setIsVisible(!isVisible)}
-          style={{ marginTop: '360px', right: '12.5px' }}
+          style={{ marginTop: '386px', right: '12.5px' }}
         >
           {isVisible ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
         </button>

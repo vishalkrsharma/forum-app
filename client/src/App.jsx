@@ -1,13 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { Home, Signin, Signup, Title } from './pages/index';
+import { Home, NewPost, Signin, Signup, Start } from './pages/index';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/title' element={<Title />} />
+        <Route path='/newpost' element={<NewPost />} />
+        <Route path='/start' element={<Start />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/signin' element={<Signin />} />
         <Route index element={<Home />} />
