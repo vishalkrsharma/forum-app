@@ -20,7 +20,7 @@ export default function NewPost() {
             Give a title...
           </label>
           <input
-            className='border-secondary border-2 p-2 px-3 rounded-lg'
+            className='border-secondary border-2 p-2 px-3 rounded-lg focus:border-primary'
             type='text'
             id='title'
             placeholder='An interesting title'
@@ -30,7 +30,7 @@ export default function NewPost() {
             Body
           </label>
           <textarea
-            className='h-60 border-secondary border-2 p-2 px-3 rounded-lg resize-none'
+            className='h-60 border-secondary border-2 p-2 px-3 rounded-lg resize-none focus:border-primary'
             type='text'
             id='body'
             placeholder='What are you thinking about...'

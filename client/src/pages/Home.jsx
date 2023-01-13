@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <TopBar />
-      <div className='container bg-diffused py-20 px-3 h-screen'>
+      <div className='bg-diffused py-20 px-3 h-screen'>
         <Post />
       </div>
       <BottomBar />
