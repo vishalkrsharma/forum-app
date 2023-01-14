@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuthContext } from './useAuthContext';
 
-export function useSignin() {
+export function useLogin() {
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
@@ -11,13 +11,13 @@ export function useSignin() {
 
   const { dispatch } = useAuthContext();
 
-  const signin = async (email, password) => {
+  const login = async (email, password) => {
     try {
       const { data } = await axios.post('/api/user/login', {
         email,
         password,
       });
-      dispatch({ type: 'USER_SIGNIN', payload: data });
+      dispatch({ type: 'LOGIN', payload: data });
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/');
     } catch (err) {
@@ -25,5 +25,5 @@ export function useSignin() {
     }
   };
 
-  return { signin, error, isLoading };
+  return { login, error, isLoading };
 }

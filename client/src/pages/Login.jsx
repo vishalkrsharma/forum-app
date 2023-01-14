@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-import { useSignin } from '../hooks/useSignin';
+import { useLogin } from '../hooks/useLogin';
 
 import logoWithLabel from '../assets/logo-with-label.png';
 
-export default function Signin() {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signin, error, isLoading } = useSignin();
+  const { login, error, isLoading } = useLogin();
   const [isVisible, setIsVisible] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await signin(email, password);
+    await login(email, password);
     console.log(email, password);
   };
 
@@ -22,7 +22,7 @@ export default function Signin() {
     <div className='mx-auto h-screen p-5'>
       <form className='mx-auto flex justify-top items-center flex-col h-3/4 gap-6 relative w-80'>
         <img className='h-44 mx-auto' src={logoWithLabel} alt={logoWithLabel} />
-        <div className='text-xl text-primary font-medium'>Sign In</div>
+        <div className='text-xl text-primary font-medium'>Log In</div>
         <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='email'>
           Email
         </label>
@@ -52,7 +52,7 @@ export default function Signin() {
           {isVisible ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
         </button>
         <button className='bg-primary text-white w-full h-10 rounded-lg' type='submit' onClick={submitHandler} disabled={isLoading}>
-          Sign In
+          Log In
         </button>
         <div>
           Don't have an account?&nbsp;&nbsp;

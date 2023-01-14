@@ -63,8 +63,8 @@ export default function Signup() {
         </button>
         <div>
           Already have an account!&nbsp;&nbsp;
-          <Link className='text-secondary hover:text-primary' to={'/signin'}>
-            Sign In
+          <Link className='text-secondary hover:text-primary' to={'/login'}>
+            Log In
           </Link>
         </div>
       </form>

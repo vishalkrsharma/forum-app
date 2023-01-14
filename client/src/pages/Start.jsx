@@ -13,8 +13,8 @@ export default function Start() {
         Sign Up
       </Link>
       <div className='text-dark'>Already have an Account!</div>
-      <Link className='border-primary text-primary align-middle border-2 w-80 h-10 rounded-lg flex justify-center items-center' to='/signin'>
-        Sign In
+      <Link className='border-primary text-primary align-middle border-2 w-80 h-10 rounded-lg flex justify-center items-center' to='/login'>
+        Log In
       </Link>
     </div>
   );

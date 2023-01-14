@@ -7,6 +7,7 @@ export default function Post() {
   const name = 'group';
   const user = 'user';
   const time = '10hr';
+  const upvotes = 10;
 
   const title = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.';
   const body =
