@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
+import { useSignin } from '../hooks/useSignin';
+
 import logoWithLabel from '../assets/logo-with-label.png';
 
 export default function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const { signin, error, isLoading } = useSignin();
   const [isVisible, setIsVisible] = useState(false);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    await signin(email, password);
     console.log(email, password);
   };
 
@@ -40,7 +43,6 @@ export default function Signin() {
           placeholder='Password'
           onChange={(e) => setPassword(e.target.value)}
         />
-
         <button
           className='text-secondary text-2xl hover:text-primary absolute'
           type='button'
@@ -49,7 +51,7 @@ export default function Signin() {
         >
           {isVisible ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
         </button>
-        <button className='bg-primary text-white w-full h-10 rounded-lg' type='submit' onClick={submitHandler}>
+        <button className='bg-primary text-white w-full h-10 rounded-lg' type='submit' onClick={submitHandler} disabled={isLoading}>
           Sign In
         </button>
         <div>
