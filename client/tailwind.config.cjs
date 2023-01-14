@@ -9,6 +9,7 @@ module.exports = {
       white: 'var(--color-white)',
       dark: 'var(--color-dark)',
       diffused: 'var(--color-diffused)',
+      warning: 'var(--color-warning)',
     },
   },
   plugins: [],

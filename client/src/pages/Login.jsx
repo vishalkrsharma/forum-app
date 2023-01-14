@@ -20,8 +20,8 @@ export default function Login() {
 
   return (
     <div className='mx-auto h-screen p-5'>
-      <form className='mx-auto flex justify-top items-center flex-col h-3/4 gap-6 relative w-80'>
-        <img className='h-44 mx-auto' src={logoWithLabel} alt={logoWithLabel} />
+      <img className='h-44 mx-auto' src={logoWithLabel} alt={logoWithLabel} />
+      <form className='mx-auto flex justify-top items-center flex-col h-3/4 gap-6 relative w-80 mt-5'>
         <div className='text-xl text-primary font-medium'>Log In</div>
         <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='email'>
           Email
@@ -44,14 +44,14 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button
-          className='text-secondary text-2xl hover:text-primary absolute'
+          className='text-secondary text-2xl absolute'
           type='button'
           onClick={() => setIsVisible(!isVisible)}
-          style={{ marginTop: '386px', right: '12.5px' }}
+          style={{ marginTop: '186px', right: '12.5px' }}
         >
-          {isVisible ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+          {isVisible ? <AiOutlineEye className='text-primary' /> : <AiOutlineEyeInvisible />}
         </button>
-        <button className='bg-primary text-white w-full h-10 rounded-lg' type='submit' onClick={submitHandler} disabled={isLoading}>
+        <button className='bg-primary text-white w-full h-10 rounded-lg  mt-4' type='submit' onClick={submitHandler} disabled={isLoading}>
           Log In
         </button>
         <div>
