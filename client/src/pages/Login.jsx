@@ -64,13 +64,13 @@ export default function Login() {
         <button className='bg-primary text-white w-full h-10 rounded-lg  mt-4' type='submit' onClick={submitHandler} disabled={isLoading}>
           Log In
         </button>
-        <div>
-          Don't have an account?&nbsp;&nbsp;
-          <Link className='text-secondary hover:text-primary' to={'/signup'}>
-            Sign Up
-          </Link>
-        </div>
       </form>
+      <div className='w-80 mx-auto text-center mt-5'>
+        Don't have an account?&nbsp;&nbsp;
+        <Link className='text-secondary hover:text-primary' to={'/signup'}>
+          Sign Up
+        </Link>
+      </div>
     </div>
   );
 }
