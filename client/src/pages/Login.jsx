@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-import { useLogin } from '../hooks/useLogin';
+import useLogin from '../hooks/useLogin';
 
 import logoWithLabel from '../assets/logo-with-label.png';
 

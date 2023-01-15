@@ -1,17 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useAuthContext } from './useAuthContext';
+import useAuthContext from './useAuthContext';
 
-export function useLogin() {
+export default function useLogin() {
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(null);
 
   const { dispatch } = useAuthContext();
 
   const login = async (email, password) => {
+    setLoading(true);
     try {
       const { data } = await axios.post('/api/user/login', {
         email,
@@ -21,6 +22,8 @@ export function useLogin() {
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/');
     } catch (err) {
+      setError(err);
+
       console.log(err);
     }
   };

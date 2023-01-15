@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 import logoWithLabel from '../assets/logo-with-label.png';
+import useSignup from '../hooks/useSignup';
 
 export default function Signup() {
   const emailValidatorRegex =
@@ -13,10 +14,13 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isStrongPassword, setIsStrongPassword] = useState(false);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(email, password, confirmPassword);
+    if (email.length != 0 && isEmailValid && isStrongPassword && password === confirmPassword) {
+      await useSignup(email, password);
+    }
   };
 
   return (
@@ -48,14 +52,17 @@ export default function Signup() {
         )}
 
         <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='password'>
-          Password
+          Password (more than 8 characters)
         </label>
         <input
           id='password'
           className='border-secondary border-2 p-2 px-3 rounded-lg focus:border-primary w-full'
           type={isVisible ? 'text' : 'password'}
           placeholder='Password'
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            password.length >= 8 ? setIsStrongPassword(true) : setIsStrongPassword(false);
+          }}
         />
 
         <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='confirmPassword'>
