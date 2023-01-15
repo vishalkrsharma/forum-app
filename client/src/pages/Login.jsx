@@ -24,7 +24,7 @@ export default function Login() {
   return (
     <div className='mx-auto h-screen p-5'>
       <img className='h-44 mx-auto' src={logoWithLabel} alt={logoWithLabel} />
-      <form className='mx-auto flex justify-top items-center flex-col h-3/4 gap-7 relative w-80 mt-5'>
+      <form className='mx-auto flex justify-top items-center flex-col gap-7 relative w-80 mt-5'>
         <div className='text-xl text-primary font-medium'>Log In</div>
         <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='email'>
           Email
@@ -61,7 +61,12 @@ export default function Login() {
         >
           {isVisible ? <AiOutlineEye className='text-primary' /> : <AiOutlineEyeInvisible />}
         </button>
-        <button className='bg-primary text-white w-full h-10 rounded-lg  mt-4' type='submit' onClick={submitHandler} disabled={isLoading}>
+        <button
+          className='bg-primary text-white w-full h-10 rounded-lg mt-4 cursor-pointer disabled:bg-secondary'
+          type='submit'
+          onClick={submitHandler}
+          disabled={email.length == 0 || password.length == 0 ? true : false}
+        >
           Log In
         </button>
       </form>

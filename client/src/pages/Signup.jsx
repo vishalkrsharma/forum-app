@@ -86,7 +86,12 @@ export default function Signup() {
           <></>
         )}
 
-        <button className='bg-primary text-white w-full h-10 rounded-lg mt-4' type='submit' onClick={submitHandler}>
+        <button
+          className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer'
+          type='submit'
+          onClick={submitHandler}
+          disabled={email.length == 0 || password.length == 0 ? true : false}
+        >
           Sign Up
         </button>
       </form>
