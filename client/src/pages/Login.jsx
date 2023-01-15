@@ -7,6 +7,9 @@ import { useLogin } from '../hooks/useLogin';
 import logoWithLabel from '../assets/logo-with-label.png';
 
 export default function Login() {
+  const emailValidatorRegex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login, error, isLoading } = useLogin();
@@ -21,7 +24,7 @@ export default function Login() {
   return (
     <div className='mx-auto h-screen p-5'>
       <img className='h-44 mx-auto' src={logoWithLabel} alt={logoWithLabel} />
-      <form className='mx-auto flex justify-top items-center flex-col h-3/4 gap-6 relative w-80 mt-5'>
+      <form className='mx-auto flex justify-top items-center flex-col h-3/4 gap-7 relative w-80 mt-5'>
         <div className='text-xl text-primary font-medium'>Log In</div>
         <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='email'>
           Email
@@ -33,6 +36,13 @@ export default function Login() {
           placeholder='Email'
           onChange={(e) => setEmail(e.target.value)}
         />
+        {!emailValidatorRegex.test(email) && email.length != 0 ? (
+          <span className='text-warning absolute left-0 ml-3' style={{ top: '8.5rem' }}>
+            Invalid Email.
+          </span>
+        ) : (
+          <></>
+        )}
         <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='password'>
           Password
         </label>
@@ -47,7 +57,7 @@ export default function Login() {
           className='text-secondary text-2xl absolute'
           type='button'
           onClick={() => setIsVisible(!isVisible)}
-          style={{ marginTop: '186px', right: '12.5px' }}
+          style={{ marginTop: '202px', right: '12.5px' }}
         >
           {isVisible ? <AiOutlineEye className='text-primary' /> : <AiOutlineEyeInvisible />}
         </button>
