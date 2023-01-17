@@ -10,6 +10,7 @@ module.exports = {
       dark: 'var(--color-dark)',
       diffused: 'var(--color-diffused)',
       warning: 'var(--color-warning)',
+      black: 'var(--color-black)',
     },
   },
   plugins: [],

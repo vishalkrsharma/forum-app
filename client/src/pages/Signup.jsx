@@ -55,7 +55,7 @@ export default function Signup() {
         )}
 
         <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='password'>
-          Password (more than 8 characters)
+          Password
         </label>
         <input
           id='password'

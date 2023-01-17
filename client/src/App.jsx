@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { Home, NewPost, Login, Signup, Start } from './pages';
+import { Home, NewPost, Login, Signup, Start, Username } from './pages';
 import useAuthContext from './hooks/useAuthContext';
 import { VerifyEmail } from './components';
 
@@ -25,6 +25,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/verifyemail' element={<VerifyEmail />} />
+        <Route path='/username' element={<Username />} />
         <Route index element={<Home />} />
       </Routes>
     </BrowserRouter>
