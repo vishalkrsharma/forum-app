@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { isEmail, isStrongPassword } from 'validator';
+import { generateUsername } from 'friendly-username-generator';
 
 import logoWithLabel from '../assets/logo-with-label.png';
 import useSignup from '../hooks/useSignup';
 
 export default function Signup() {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -23,6 +25,8 @@ export default function Signup() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setUsername(generateUsername());
+    console.log(username);
     if (isEmailValid && isStrongPassword(password, isStrongPasswordConditions) && password === confirmPassword) {
       await useSignup(email, password);
     }
@@ -110,7 +114,7 @@ export default function Signup() {
           {isVisible ? <AiOutlineEye className='text-primary' /> : <AiOutlineEyeInvisible />}
         </button>
 
-        {password !== confirmPassword ? (
+        {password !== confirmPassword && confirmPassword.length != 0 ? (
           <span className='text-warning absolute left-0 ml-3' style={{ top: '21.5rem' }}>
             Passwords do not match.
           </span>
