@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { isEmail, isStrongPassword } from 'validator';
 
 import logoWithLabel from '../assets/logo-with-label.png';
 import useSignup from '../hooks/useSignup';
 
 export default function Signup() {
-  const emailValidatorRegex =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isStrongPassword, setIsStrongPassword] = useState(false);
+
+  const isStrongPasswordConditions = {
+    minLength: 8,
+    minLowercase: 1,
+    minUppercase: 1,
+    minNumbers: 1,
+    minSymbols: 1,
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (email.length != 0 && isEmailValid && isStrongPassword && password === confirmPassword) {
+    if (isEmailValid && isStrongPassword(password, isStrongPasswordConditions) && password === confirmPassword) {
       await useSignup(email, password);
     }
   };
@@ -39,13 +44,11 @@ export default function Signup() {
           placeholder='Email'
           onChange={(e) => {
             setEmail(e.target.value);
-            setIsEmailValid(emailValidatorRegex.test(email) || email.length == 0 ? true : false);
+            setIsEmailValid(isEmail(email));
           }}
         />
 
-        {isEmailValid ? (
-          <></>
-        ) : (
+        {isEmail(email) || email.length == 0 ? null : (
           <span className='text-warning absolute left-0 ml-3' style={{ top: '8.5rem' }}>
             Invalid Email.
           </span>
@@ -61,9 +64,31 @@ export default function Signup() {
           placeholder='Password'
           onChange={(e) => {
             setPassword(e.target.value);
-            password.length >= 8 ? setIsStrongPassword(true) : setIsStrongPassword(false);
           }}
         />
+        {isStrongPassword(password, isStrongPasswordConditions) || password.length == 0 ? null : (
+          <div
+            className='passwordConditions absolute text-xs text-dark bg-white border-2 border-warning rounded-lg p-2 z-10'
+            style={{ top: '15.75rem', right: '0px' }}
+          >
+            <span
+              className='h-5 w-5 border-l-2 border-t-2 border-warning absolute rotate-45 z-20 bg-white'
+              style={{
+                top: '-.71rem',
+                left: '5.5rem',
+              }}
+            ></span>
+            Password must be:
+            <br />
+            <ul>
+              <li>&ensp;•&ensp;Minimun Length: {isStrongPasswordConditions.minLength}</li>
+              <li>&ensp;•&ensp;Minumun Lowercase: {isStrongPasswordConditions.minLowercase}</li>
+              <li>&ensp;•&ensp;Minimum Uppercase: {isStrongPasswordConditions.minUppercase}</li>
+              <li>&ensp;•&ensp;Minimum Numbers: {isStrongPasswordConditions.minNumbers}</li>
+              <li>&ensp;•&ensp;Minimum Special Characters: {isStrongPasswordConditions.minSymbols}</li>
+            </ul>
+          </div>
+        )}
 
         <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='confirmPassword'>
           Confirm Password
@@ -89,15 +114,13 @@ export default function Signup() {
           <span className='text-warning absolute left-0 ml-3' style={{ top: '21.5rem' }}>
             Passwords do not match.
           </span>
-        ) : (
-          <></>
-        )}
+        ) : null}
 
         <button
           className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer'
           type='submit'
           onClick={submitHandler}
-          disabled={email.length == 0 || password.length == 0 ? true : false}
+          disabled={isEmailValid && isStrongPassword(password, isStrongPasswordConditions) && password === confirmPassword ? false : true}
         >
           Sign Up
         </button>
