@@ -42,7 +42,7 @@ userSchema.statics.login = async function(email,password){
     
     //on the basis of email we are finding the data
     const user = await this.findOne({email})
-    
+    console.log(email)
     if(!user){
         throw Error('Incorrect email')
     }
