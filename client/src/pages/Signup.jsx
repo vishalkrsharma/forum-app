@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { isEmail, isStrongPassword } from 'validator';
-import { generateUsername } from 'friendly-username-generator';
 
 import logoWithLabel from '../assets/logo-with-label.png';
 import useSignup from '../hooks/useSignup';
 import useLogin from '../hooks/useLogin';
 
 export default function Signup() {
-  const {signup,error,loading} = useSignup();
-  const {login} = useLogin();
+  const { signup, error, loading } = useSignup();
+  const { login } = useLogin();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,11 +27,11 @@ export default function Signup() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const body={
-      "email":email,
-      "username":username,
-      "password":password,
-    }
+    const body = {
+      email: email,
+      username: username,
+      password: password,
+    };
     if (password === confirmPassword) {
       await signup(body);
     }
@@ -138,11 +137,7 @@ export default function Signup() {
           </span>
         ) : null}
 
-        <button
-          className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer'
-          type='submit'
-          onClick={submitHandler}
-        >
+        <button className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer' type='submit' onClick={submitHandler}>
           Sign Up
         </button>
       </form>

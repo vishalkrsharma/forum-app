@@ -19,6 +19,7 @@ export const authReducer = (state, action) => {
       return state;
     }
   }
+  
 };
 
 export const AuthContextProvider = (props) => {
@@ -30,6 +31,6 @@ export const AuthContextProvider = (props) => {
       dispatch({ type: 'LOGIN', payload: user });
     }
   }, []);
-
-  return <AuthContext.Provider value={{ state, dispatch }}>{props.children}</AuthContext.Provider>;
+  console.log(state)
+  return <AuthContext.Provider value={{ ...state, dispatch }}>{props.children}</AuthContext.Provider>;
 };

@@ -10,7 +10,7 @@ const createToken = (payload,_key,expire)=>{
 }
 
 const loginUser = async (req,res)=>{
-    const {email,password,username} = req.body
+    const {email,password} = req.body
     
     try{
             const obj=await User.login(email,password)
@@ -19,7 +19,7 @@ const loginUser = async (req,res)=>{
             //create jwttoken
             
             const accessToken = createToken({'email':email,'password':password},process.env.SECRET_KEY,{expiresIn:'2d'})
-            const refreshToken = createToken({'username':username},process.env.REFRESH_KEY,{expiresIn:'30d'}) 
+            const refreshToken = createToken({'email':email},process.env.REFRESH_KEY,{expiresIn:'30d'}) 
             
             //register to userToken
             
