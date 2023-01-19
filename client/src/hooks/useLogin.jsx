@@ -8,16 +8,12 @@ export default function useLogin() {
 
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(null);
-
   const { dispatch } = useAuthContext();
 
-  const login = async (email, password) => {
+  const login = async (body) => {
     setLoading(true);
     try {
-      const { data } = await axios.post('/api/user/login', {
-        email,
-        password,
-      });
+      const { data } = await axios.post('http://localhost:8000/api/user/login', body);
       dispatch({ type: 'LOGIN', payload: data });
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/');

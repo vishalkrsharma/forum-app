@@ -20,16 +20,16 @@ export default function Post() {
           <Avatar variant='ring' name={name} />
           <div>
             <div>{name}</div>
-            <div className='text-dark'>
+            <div className='text-dark text-xs'>
               {user} | {time}
             </div>
           </div>
         </div>
-        <SlOptions className='mr-4' />
+        <SlOptions className='mr-4 text-dark' />
       </div>
       <div className='postBody p-1'>
-        <div className='title text-lg'>{title}</div>
-        <div className='body text-dark'>{body}</div>
+        <div className='title leading-tight py-2 font-medium text-lg'>{title}</div>
+        <div className='text-dark'>{body}</div>
       </div>
     </div>
   );

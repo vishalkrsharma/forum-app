@@ -6,8 +6,11 @@ import { generateUsername } from 'friendly-username-generator';
 
 import logoWithLabel from '../assets/logo-with-label.png';
 import useSignup from '../hooks/useSignup';
+import useLogin from '../hooks/useLogin';
 
 export default function Signup() {
+  const {signup,error,loading} = useSignup();
+  const {login} = useLogin();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,10 +28,13 @@ export default function Signup() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    setUsername(generateUsername());
-    console.log(username);
-    if (isEmailValid && isStrongPassword(password, isStrongPasswordConditions) && password === confirmPassword) {
-      await useSignup(email, password);
+    const body={
+      "email":email,
+      "username":username,
+      "password":password,
+    }
+    if (password === confirmPassword) {
+      await signup(body);
     }
   };
 
@@ -57,6 +63,18 @@ export default function Signup() {
             Invalid Email.
           </span>
         )}
+        <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='email'>
+          Username
+        </label>
+        <input
+          id='username'
+          className='border-secondary border-2 py-2 px-3 rounded-lg focus:border-primary w-full'
+          type='text'
+          placeholder='Username'
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />
 
         <label className='w-11/12 text-primary -mb-5 font-medium' htmlFor='password'>
           Password
@@ -109,7 +127,7 @@ export default function Signup() {
           className='text-secondary text-2xl absolute'
           type='button'
           onClick={() => setIsVisible(!isVisible)}
-          style={{ marginTop: '202px', right: '12.5px' }}
+          style={{ marginTop: '306px', right: '12.5px' }}
         >
           {isVisible ? <AiOutlineEye className='text-primary' /> : <AiOutlineEyeInvisible />}
         </button>
@@ -124,7 +142,6 @@ export default function Signup() {
           className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer'
           type='submit'
           onClick={submitHandler}
-          disabled={isEmailValid && isStrongPassword(password, isStrongPasswordConditions) && password === confirmPassword ? false : true}
         >
           Sign Up
         </button>
@@ -139,3 +156,4 @@ export default function Signup() {
     </div>
   );
 }
+//disabled={isEmailValid && isStrongPassword(password, isStrongPasswordConditions) && password === confirmPassword ? false : true}

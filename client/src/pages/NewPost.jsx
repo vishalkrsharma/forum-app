@@ -16,7 +16,7 @@ export default function NewPost() {
       <TopBar />
       <div className='container bg-diffused py-20 px-4 h-screen'>
         <form className='flex flex-col justify-start gap-4'>
-          <label className='text-primary font-medium -mb-3' htmlFor='title' style={{ marginLeft: '.7rem' }}>
+          <label className='text-black font-medium -mb-3' htmlFor='title' style={{ marginLeft: '.7rem' }}>
             Give a title...
           </label>
           <input
@@ -26,7 +26,7 @@ export default function NewPost() {
             placeholder='An interesting title'
             onChange={(e) => setPostTitle(e.target.value)}
           />
-          <label className='text-primary font-medium  -mb-3' htmlFor='body' style={{ marginLeft: '.7rem' }}>
+          <label className='text-black font-medium  -mb-3' htmlFor='body' style={{ marginLeft: '.7rem' }}>
             Body
           </label>
           <textarea
@@ -36,7 +36,7 @@ export default function NewPost() {
             placeholder='What are you thinking about...'
             onChange={(e) => setPostBody(e.target.value)}
           />
-          <button className='mx-auto w-1/2 bg-primary text-white h-10 rounded-lg' type='submit' onClick={submitHandler}>
+          <button className='wimx-auto w-full bg-primary text-white h-10 rounded-lg' type='submit' onClick={submitHandler}>
             Post
           </button>
         </form>
