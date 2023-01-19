@@ -19,7 +19,7 @@ function App() {
       </Routes>
 
       {/* TEMPORARY TESTING ROUTES */}
-      {/*<Routes>
+      {/* <Routes>
         <Route path='/newpost' element={<NewPost />} />
         <Route path='/start' element={<Start />} />
         <Route path='/signup' element={<Signup />} />
@@ -27,8 +27,7 @@ function App() {
         <Route path='/verifyemail' element={<VerifyEmail />} />
         <Route path='/username' element={<Username />} />
         <Route index element={<Home />} />
-      </Routes>
-      */ }
+      </Routes> */}
     </BrowserRouter>
   );
 }

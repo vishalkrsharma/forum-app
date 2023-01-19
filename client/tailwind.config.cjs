@@ -11,6 +11,7 @@ module.exports = {
       diffused: 'var(--color-diffused)',
       warning: 'var(--color-warning)',
       black: 'var(--color-black)',
+      bg: 'var(--color-bg)',
     },
   },
   plugins: [],
