@@ -14,7 +14,11 @@ export default function Login() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await login(email, password);
+    const body={
+      "email":email,
+      "password":password
+    }
+    await login(body);
     console.log(email, password);
   };
 
