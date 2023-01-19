@@ -1,34 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
+import { Home, NewPost, Login, Signup, Start, Username } from './pages';
+import useAuthContext from './hooks/useAuthContext';
+import { VerifyEmail } from './components';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { user } = useAuthContext();
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <BrowserRouter>
+      {/* <Routes>
+        <Route path='/newpost' element={user ? <NewPost /> : <Navigate to='/start' />} />
+        <Route path='/start' element={!user ? <Start /> : <Navigate to='/start' />} />
+        <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/start' />} />
+        <Route path='/login' element={!user ? <Login /> : <Navigate to='/start' />} />
+        <Route index element={user ? <Home /> : <Navigate to='/start' />} />
+      </Routes> */}
+
+      {/* TEMPORARY TESTING ROUTES */}
+      <Routes>
+        <Route path='/newpost' element={<NewPost />} />
+        <Route path='/start' element={<Start />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/verifyemail' element={<VerifyEmail />} />
+        <Route path='/username' element={<Username />} />
+        <Route index element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
