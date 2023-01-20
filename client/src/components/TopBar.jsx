@@ -10,7 +10,7 @@ export default function TopBar() {
     <div className='text-dark w-full flex align-middle justify-between px-6 py-2 text-3xl rounded-b-xl fixed bg-white top-0'>
       <div className='flex items-center gap-4'>
         <BiMenuAltLeft />
-        <Link to='*' className='flex justify-center items-center'>
+        <Link to='/' className='flex justify-center items-center'>
           <img src={logo} alt={logo} style={{ height: '2.5rem' }} />
           <p className='text-lg'>
             Talk<span className='font-bold'>Dock</span>
