@@ -14,7 +14,7 @@ export default function NewPost() {
   return (
     <div>
       <TopBar />
-      <div className='container bg-diffused py-20 px-4 h-screen'>
+      <div className='bg-diffused py-20 px-4 h-screen'>
         <form className='flex flex-col justify-start gap-4'>
           <label className='text-black font-medium -mb-3' htmlFor='title' style={{ marginLeft: '.7rem' }}>
             Give a title...

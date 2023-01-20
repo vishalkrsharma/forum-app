@@ -10,12 +10,10 @@ export default function Home() {
       <TopBar />
       <div className='bg-diffused pt-20 px-3 h-screen'>
         <Post />
-        <button className='bg-primary p-4 rounded-2xl text-white fixed bottom-5 right-5'>
-          <Link to='/newpost' className='flex justify-center items-center gap-2'>
-            <MdPostAdd className='text-3xl' />
-            Create post
-          </Link>
-        </button>
+        <Link to='/newpost' className='bg-primary p-4 rounded-2xl text-white fixed bottom-5 right-5 flex justify-center items-center gap-2'>
+          <MdPostAdd className='text-3xl' />
+          Create post
+        </Link>
       </div>
     </div>
   );
