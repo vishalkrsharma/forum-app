@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { Home, NewPost, Login, Signup, Start, Username } from './pages';
+import { Home, NewPost, Login, Signup, Start } from './pages';
 import useAuthContext from './hooks/useAuthContext';
 import { VerifyEmail } from './components';
 
