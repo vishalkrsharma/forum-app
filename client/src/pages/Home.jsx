@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
 import { MdPostAdd } from 'react-icons/md';
 
-import { YourGroupPost, NewPost } from './index';
+import { NewPost } from './index';
 import { TopBar } from '../components/index';
 
 export default function Home() {
