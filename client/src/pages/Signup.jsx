@@ -42,7 +42,7 @@ export default function Signup() {
       <img className='h-44 mx-auto' src={logoWithLabel} alt={logoWithLabel} />
       <form className='mx-auto flex justify-top items-center flex-col gap-7 w-80'>
         <div className='text-xl text-primary font-medium -mb-5'>Sign Up</div>
-        <div className='relative'>
+        <div className='relative w-full'>
           <label className='text-primary px-3 -mb-5 font-medium' htmlFor='email'>
             Email
           </label>
@@ -63,7 +63,7 @@ export default function Signup() {
             </span>
           )}
         </div>
-        <div className='relative'>
+        <div className='relative w-full'>
           <label className='text-primary px-3 -mb-5 font-medium' htmlFor='email'>
             Username
           </label>
@@ -77,7 +77,7 @@ export default function Signup() {
             }}
           />
         </div>
-        <div className='relative'>
+        <div className='relative w-full'>
           <label className='text-primary px-3 -mb-5 font-medium' htmlFor='password'>
             Password
           </label>
@@ -118,7 +118,7 @@ export default function Signup() {
             </div>
           )}
         </div>
-        <div className='relative'>
+        <div className='relative w-full'>
           <label className='text-primary px-3 -mb-5 font-medium' htmlFor='confirmPassword'>
             Confirm Password
           </label>

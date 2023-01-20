@@ -29,3 +29,7 @@ html {
 a {
   text-decoration: none;
 }
+
+form > input{
+  width: 100%;
+}

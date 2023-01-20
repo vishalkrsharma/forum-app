@@ -27,7 +27,7 @@ export default function Login() {
       <img className='h-44 mx-auto' src={logoWithLabel} alt={logoWithLabel} />
       <form className='mx-auto flex justify-top items-center flex-col gap-7 w-80'>
         <div className='text-xl text-primary font-medium'>Log In</div>
-        <div className='relative'>
+        <div className='relative w-full'>
           <label className='px-3 text-primary -mb-5 font-medium' htmlFor='email'>
             Email
           </label>
@@ -39,7 +39,7 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className='relative'>
+        <div className='relative w-full'>
           <label className='px-3 text-primary -mb-5 font-medium' htmlFor='password'>
             Password
           </label>
