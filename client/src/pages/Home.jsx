@@ -1,15 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { MdPostAdd } from 'react-icons/md';
 
-import { TopBar, BottomBar, Post } from '../components/index';
+import { TopBar, Post } from '../components/index';
 
 export default function Home() {
   return (
     <div>
       <TopBar />
-      <div className='bg-diffused py-20 px-3 h-screen'>
+      <div className='bg-diffused pt-20 px-3 h-screen'>
         <Post />
+        <button className='bg-primary p-4 rounded-2xl text-white fixed bottom-5 right-5'>
+          <Link to='/newpost' className='flex justify-center items-center gap-2'>
+            <MdPostAdd className='text-3xl' />
+            Create post
+          </Link>
+        </button>
       </div>
-      <BottomBar />
     </div>
   );
 }

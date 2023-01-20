@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { Home, NewPost, Login, Signup, Start, Username } from './pages';
+import { Home, NewPost, Login, Signup, Start } from './pages';
 import useAuthContext from './hooks/useAuthContext';
 import { VerifyEmail } from './components';
 
@@ -19,7 +19,7 @@ function App() {
       </Routes>
 
       {/* TEMPORARY TESTING ROUTES */}
-      {/*<Routes>
+      {/* <Routes>
         <Route path='/newpost' element={<NewPost />} />
         <Route path='/start' element={<Start />} />
         <Route path='/signup' element={<Signup />} />
@@ -27,8 +27,7 @@ function App() {
         <Route path='/verifyemail' element={<VerifyEmail />} />
         <Route path='/username' element={<Username />} />
         <Route index element={<Home />} />
-      </Routes>
-      */ }
+      </Routes> */}
     </BrowserRouter>
   );
 }

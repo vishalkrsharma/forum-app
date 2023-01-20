@@ -6,9 +6,9 @@
   :root {
     --color-white: #ffffff;
     --color-black: #000000;
-    --color-primary: #9333ea;
-    --color-secondary: #e8d6fb;
-    --color-dark: #64748B;
+    --color-primary: #bf616a;
+    --color-secondary: #dddddd;
+    --color-dark: #64748b;
     --color-diffused: #dddddd;
     --color-warning: #ff0000;
   }

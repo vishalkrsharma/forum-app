@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { BottomBar, TopBar } from '../components/index';
+import { TopBar } from '../components/index';
 
 export default function NewPost() {
   const [postTitle, setPostTitle] = useState('');
@@ -41,7 +41,6 @@ export default function NewPost() {
           </button>
         </form>
       </div>
-      <BottomBar />
     </div>
   );
 }
