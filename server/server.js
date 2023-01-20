@@ -29,6 +29,6 @@ app.use(express.json());
 app.use('/api/user', userRoutes);
 app.use('/post', postRoutes);
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, '192.168.0.176', () => {
   console.log('listening on port 8000!!');
 });

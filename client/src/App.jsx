@@ -11,12 +11,19 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/start' element={!user ? <Start /> : <Navigate to='/' />} />
+        <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />
+        <Route path='/login' element={!user ? <Login /> : <Navigate to='/' />} />
+        <Route path='*' element={user ? <Home /> : <Navigate to='/start' />} />
+      </Routes>
+
+      {/* <Routes>
         <Route path='/newpost' element={user ? <NewPost /> : <Navigate to='/start' />} />
         <Route path='/start' element={!user ? <Start /> : <Navigate to='/' />} />
         <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />
         <Route path='/login' element={!user ? <Login /> : <Navigate to='/' />} />
         <Route path='/' element={user ? <Home /> : <Navigate to='/start' />} />
-      </Routes>
+      </Routes> */}
 
       {/* TEMPORARY TESTING ROUTES */}
       {/* <Routes>
