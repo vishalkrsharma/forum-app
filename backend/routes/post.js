@@ -1,29 +1,20 @@
 const { json } = require('express')
 const express = require('express')
-
+const {createUserPost,getAll,deletePost}=require('../controllers/postController')
+const {authenticate}=require('../middleware/userAuth')
 const router = express.Router()
 
-//to create post
-router.post('/create',(req,res)=>{
-    res.status(200).json({message:"In Post create"})
-})
+//CREATE POST
+router.post('/create',authenticate,createUserPost)
 
-//to get all the post 
-router.get('/getAll',(req,res)=>{
-    res.status(200).json({message:"In Get All"})
-})
+//GET ALL POST 
+router.get('/getAll',authenticate,getAll)
 
-//to get a post
-router.get('/:user',(req,res)=>{
-    res.status(200).json({id:req.params})
-})
 
-//to delete a post
-router.delete('/delete/:user',(req,res)=>{
-    res.status(200).json({id:req.params})
-})
+//DELETE POST
+router.delete('/delete/:post',authenticate,deletePost)
 
-router.post('/comment/:user',(req,res)=>{
+router.post('/comment/:post',(req,res)=>{
     res.status(200).json({id:req.params})
 })
 

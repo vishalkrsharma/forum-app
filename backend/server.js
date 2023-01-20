@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
+const groupRoutes = require('./routes/group');
 
 //app
 const app = express()
@@ -28,7 +29,7 @@ app.use(express.json())
 //routes
 app.use('/api/user',userRoutes)
 app.use('/post',postRoutes)
-
+app.use('/group',groupRoutes)
 
 app.listen(process.env.PORT,()=>{
  console.log('listening on port 8000!!');

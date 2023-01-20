@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt')
-const validator = require('validator')
 
 
 
@@ -20,17 +19,32 @@ const userSchema = new Schema({
         type:String,
         required:true
     },
+    groups:{
+        type:Array,
+    },
+    posts:{
+        type:Array
+    },
+    createdAt:{
+        type: Date,
+        default: Date.now,
+    }
 })
 
 //hashing password and checking if email already exists or not
 userSchema.statics.signup = async function(email,username,password){
     
-    const exists = await this.findOne({email})
+    const emailExists = await this.findOne({email})
+    
+    const usernameExists = await this.findOne({username})
 
-
-    if(exists){
+    if(emailExists){
         throw Error('email already in use')
     }
+    if(usernameExists){
+        throw Error('username already in use')
+    }
+    
     const salt = await bcrypt.genSalt(10)//more number more time to generate the hash
     const hash = await bcrypt.hash(password,salt)
 
@@ -42,7 +56,7 @@ userSchema.statics.login = async function(email,password){
     
     //on the basis of email we are finding the data
     const user = await this.findOne({email})
-    console.log(email)
+
     if(!user){
         throw Error('Incorrect email')
     }
@@ -52,7 +66,7 @@ userSchema.statics.login = async function(email,password){
         throw Error('Incorrect password')
     }
     console.log('hi')
-    return user['_id']
+    return user
 }
 
 module.exports = mongoose.model('User',userSchema)
