@@ -9,10 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.7",
     "axios": "^1.2.2",
     "boring-avatars": "^1.7.0",
-    "nodemailer": "^6.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
