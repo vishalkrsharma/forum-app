@@ -22,15 +22,15 @@ export default function Dropdown() {
           <div className='dropdown__menu absolute top-12 right-0 rounded-lg shadow-lg text-base'>
             <Link to='/profile' className='item py-2 px-5 flex justify-center items-center gap-2'>
               <AiOutlineUser />
-              Profile
+              <div className='w-20'>Profile</div>
             </Link>
             <Link to='/settings' className='item py-2 px-5 flex justify-center items-center gap-2'>
               <AiOutlineSetting />
-              Settings
+              <div className='w-20'>Settings</div>
             </Link>
             <div className='item py-2 px-5 flex justify-center items-center gap-2' onClick={logoutHandler}>
               <AiOutlineLogout />
-              Log out
+              <div className='w-20'>Log out</div>
             </div>
           </div>
         ) : null}

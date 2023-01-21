@@ -19,7 +19,6 @@ export default function useLogin() {
       navigate('/');
     } catch (err) {
       setError(err);
-
       console.log(err);
     }
   };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { toast } from 'react-toastify';
 
 import useLogin from '../hooks/useLogin';
 
@@ -19,7 +20,9 @@ export default function Login() {
       password: password,
     };
     await login(body);
+    toast.error(error);
     console.log(email, password);
+    console.log(error);
   };
 
   return (
