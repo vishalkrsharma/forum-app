@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const User = require('../models/userModel');
 const UserToken = require('../models/userToken');
 const jwt = require('jsonwebtoken');
@@ -5,6 +6,13 @@ const jwt = require('jsonwebtoken');
 const createToken = (payload, _key, expire) => {
   return jwt.sign(payload, _key, expire);
 };
+=======
+const otpGenerator = require('otp-generator')
+const User = require('../models/userModel')
+const UserToken = require('../models/userToken')
+const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer')
+>>>>>>> e2ff713 (nodemailer)
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -54,8 +62,49 @@ const verifyToken = async (req, res) => {
         res.status(200).json({ error: false, message: 'Success', accessToken: accessToken });
       });
     }
+<<<<<<< HEAD
   } catch (err) {
     res.status(400).json({ error: true, message: err.message });
   }
 };
 module.exports = { signupUser, loginUser, verifyToken };
+=======
+}
+
+const sendotp = async (req ,res)=>{
+    const code = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false ,lowerCaseAlphabets : false});
+    const email  = req.body.email;
+    try{
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 587,
+            auth: {
+                user: process.env.EMAIL_ID,
+                pass: process.env.EMAIL_PASS
+            }
+        });
+        
+          const mailOptions = {
+            from: 'talkdock@gmail.com',
+            to: email,
+            subject: 'Sending Email using Node.js',
+            text: `your verification code is : ${code}`,
+        };
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error);
+              res.status(400).json({error:"Email not Sent try again}"})
+            } else {
+                console.log(code)
+                res.status(200).json({code : generatedCode})
+            }
+          });
+        res.status(200).json({error : false ,gencode : code })
+    }catch(err){
+        res.status(400).json(err)
+        console.log(err)
+    }
+}
+
+module.exports = {signupUser,loginUser,verifyToken ,sendotp}
+>>>>>>> e2ff713 (nodemailer)
