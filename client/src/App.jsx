@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { Main, NewPost, Login, Signup, Start, Home } from './pages/index';
+import { Main, NewPost, Login, Signup, Start, Home, Profile, Settings } from './pages/index';
 import useAuthContext from './hooks/useAuthContext';
 
 function App() {
@@ -16,6 +16,8 @@ function App() {
         <Route path='/' element={user ? <Main /> : <Navigate to='/start' />}>
           <Route path='home' element={<Home />} />
           <Route path='newpost' element={<NewPost />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='settings' element={<Settings />} />
         </Route>
       </Routes>
 

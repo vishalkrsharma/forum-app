@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { MdPostAdd } from 'react-icons/md';
 
 import logo from '../assets/logo.png';
-
+import { Dropdown } from './index';
 export default function TopBar() {
   const location = useLocation();
 
@@ -23,7 +23,7 @@ export default function TopBar() {
         </div>
         <div className='flex items-center gap-4'>
           <AiOutlineSearch />
-          <AiOutlineUser />
+          <Dropdown />
         </div>
       </div>
       {location.pathname === '/newpost' ? null : (
