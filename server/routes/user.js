@@ -3,7 +3,7 @@ const express = require('express')
 
 
 
-const {signupUser,loginUser,verifyToken} = require('../controllers/userController');
+const {signupUser,loginUser,verifyToken ,sendotp} = require('../controllers/userController');
 
 const router = express.Router()
 
@@ -21,6 +21,7 @@ router.post('/register',signupUser)
  to the backend to verify the refresh token and generate a access token
 */
 router.post('/verify',verifyToken)
+router.post('/sendotp',sendotp)
 
 
 // router.post('/checkemail')
