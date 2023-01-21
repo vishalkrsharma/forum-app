@@ -18,8 +18,13 @@ export default function useLogin() {
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/');
     } catch (err) {
+<<<<<<< HEAD
       setError(err.response.data.message);
       console.log(err.response.data.message);
+=======
+      setError(err);
+      console.log(err);
+>>>>>>> 43e71d9 (toast added)
     }
   };
 

@@ -12,6 +12,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ToastContainer position='bottom-center' limit={1} />
       <Routes>
         <Route path='/start' element={!user ? <Start /> : <Navigate to='/' />} />
         <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />

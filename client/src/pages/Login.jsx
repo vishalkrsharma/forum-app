@@ -20,6 +20,11 @@ export default function Login() {
       password: password,
     };
     await login(body);
+<<<<<<< HEAD
+=======
+    toast.error(error);
+    console.log(email, password);
+>>>>>>> 43e71d9 (toast added)
     console.log(error);
   };
 
