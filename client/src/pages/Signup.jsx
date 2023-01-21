@@ -131,7 +131,7 @@ export default function Signup() {
           />
 
           {password !== confirmPassword && confirmPassword.length != 0 ? (
-            <span className='text-warning absolute left-0 ml-3' style={{ top: '21.5rem' }}>
+            <span className='text-warning absolute left-0 ml-3 text-sm' style={{ top: '4.25rem' }}>
               Passwords do not match.
             </span>
           ) : null}

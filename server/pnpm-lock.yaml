@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  bcrpyt: ^2.0.0
   bcrypt: ^5.1.0
   cors: ^2.8.5
   dotenv: ^16.0.3
@@ -14,6 +15,7 @@ specifiers:
   validator: ^13.7.0
 
 dependencies:
+  bcrpyt: 2.0.0
   bcrypt: 5.1.0
   cors: 2.8.5
   dotenv: 16.0.3
@@ -945,6 +947,11 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       safe-buffer: 5.1.2
+    dev: false
+
+  /bcrpyt/2.0.0:
+    resolution: {integrity: sha512-2dLzspsuyGKoUfV16yEOMflPsKOjUhFPiSjqeBr1Y0ZZceEcjayGlsUrIcOz9I6f+IwjBDuPSXnsjGAqIZcPPA==}
+    deprecated: Package abandoned, contact support@npmjs.com for more info.
     dev: false
 
   /bcrypt/5.1.0:

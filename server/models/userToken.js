@@ -21,16 +21,14 @@ const userTokenSchema = new Schema(
 )
 userTokenSchema.statics.registerToken = async function(id,refToken){
     const user = this.findOne({id})
-    console.log('1')
     if(user) await user.deleteOne();
-    console.log('2')
     if(!await this.create({userId:id,token:refToken}))throw Error('Cannot store Token')
     return 'Success';
 }
 userTokenSchema.statics.verifyToken = async function(refToken){
     if(refToken==null)throw Error('Reference Token is Null')
     const token = this.findOne({refToken})
-    if(!token) throw Error('Invalid Reference Token')
+    if(!token) throw Error('User is logged out')
     return true;
 }
 module.exports = mongoose.model("userToken",userTokenSchema)
