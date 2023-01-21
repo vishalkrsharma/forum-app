@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import { TopBar } from '../components/index';
-
 export default function NewPost() {
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
