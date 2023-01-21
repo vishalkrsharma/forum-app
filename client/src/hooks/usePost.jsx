@@ -4,7 +4,7 @@ import axios from 'axios';
 export default function usePost() {
   const getGroupPosts = async (body) => {
     try {
-      const { data } = await axios.post('http://localhost:8000/api/post/getGroupPost', body);
+      const { data } = await axios.post('/api/post/getGroupPost', body);
     } catch (err) {
       console.log(err);
     }
@@ -12,7 +12,7 @@ export default function usePost() {
 
   const getUserPosts = async (body) => {
     try {
-      const { data } = await axios.post('http://localhost:8000/api/post/getUserPost', body);
+      const { data } = await axios.post('/api/post/getUserPost', body);
     } catch (err) {
       console.log(err);
     }
@@ -20,7 +20,7 @@ export default function usePost() {
 
   const deletePost = async (body) => {
     try {
-      const { data } = await axios.post('https://localhost:8000/api/post/deletePost', body);
+      const { data } = await axios.post('/api/post/deletePost', body);
     } catch (err) {
       console.log(err);
     }

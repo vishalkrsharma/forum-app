@@ -11,7 +11,7 @@ export default function TopBar() {
 
   return (
     <>
-      <div className='topbar text-dark w-full flex align-middle justify-between px-6 py-2 text-3xl fixed bg-white top-0'>
+      <div className='topbar text-dark w-full flex align-middle justify-between px-6 py-2 text-3xl fixed bg-white top-0 drop-shadow-md rounded-b-xl'>
         <div className='flex items-center gap-4'>
           <BiMenuAltLeft />
           <Link to='/' className='flex justify-center items-center'>
@@ -27,7 +27,10 @@ export default function TopBar() {
         </div>
       </div>
       {location.pathname === '/newpost' ? null : (
-        <Link to='/newpost' className='bg-primary p-4 rounded-2xl text-white fixed bottom-4 right-4 flex justify-center items-center gap-2 drop-shadow-2xl'>
+        <Link
+          to='/newpost'
+          className='bg-primary p-4 rounded-2xl text-white fixed bottom-4 right-4 flex justify-center items-center gap-2 shadow-primary shadow-md'
+        >
           <MdPostAdd className='text-3xl' />
           New Post
         </Link>
