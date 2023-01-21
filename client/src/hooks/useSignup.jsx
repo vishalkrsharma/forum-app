@@ -23,10 +23,10 @@ export default function useSignup() {
       //localStorage.setItem('user', JSON.stringify(data));
       return;
     } catch (err) {
-      setError(err);
-      console.log(err);
+      setError(err.response.data.message);
+      console.log(err.response.data.message);
     }
   };
 
-  return { error, isLoading, signup };
+  return { signup, error, isLoading };
 }

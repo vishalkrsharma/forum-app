@@ -18,8 +18,8 @@ export default function useLogin() {
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/');
     } catch (err) {
-      setError(err);
-      console.log(err);
+      setError(err.response.data.message);
+      console.log(err.response.data.message);
     }
   };
 

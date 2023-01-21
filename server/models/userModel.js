@@ -36,10 +36,10 @@ userSchema.statics.signup = async function (email, username, password) {
   const usernameExists = await this.findOne({ username });
 
   if (emailExists) {
-    throw Error('email already in use');
+    throw Error('Email already in use');
   }
   if (usernameExists) {
-    throw Error('username already in use');
+    throw Error('Username already in use');
   }
 
   const salt = await bcrypt.genSalt(10); //more number more time to generate the hash

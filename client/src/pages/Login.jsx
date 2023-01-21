@@ -21,8 +21,6 @@ export default function Login() {
     };
     await login(body);
     toast.error(error);
-    console.log(email, password);
-    console.log(error);
   };
 
   return (
@@ -69,7 +67,7 @@ export default function Login() {
       </form>
       <div className='w-80 mx-auto text-center mt-5'>
         Don't have an account?&nbsp;&nbsp;
-        <Link className='text-secondary hover:text-primary' to={'/signup'}>
+        <Link className='text-dark hover:text-primary' to={'/signup'}>
           Sign Up
         </Link>
       </div>

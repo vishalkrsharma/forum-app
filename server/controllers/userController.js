@@ -27,7 +27,7 @@ const loginUser = async (req, res) => {
       refreshToken,
     });
   } catch (error) {
-    res.status(400).json({ error: true, error: error.message });
+    res.status(400).json({ error: true, message: error.message });
   }
 };
 // signup user

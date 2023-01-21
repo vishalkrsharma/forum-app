@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { isEmail, isStrongPassword } from 'validator';
+import { toast } from 'react-toastify';
 
 import logoWithLabel from '../assets/logo-with-label.png';
 import useSignup from '../hooks/useSignup';
@@ -34,6 +35,7 @@ export default function Signup() {
     };
     if (password === confirmPassword) {
       await signup(body);
+      toast.error(error);
     }
   };
 
