@@ -20,7 +20,7 @@ export default function Login() {
       password: password,
     };
     await login(body);
-    toast.error(error);
+    console.log(error);
   };
 
   return (

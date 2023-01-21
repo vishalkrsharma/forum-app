@@ -13,7 +13,6 @@ specifiers:
   react-dom: ^18.2.0
   react-icons: ^4.7.1
   react-router-dom: ^6.6.2
-  react-toastify: ^9.1.1
   tailwindcss: ^3.2.4
   validator: ^13.7.0
   vite: ^4.0.0
@@ -26,7 +25,6 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.7.1_react@18.2.0
   react-router-dom: 6.6.2_biqbaboplfbrettd7655fr4n2y
-  react-toastify: 9.1.1_biqbaboplfbrettd7655fr4n2y
   validator: 13.7.0
 
 devDependencies:
@@ -695,11 +693,6 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /clsx/1.2.1:
-    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
-    engines: {node: '>=6'}
-    dev: false
-
   /color-convert/1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
     dependencies:
@@ -1191,17 +1184,6 @@ packages:
     dependencies:
       '@remix-run/router': 1.2.1
       react: 18.2.0
-    dev: false
-
-  /react-toastify/9.1.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-pkFCla1z3ve045qvjEmn2xOJOy4ZciwRXm1oMPULVkELi5aJdHCN/FHnuqXq8IwGDLB7PPk2/J6uP9D8ejuiRw==}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      clsx: 1.2.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react/18.2.0:

@@ -35,7 +35,7 @@ export default function Signup() {
     };
     if (password === confirmPassword) {
       await signup(body);
-      toast.error(error);
+      console.log(error);
     }
   };
 
