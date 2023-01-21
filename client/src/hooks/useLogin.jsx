@@ -13,7 +13,7 @@ export default function useLogin() {
   const login = async (body) => {
     setLoading(true);
     try {
-      const { data } = await axios.post('http://localhost:8000/api/user/login', body);
+      const { data } = await axios.post('http://192.168.0.176:8000/api/user/login', body);
       dispatch({ type: 'LOGIN', payload: data });
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/');

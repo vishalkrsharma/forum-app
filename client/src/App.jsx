@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { Home, NewPost, Login, Signup, Start } from './pages';
+import { Main, NewPost, Login, Signup, Start, Home } from './pages/index';
 import useAuthContext from './hooks/useAuthContext';
-import { VerifyEmail } from './components';
 
 function App() {
   const { user } = useAuthContext();
@@ -11,11 +10,13 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/newpost' element={user ? <NewPost /> : <Navigate to='/start' />} />
         <Route path='/start' element={!user ? <Start /> : <Navigate to='/' />} />
         <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />
         <Route path='/login' element={!user ? <Login /> : <Navigate to='/' />} />
-        <Route path='/' element={user ? <Home /> : <Navigate to='/start' />} />
+        <Route path='/' element={user ? <Main /> : <Navigate to='/start' />}>
+          <Route path='home' element={<Home />} />
+          <Route path='newpost' element={<NewPost />} />
+        </Route>
       </Routes>
 
       {/* TEMPORARY TESTING ROUTES */}
