@@ -19,7 +19,7 @@ export default function Dropdown() {
           <AiOutlineUser />
         </button>
         {showMenu ? (
-          <div className='dropdown__menu absolute top-12 right-0 rounded-lg shadow-lg text-base'>
+          <div className='dropdown__menu bg-white absolute top-12 right-0 rounded-lg shadow-lg text-base z-10'>
             <Link to='/profile' className='item py-2 px-5 flex justify-center items-center gap-2'>
               <AiOutlineUser />
               Profile

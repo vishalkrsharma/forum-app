@@ -10,8 +10,8 @@ export default function NewPost() {
   const submitHandler = async (e) => {
     e.preventDefault();
     const body = {
-      postTitle,
-      postBody,
+      title : postTitle,
+      caption : postBody,
     };
     await createPost(body);
     console.log(postTitle, postBody);

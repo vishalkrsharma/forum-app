@@ -9,11 +9,11 @@ export default function usePost() {
   const createPost = async (body) => {
     console.log(accessToken);
     try {
-      const { data } = await axios.post('/api/post/create', {
+      const { data } = await axios.post('/api/post/create', body,{
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json', 
+          'authorization': `Bearer ${accessToken}`,
         },
-        body,
       });
       console.log(data);
     } catch (err) {
