@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
+import usePost from '../hooks/usePost';
 
 export default function NewPost() {
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
 
-  const submitHandler = (e) => {
+  const { createPost } = usePost();
+
+  const submitHandler = async (e) => {
     e.preventDefault();
+    const body = {
+      postTitle,
+      postBody,
+    };
+    await createPost(body);
     console.log(postTitle, postBody);
   };
 

@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BiSearch, BiMenuAltLeft } from 'react-icons/bi';
 import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
 import { MdPostAdd } from 'react-icons/md';
 
+import { AuthContext } from '../context/AuthContext';
+
 import logo from '../assets/logo.png';
 import { Dropdown } from './index';
+
 export default function TopBar() {
+  const { state } = useContext(AuthContext);
+
   const location = useLocation();
 
   return (
