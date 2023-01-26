@@ -20,17 +20,17 @@ export default function Dropdown() {
         </button>
         {showMenu ? (
           <div className='dropdown__menu bg-white absolute top-12 right-0 rounded-lg shadow-lg text-base z-10'>
-            <Link to='/profile' className='item py-2 px-5 flex justify-center items-center gap-2'>
+            <Link to='/profile' className='item py-2 px-5 flex justify-start items-center gap-2 '>
               <AiOutlineUser />
               Profile
             </Link>
-            <Link to='/settings' className='item py-2 px-5 flex justify-center items-center gap-2'>
+            <Link to='/settings' className='item py-2 px-5 flex justify-start items-center gap-2'>
               <AiOutlineSetting />
               Settings
             </Link>
-            <div className='item py-2 px-5 flex justify-center items-center gap-2' onClick={logoutHandler}>
+            <div className='item py-2 px-5 flex justify-start items-center gap-2' onClick={logoutHandler}>
               <AiOutlineLogout />
-              Log out
+              Log Out
             </div>
           </div>
         ) : null}
