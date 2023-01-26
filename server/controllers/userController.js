@@ -110,7 +110,7 @@ const getUserGroup = async(req,res)=>{
 
     try{    
         const groups = await User.getUserGroups(userId)
-        res.status(200).json({error:false,groups:groups})
+        res.status(200).json({error:false,message:"Success",groups:groups})
     }catch(err){
         res.status(400).json({error:true,message:err.message})
     }
@@ -126,8 +126,8 @@ const logout = async(req,res)=>{
     const data=jwt.decode(token,true)
     const userId=data['id']
     try{
-        const status = await Token.deleteToken(userId)
-        res.status(200).json(status)
+        await Token.deleteToken(userId)
+        res.status(200).json({error:false,message:"Logged Out Successfully"})
     }catch(err){
         res.status(400).json({error:true,message:err.message})
     }
