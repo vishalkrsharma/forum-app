@@ -101,35 +101,38 @@ const verifyotp = async (req, res) => {
 /* 
     GETUSERGROUP RETURNS THE LIST OF GROUP ID'S AND NAME'S 
 */
-const getUserGroup = async (req, res) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  const data = jwt.decode(token, true);
-  const userId = data['id'];
-  console.log(data);
-  try {
-    const groups = await User.getUserGroups(userId);
-    res.status(200).json({ error: false, groups: groups });
-  } catch (err) {
-    res.status(400).json({ error: true, message: err.message });
-  }
-};
+const getUserGroup = async(req,res)=>{
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    const data = jwt.decode(token,true)
+    const userId = data['id']
+    console.log(data)
+
+    try{    
+        const groups = await User.getUserGroups(userId)
+        res.status(200).json({error:false,groups:groups})
+    }catch(err){
+        res.status(400).json({error:true,message:err.message})
+    }
+}
+
 
 /*
     LOGOUT THE CURRENT USER BY DELETING THEIR REFRESH TOKEN
 */
-const logout = async (req, res) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  const data = jwt.decode(token, true);
-  const userId = data['id'];
-  try {
-    await Token.deleteToken(userId);
-    res.status(200).json({ error: false, message: 'Logged Out Successfully' });
-  } catch (err) {
-    res.status(400).json({ error: true, message: err.message });
-  }
-};
+const logout = async(req,res)=>{
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    const data=jwt.decode(token,true)
+    const userId=data['id']
+    try{
+        const status = await Token.deleteToken(userId)
+        res.status(200).json(status)
+    }catch(err){
+        res.status(400).json({error:true,message:err.message})
+    }
+}
+
 
 /*
     TO GET THE PROFILE OF THE USER 
