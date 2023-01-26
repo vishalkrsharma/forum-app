@@ -7,6 +7,7 @@ import useLogout from '../hooks/useLogout';
 export default function Dropdown() {
   const [showMenu, setShowMenu] = useState(false);
   const { logout } = useLogout();
+
   const logoutHandler = async () => {
     console.log(logout);
     await logout();
@@ -28,7 +29,7 @@ export default function Dropdown() {
               <AiOutlineSetting />
               Settings
             </Link>
-            <div className='item py-2 px-5 flex justify-start items-center gap-2' onClick={logoutHandler}>
+            <div className='item py-2 px-5 flex justify-start items-center gap-2 cursor-pointer' onClick={logoutHandler}>
               <AiOutlineLogout />
               Log Out
             </div>

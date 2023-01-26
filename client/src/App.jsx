@@ -10,15 +10,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/start' element={!user ? <Start /> : <Navigate to='/' />} />
-        <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />
-        <Route path='/verifymail' element={!user ? <VerifyMail /> : <Navigate to='/' />} />
-        <Route path='/login' element={!user ? <Login /> : <Navigate to='/' />} />
-        <Route path='/' element={user ? <Main /> : <Navigate to='/start' />}>
-          <Route path='home' element={<Home />} />
+        <Route path='/start' element={<Start />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/verifymail' element={<VerifyMail />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/' element={<Main />}>
           <Route path='newpost' element={<NewPost />} />
           <Route path='profile' element={<Profile />} />
           <Route path='settings' element={<Settings />} />
+          <Route index element={<Home />} />
         </Route>
       </Routes>
 

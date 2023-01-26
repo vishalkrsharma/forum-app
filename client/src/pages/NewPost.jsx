@@ -23,7 +23,7 @@ export default function NewPost() {
 
   return (
     <div>
-      <div className=' h-screen'>
+      <div>
         <div>
           {/* <button type='button' onClick={setShowGroupMenu(!showGroupMenu)}>
             {buttonPlaceholder}

@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import logoWithLabel from '../assets/logo-with-label.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Start() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('user') !== null) {
+      navigate('/');
+    }
+  }, []);
+
   return (
     <div className='mx-auto h-screen p-5 flex justify-top flex-col items-center text-center gap-5'>
       <img className='w-64 mt-10' src={logoWithLabel} alt={logoWithLabel} />

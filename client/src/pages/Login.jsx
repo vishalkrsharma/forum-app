@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 import useLogin from '../hooks/useLogin';
@@ -7,10 +7,16 @@ import useLogin from '../hooks/useLogin';
 import logoWithLabel from '../assets/logo-with-label.png';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login, error, isLoading } = useLogin();
   const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem('user') !== null) {
+      navigate('/');
+    }
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
