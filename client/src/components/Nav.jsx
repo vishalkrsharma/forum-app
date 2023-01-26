@@ -50,7 +50,10 @@ export default function TopBar() {
         </div>
       </div>
       {!showLabel ? (
-        <div className='bg-diffused text-primary fixed bottom-24 right-4 rounded-2xl' onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}>
+        <div
+          className='bg-diffused text-primary fixed bottom-24 right-4 rounded-2xl shadow-diffused shadow-md'
+          onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
+        >
           <BiUpArrowAlt className='m-4 text-3xl' />
         </div>
       ) : null}
