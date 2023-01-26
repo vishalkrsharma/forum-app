@@ -22,7 +22,9 @@ const userTokenSchema = new Schema(
 userTokenSchema.statics.registerToken = async function(id,refToken){
     const user = this.findOne({id})
     if(user) await user.deleteOne();
-    if(!await this.create({userId:id,token:refToken}))throw Error('Cannot store Token')
+    const status =await this.create({userId:id,token:refToken})
+    console.log(status)
+    if(!status)throw Error('Cannot store Token')
     return 'Success';
 }
 userTokenSchema.statics.verifyToken = async function(refToken){
@@ -31,6 +33,12 @@ userTokenSchema.statics.verifyToken = async function(refToken){
     if(!token) throw Error('User is logged out')
     return true;
 }
-module.exports = mongoose.model("userToken",userTokenSchema)
+userTokenSchema.statics.deleteToken = async function(userId){
+    const status = await this.findByIdAndRemove(userId)
+    console.log(status)
+    if(!status)throw Error('you are logged out! Kindly login ')
+    return status
+}
+module.exports = mongoose.model("Token",userTokenSchema)
 
  

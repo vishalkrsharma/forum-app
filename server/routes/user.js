@@ -1,38 +1,31 @@
-const express = require('express')
+const express = require('express');
 //login user
 
+const { signupUser, loginUser, verifyToken, logout, getUserGroup, getProfile, sendotp } = require('../controllers/userController');
+const { authenticate } = require('../middleware/userAuth');
 
-
-const {signupUser,loginUser,verifyToken ,sendotp} = require('../controllers/userController');
-
-const router = express.Router()
-
+const router = express.Router();
 
 //LOGIN ROUTE
-router.post('/login',loginUser)
-
+router.post('/login', loginUser);
 
 //REGISTER ROUTE
-router.post('/register',signupUser)
+router.post('/register', signupUser);
 
-/*
- VERIFY TOKEN
- whenever the access token expires, we will send a request 
- to the backend to verify the refresh token and generate a access token
-*/
-router.post('/verify',verifyToken)
-router.post('/sendotp',sendotp)
+/*VERIFY TOKEN*/
+router.post('/verify', verifyToken);
+router.post('/sendotp', sendotp);
 
+//logout route
+router.delete('/logout', authenticate, logout);
 
-// router.post('/checkemail')
+//get groups of user
+router.get('/getGroup', authenticate, getUserGroup);
 
 //GET USER
-router.get('/check',(req,res)=>{
-    res.status(400).json({check:"working"})
-})
-
+router.get('/getProfile', authenticate, getProfile);
 
 // EXPORT ALL THE ROUTES
-module.exports = router
+module.exports = router;
 
 //router.post('/register',upload.single('image'),signupUser)

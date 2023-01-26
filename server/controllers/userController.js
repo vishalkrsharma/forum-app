@@ -1,102 +1,161 @@
-const otpGenerator = require('otp-generator')
-const User = require('../models/userModel')
-const UserToken = require('../models/userToken')
-const jwt = require('jsonwebtoken')
-const nodemailer = require('nodemailer')
+const otpGenerator = require('otp-generator');
+const User = require('../models/userModel');
+const Token = require('../models/userToken');
+const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 
+const createToken = (payload, _key, expire) => {
+  return jwt.sign(payload, _key, expire);
+};
 
-const createToken = (payload,_key,expire)=>{
+//LOGIN USER
 
-    return jwt.sign(payload,_key,expire)
-}
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const obj = await User.login(email, password);
+    console.log(obj);
 
-const loginUser = async (req,res)=>{
-    const {email,password} = req.body
-    try{
-            const obj=await User.login(email,password)
-            console.log(obj)
-         
-            //create jwttoken
-            
-            const accessToken = createToken({'username':obj['username'],'id':obj['_id']},process.env.SECRET_KEY,{expiresIn:'2d'})
-            const refreshToken = createToken({'email':email},process.env.REFRESH_KEY,{expiresIn:'30d'}) 
-            
-            //register to userToken
-            
-            const message = await UserToken.registerToken(obj,refreshToken)
-            res.status(200).json({
-                error:false,
-                message,
-                accessToken,
-                refreshToken
-            })
-        
-    }catch(error){
-        res.status(400).json({error:true,error:error.message})
+    //create jwttoken
+
+    const accessToken = createToken({ username: obj['username'], id: obj['_id'] }, process.env.SECRET_KEY, { expiresIn: '2d' });
+    const refreshToken = createToken({ email: email }, process.env.REFRESH_KEY, { expiresIn: '30d' });
+
+    //register to userToken
+
+    const message = await Token.registerToken(obj, refreshToken);
+    res.status(200).json({
+      error: false,
+      message,
+      accessToken,
+      refreshToken,
+    });
+  } catch (err) {
+    res.status(400).json({ error: true, message: err.message });
+  }
+};
+
+// SIGNUP USER
+const signupUser = async (req, res) => {
+  const { email, password, username } = req.body;
+  console.log(email, password, username);
+  try {
+    await User.signup(email, username, password);
+    res.status(200).json({ error: false, message: 'Registered Successfully' });
+  } catch (error) {
+    res.status(400).json({ error: true, message: error.message });
+  }
+};
+
+/*
+    THIS VERIFY TOKEN FUNTION VERIFIES THE REFRESH TOKEN SEND FROM THE CLIENT 
+    AND CHECKS IF IT IS PRESENT IN THE TOKEN TABLE IF YES THEN IT RETURNS AN ACCESS
+    TOKEN TO THE USER OR ELSE IT WILL STATE THAT THE USER HAS LOGGED
+
+    USUALLY THIS IS INVOKED WHEN THE ACCESS TOKEN EXPIRES AND A REQUEST IS SENT TO 
+    GENERATE THE ACCCESS TOKEN 
+*/
+
+const verifyToken = async (req, res) => {
+  const { refToken } = req.body;
+  try {
+    const status = UserToken.verifyToken(refToken);
+
+    if (status) {
+      jwt.verify(refToken, process.env.REFRESH_KEY, (err, user) => {
+        if (err) throw Error('Cannot verify');
+        const accessToken = createToken({ email: user.username, password: user.id }, process.env.SECRET_KEY, { expiresIn: '2d' });
+        res.status(200).json({ error: false, message: 'Success', accessToken: accessToken });
+      });
     }
-}
-// signup user
-const signupUser = async (req,res)=>{
-    const {email,password,username} = req.body
-    console.log(email,password,username)
-    try{
-        await User.signup(email,username,password)
-        res.status(200).json({error:false,message:"Registered Successfully"})   
-    }catch(error){
-        res.status(400).json({error:true,message:error.message})
-    }
-}
+  } catch (err) {
+    res.status(400).json({ error: true, message: err.message });
+  }
+};
 
-const verifyToken = async (req ,res)=>{
-    const {refToken}=req.body;
-    try{
-        const status = UserToken.verifyToken(refToken)
-        
-        if(status){
-             jwt.verify(refToken,process.env.REFRESH_KEY,(err,user)=>{
-                if(err) throw Error('Cannot verify')
-                const accessToken = createToken({email: user.email,'password':user.password},process.env.SECRET_KEY,{expiresIn:'2d'})
-                res.status(200).json({error:false,message:"Success",accessToken:accessToken})
-            });
-        }
-    }catch(err){
-        res.status(400).json({error:true,message:err.message})
-    }
-}
+const sendotp = async (req, res) => {
+  const code = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
+  const email = req.body.email;
+  try {
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      auth: {
+        user: process.env.EMAIL_ID,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
 
-const sendotp = async (req ,res)=>{
-    const code = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false ,lowerCaseAlphabets : false});
-    const email  = req.body.email;
-    try{
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
-            auth: {
-                user: process.env.EMAIL_ID,
-                pass: process.env.EMAIL_PASS
-            }
-        });
-        
-          const mailOptions = {
-            from: 'talkdock@gmail.com',
-            to: email,
-            subject: 'Sending Email using Node.js',
-            text: `your verification code is : ${code}`,
-        };
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-              console.log(error);
-              res.status(400).json({error:"Email not Sent try again}"})
-            } else {
-                console.log(code)
-                res.status(200).json({code : generatedCode})
-            }
-          });
-        res.status(200).json({error : false ,gencode : code })
-    }catch(err){
-        res.status(400).json(err)
-        console.log(err)
-    }
-}
+    const mailOptions = {
+      from: 'talkdock@gmail.com',
+      to: email,
+      subject: 'Sending Email using Node.js',
+      text: `your verification code is : ${code}`,
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+        res.status(400).json({ error: 'Email not Sent try again}' });
+      } else {
+        console.log(code);
+        res.status(200).json({ code: generatedCode });
+      }
+    });
+    res.status(200).json({ error: false, gencode: code });
+  } catch (err) {
+    res.status(400).json(err);
+    console.log(err);
+  }
+};
 
-module.exports = {signupUser,loginUser,verifyToken ,sendotp}
+/* 
+    GETUSERGROUP RETURNS THE LIST OF GROUP ID'S AND NAME'S 
+*/
+const getUserGroup = async (req, res) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  const data = jwt.decode(token, true);
+  const userId = data['id'];
+  console.log(data);
+  try {
+    const groups = await User.getUserGroups(userId);
+    res.status(200).json({ error: false, groups: groups });
+  } catch (err) {
+    res.status(400).json({ error: true, message: err.message });
+  }
+};
+
+/*
+    LOGOUT THE CURRENT USER BY DELETING THEIR REFRESH TOKEN
+*/
+const logout = async (req, res) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  const data = jwt.decode(token, true);
+  const userId = data['id'];
+  try {
+    await Token.deleteToken(userId);
+    res.status(200).json({ error: false, message: 'Logged Out Successfully' });
+  } catch (err) {
+    res.status(400).json({ error: true, message: err.message });
+  }
+};
+
+/*
+    TO GET THE PROFILE OF THE USER 
+*/
+const getProfile = async (req, res) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  const data = jwt.decode(token, true);
+  const username = data['username'];
+
+  try {
+    const data = await User.profile(username);
+    res.status(200).json({ error: false, message: 'Success', data: data });
+  } catch (err) {
+    res.status(400).json({ error: true, message: err.message });
+  }
+};
+
+module.exports = { signupUser, loginUser, verifyToken, logout, getUserGroup, getProfile, sendotp };
