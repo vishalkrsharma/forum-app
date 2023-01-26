@@ -8,22 +8,23 @@ function App() {
   const { user } = useAuthContext();
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/start' element={<Start />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/verifymail' element={<VerifyMail />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/' element={<Main />}>
-          <Route path='newpost' element={<NewPost />} />
-          <Route path='profile' element={<Profile />} />
-          <Route path='settings' element={<Settings />} />
-          <Route index element={<Home />} />
-        </Route>
-      </Routes>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/start' element={<Start />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/verifymail' element={<VerifyMail />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/' element={<Main />}>
+            <Route path='newpost' element={<NewPost />} />
+            <Route path='profile' element={<Profile />} />
+            <Route path='settings' element={<Settings />} />
+            <Route index element={<Home />} />
+          </Route>
+        </Routes>
 
-      {/* TEMPORARY TESTING ROUTES */}
-      {/* <Routes>
+        {/* TEMPORARY TESTING ROUTES */}
+        {/* <Routes>
         <Route path='/newpost' element={<NewPost />} />
         <Route path='/start' element={<Start />} />
         <Route path='/signup' element={<Signup />} />
@@ -32,7 +33,8 @@ function App() {
         <Route path='/username' element={<Username />} />
         <Route index element={<Home />} />
       </Routes> */}
-    </BrowserRouter>
+      </BrowserRouter>
+    </div>
   );
 }
 
