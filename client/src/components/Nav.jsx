@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useRef, useEffect } from 'react';
 import { BiSearch, BiMenuAltLeft } from 'react-icons/bi';
 import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
 import { MdPostAdd } from 'react-icons/md';
+import { BiUpArrowAlt } from 'react-icons/bi';
 
 import { AuthContext } from '../context/AuthContext';
 
@@ -10,8 +11,24 @@ import logo from '../assets/logo.png';
 import { Dropdown } from './index';
 
 export default function TopBar() {
+  const ref = useRef();
   const location = useLocation();
-  const { state } = useContext(AuthContext);
+  const [showLabel, setShowLabel] = useState(true);
+
+  useEffect(() => {
+    const scroll = (e) => {
+      if (window.scrollY !== 0) {
+        setShowLabel(false);
+      } else {
+        setShowLabel(true);
+      }
+    };
+
+    document.addEventListener('scroll', scroll);
+    return () => {
+      document.removeEventListener('scroll', scroll);
+    };
+  });
 
   return (
     <>
@@ -32,13 +49,18 @@ export default function TopBar() {
           <Dropdown />
         </div>
       </div>
+      {!showLabel ? (
+        <div className='bg-diffused text-primary fixed bottom-24 right-4 rounded-2xl' onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}>
+          <BiUpArrowAlt className='m-4 text-3xl' />
+        </div>
+      ) : null}
       {location.pathname === '/newpost' ? null : (
         <Link
           to='/newpost'
           className='bg-primary p-4 rounded-2xl text-white fixed bottom-4 right-4 flex justify-center items-center gap-2 shadow-primary shadow-md'
         >
           <MdPostAdd className='text-3xl' />
-          New Post
+          {showLabel ? <div ref={ref}>New Post</div> : null}
         </Link>
       )}
     </>
