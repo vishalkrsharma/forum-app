@@ -16,7 +16,7 @@ export default function TopBar() {
 
   return (
     <>
-      <div className='topbar text-dark w-full flex align-middle justify-between px-6 py-2 text-3xl fixed bg-white top-0 drop-shadow-md  z-10'>
+      <div className='topbar text-dark h-14 w-full flex align-middle justify-between px-6 py-2 text-3xl fixed bg-white top-0 drop-shadow-md z-10'>
         <div className='flex items-center gap-4'>
           <BiMenuAltLeft />
           <Link to='/' className='flex justify-center items-center'>
@@ -26,8 +26,10 @@ export default function TopBar() {
             </p>
           </Link>
         </div>
-        <div className='flex items-center gap-4'>
-          <AiOutlineSearch />
+        <div className='flex items-center gap-4 p-2 pr-0'>
+          <div>
+            <AiOutlineSearch />
+          </div>
           <Dropdown />
         </div>
       </div>

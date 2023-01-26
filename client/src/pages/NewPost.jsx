@@ -4,14 +4,18 @@ import usePost from '../hooks/usePost';
 export default function NewPost() {
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
+  const [buttonPlaceholder, setButtonPlaceholder] = useState('Select a Group');
+  const [showGroupMenu, setShowGroupMenu] = useState(false);
+
+  const grpArr = ['grp1', 'grp2', 'grp3'];
 
   const { createPost } = usePost();
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const body = {
-      title : postTitle,
-      caption : postBody,
+      title: postTitle,
+      caption: postBody,
     };
     await createPost(body);
     console.log(postTitle, postBody);
@@ -19,7 +23,19 @@ export default function NewPost() {
 
   return (
     <div>
-      <div className='py-20 px-4 h-screen'>
+      <div className=' h-screen'>
+        <div>
+          {/* <button type='button' onClick={setShowGroupMenu(!showGroupMenu)}>
+            {buttonPlaceholder}
+          </button>
+          {showGroupMenu ? (
+            <div>
+              {grpArr.map((grp) => (
+                <div>{grp}</div>
+              ))}
+            </div>
+          ) : null} */}
+        </div>
         <form className='flex flex-col justify-start gap-4'>
           <label className='text-black font-medium -mb-3' htmlFor='title' style={{ marginLeft: '.7rem' }}>
             Give a title...

@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { Main, NewPost, Login, Signup, Start, Home, Profile, Settings, VerifyMail , } from './pages/index';
+import { Main, NewPost, Login, Signup, Start, Home, Profile, Settings, VerifyMail } from './pages/index';
 import useAuthContext from './hooks/useAuthContext';
-
 
 function App() {
   const { user } = useAuthContext();

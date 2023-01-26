@@ -7,7 +7,9 @@ export default function Main() {
   return (
     <div className='h-screen'>
       <Nav />
-      <Outlet />
+      <main className='mt-16 px-4'>
+        <Outlet />
+      </main>
     </div>
   );
 }
