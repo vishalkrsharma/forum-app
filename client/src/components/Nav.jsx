@@ -10,9 +10,8 @@ import logo from '../assets/logo.png';
 import { Dropdown } from './index';
 
 export default function TopBar() {
-  const { state } = useContext(AuthContext);
-
   const location = useLocation();
+  const { state } = useContext(AuthContext);
 
   return (
     <>

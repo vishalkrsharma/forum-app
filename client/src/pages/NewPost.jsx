@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { nanoid } from 'nanoid';
 import { AiOutlineDownCircle } from 'react-icons/ai';
 
 import usePost from '../hooks/usePost';
 
 export default function NewPost() {
+  const ref = useRef();
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
   const [buttonPlaceholder, setButtonPlaceholder] = useState('Select a Group');
@@ -14,6 +15,18 @@ export default function NewPost() {
   const grpArr = ['grp1', 'grp2', 'grp3'];
 
   const { createPost } = usePost();
+
+  useEffect(() => {
+    const clickOutside = (e) => {
+      if (showGroupMenu && ref.current && !ref.current.contains(e.target)) {
+        setShowGroupMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', clickOutside);
+    return () => {
+      document.removeEventListener('mousedown', clickOutside);
+    };
+  }, [showGroupMenu]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -28,7 +41,7 @@ export default function NewPost() {
 
   return (
     <div>
-      <div className='relative mb-2 pt-2'>
+      <div className='relative mb-2 py-2 inline-block' ref={ref}>
         <button
           type='button'
           className='border-2 border-primary p-2 w-52 font-medium rounded-xl flex items-center justify-between hover:bg-primary hover:text-white'

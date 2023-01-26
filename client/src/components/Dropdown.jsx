@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AiOutlineSetting, AiOutlineUser, AiOutlineLogout } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 import useLogout from '../hooks/useLogout';
 
 export default function Dropdown() {
+  const ref = useRef();
   const [showMenu, setShowMenu] = useState(false);
   const { logout } = useLogout();
+
+  useEffect(() => {
+    const clickOutside = (e) => {
+      if (showMenu && ref.current && !ref.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', clickOutside);
+    return () => {
+      document.removeEventListener('mousedown', clickOutside);
+    };
+  }, [showMenu]);
 
   const logoutHandler = async () => {
     console.log(logout);
@@ -15,7 +28,7 @@ export default function Dropdown() {
 
   return (
     <>
-      <div className='dropdown__icon relative' style={{ height: '30px' }} onClick={() => setShowMenu(!showMenu)}>
+      <div className='dropdown__icon relative' style={{ height: '30px' }} onClick={() => setShowMenu(!showMenu)} ref={ref}>
         <button type='button'>
           <AiOutlineUser />
         </button>
