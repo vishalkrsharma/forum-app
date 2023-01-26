@@ -102,7 +102,7 @@ const searchGroup = async (req,res)=>{
     const {groupName} = req.body
     try{
         const groupList = await Group.getGroupsByName(groupName)
-        res.status(200).json(groupList)
+        res.status(200).json({error:false,message:'Success',data:groupList})
     }catch(err){
         res.status(400).json({error:true,message:err.message})
     }
