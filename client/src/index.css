@@ -15,11 +15,15 @@
 }
 
 *,
-body,
-html {
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behaviour: smooth;
+}
+
+html {
+  overflow-y: overlay;
 }
 
 *:focus {
@@ -30,6 +34,26 @@ a {
   text-decoration: none;
 }
 
-form > input{
+form > input {
   width: 100%;
+}
+
+::-webkit-scrollbar {
+  position: fixed;
+  width: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-white);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  border: 0.2rem solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  border: 0;
 }

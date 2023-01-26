@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { isEmail, isStrongPassword } from 'validator';
 
@@ -8,6 +8,7 @@ import useSignup from '../hooks/useSignup';
 import useLogin from '../hooks/useLogin';
 
 export default function Signup() {
+  const navigate = useNavigate();
   const { signup, error, loading } = useSignup();
   const { login } = useLogin();
   const [username, setUsername] = useState('');
@@ -24,6 +25,12 @@ export default function Signup() {
     minNumbers: 1,
     minSymbols: 1,
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('user') !== null) {
+      navigate('/');
+    }
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();

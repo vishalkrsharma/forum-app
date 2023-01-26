@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
+import useAuthContext from './useAuthContext';
 
 export default function usePost() {
-  const getGroupPosts = async (body) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  const { accessToken } = user;
+  const createPost = async (body) => {
     try {
-      const { data } = await axios.post('/api/post/getGroupPost', body);
+      const { data } = await axios.post('/api/post/create', body, {
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
@@ -25,4 +35,6 @@ export default function usePost() {
       console.log(err);
     }
   };
+
+  return { createPost };
 }
