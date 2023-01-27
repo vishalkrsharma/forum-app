@@ -2,7 +2,8 @@ const otpGenerator = require('otp-generator');
 const User = require('../models/userModel');
 const Token = require('../models/userToken');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+
+const OTP = require('../models/otpModel');
 
 const createToken = (payload, _key, expire) => {
   return jwt.sign(payload, _key, expire);
@@ -74,37 +75,24 @@ const verifyToken = async (req, res) => {
 };
 
 const sendotp = async (req, res) => {
-  const code = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
+  const otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
   const email = req.body.email;
-  try {
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      auth: {
-        user: process.env.EMAIL_ID,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+  try{
+    const expiresAt = await OTP.sendotp(otp, email)
+    res.status(200).json({error: false ,expiresAt : expiresAt})
+  }catch{
+    res.status(400).json({ error: true, message: err.message });
+  }
+};
 
-    const mailOptions = {
-      from: 'talkdock@gmail.com',
-      to: email,
-      subject: 'Sending Email using Node.js',
-      text: `your verification code is : ${code}`,
-    };
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-        res.status(400).json({ error: 'Email not Sent try again}' });
-      } else {
-        console.log(code);
-        res.status(200).json({ code: generatedCode });
-      }
-    });
-    res.status(200).json({ error: false, gencode: code });
-  } catch (err) {
-    res.status(400).json(err);
-    console.log(err);
+const verifyotp = async (req, res) => {
+  const {email , otp} = req.body
+  try{
+    const resp = await OTP.verifyOTP(otp , email )
+    console.log(resp)
+    res.status(200).json({error : false})
+  }catch(err){
+    res.status(400).json({ error: true, message: err.message });
   }
 };
 
@@ -158,4 +146,4 @@ const getProfile = async (req, res) => {
   }
 };
 
-module.exports = { signupUser, loginUser, verifyToken, logout, getUserGroup, getProfile, sendotp };
+module.exports = { signupUser, loginUser, verifyToken, logout, getUserGroup, getProfile, sendotp, verifyotp };
