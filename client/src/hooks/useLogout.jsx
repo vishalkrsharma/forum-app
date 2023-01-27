@@ -10,7 +10,7 @@ export default function useLogout() {
   const logout = () => {
     localStorage.removeItem('user');
     dispatch({ type: 'LOGOUT' });
-    navigate('/');
+    navigate('/start');
   };
 
   return { logout };
