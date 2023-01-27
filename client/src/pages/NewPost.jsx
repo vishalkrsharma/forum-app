@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { nanoid } from 'nanoid';
 import { AiOutlineDownCircle } from 'react-icons/ai';
 
 import usePost from '../hooks/usePost';
@@ -59,6 +58,7 @@ export default function NewPost() {
                 onClick={() => {
                   setGroupName(group);
                   setShowGroupMenu(false);
+                  setButtonPlaceholder(group);
                 }}
               >
                 {group}
