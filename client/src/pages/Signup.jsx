@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { isEmail, isStrongPassword } from 'validator';
 
@@ -7,16 +7,15 @@ import logoWithLabel from '../assets/logo-with-label.png';
 import useSignup from '../hooks/useSignup';
 import useLogin from '../hooks/useLogin';
 
-export default function Signup() {
+export default function Signup({route}) {
+  const {state} = useLocation()
   const navigate = useNavigate();
   const { signup, error, loading } = useSignup();
   const { login } = useLogin();
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(true);
 
   const isStrongPasswordConditions = {
     minLength: 8,
@@ -27,18 +26,20 @@ export default function Signup() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('user') !== null) {
+    if ((localStorage.getItem('user') !== null) || state == null) {
       navigate('/');
     }
+    console.log(state)
   }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const body = {
-      email: email,
+      email: state.email,
       username: username,
       password: password,
     };
+    console.log(body)
     if (password === confirmPassword) {
       await signup(body);
     }
@@ -49,27 +50,6 @@ export default function Signup() {
       <img className='h-44 mx-auto' src={logoWithLabel} alt={logoWithLabel} />
       <form className='mx-auto flex justify-top items-center flex-col gap-7 w-80'>
         <div className='text-xl text-primary font-medium -mb-5'>Sign Up</div>
-        <div className='relative w-full'>
-          <label className='text-primary px-3 -mb-5 font-medium' htmlFor='email'>
-            Email
-          </label>
-          <input
-            id='email'
-            className='border-secondary border-2 py-2 px-3 rounded-lg focus:border-primary w-full'
-            type='email'
-            placeholder='Email'
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setIsEmailValid(isEmail(email));
-            }}
-          />
-
-          {isEmail(email) || email.length == 0 ? null : (
-            <span className='text-warning absolute left-0 ml-3 text-sm' style={{ top: '4.25rem' }}>
-              Invalid Email.
-            </span>
-          )}
-        </div>
         <div className='relative w-full'>
           <label className='text-primary px-3 -mb-5 font-medium' htmlFor='email'>
             Username
