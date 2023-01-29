@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { isEmail } from 'validator';
@@ -20,14 +20,18 @@ export default function VerifyMail() {
     }
   }, []);
 
-  const submitHandler = async (e) => {
+  const verifyotp = async (e) => {
     e.preventDefault();
-    if (code) {
-      navigate('/signup', { email: email });
-    } else {
-      setIncorrectCode(true);
-      setIsDisabled(false);
-    }
+    const body = {
+      email: email,
+      otp : code,
+    };
+    console.log(body);
+    const { data } = await axios.post('/api/user/verifyotp', body);
+    navigate('/signup' , {state:{
+      email : email,
+      validated : 'Valid'
+    }})
   };
 
   const sendCode = async (e) => {
@@ -36,11 +40,10 @@ export default function VerifyMail() {
     const body = {
       email: email,
     };
-    console.log(email);
     const {
-      data: { error, gencode },
+      data
     } = await axios.post('/api/user/sendotp', body);
-    console.log(gencode);
+    console.log(data)
   };
 
   return (
@@ -87,6 +90,7 @@ export default function VerifyMail() {
             className='border-secondary border-2 p-2 px-3 rounded-lg focus:border-primary w-full'
             type={isVisible ? 'text' : 'password'}
             placeholder='Code'
+            disabled = {!isDisable}
             onChange={(e) => {
               setCode(e.target.value);
             }}
@@ -96,7 +100,7 @@ export default function VerifyMail() {
             {isVisible ? <AiOutlineEye className='text-primary' /> : <AiOutlineEyeInvisible />}
           </button>
         </div>
-        <button className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer' type='submit' onClick={submitHandler}>
+        <button disabled = {!isDisable} className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer' type='submit' onClick={verifyotp}>
           Verify
         </button>
         {incorrectCode && (
