@@ -22,7 +22,6 @@ export default function Dropdown() {
   }, [showMenu]);
 
   const logoutHandler = async () => {
-    console.log(logout);
     await logout();
   };
 
