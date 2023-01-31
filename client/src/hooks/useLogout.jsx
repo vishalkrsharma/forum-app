@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import useAuthContext from './useAuthContext';
 
 export default function useLogout() {
+  const {dispatch} = useAuthContext();
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-  const { accessToken } = user;
-
-  const { dispatch } = useAuthContext();
+  //const user = JSON.parse(localStorage.getItem('user'));
+  // const { user } = state;
+  // const { accessToken } = user
 
   const logout = () => {
     // const { data } = await axios.delete('/api/user/logout', {

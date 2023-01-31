@@ -26,8 +26,8 @@ export default function Signup({route}) {
   };
 
   useEffect(() => {
-    if ((localStorage.getItem('user') !== null) || state == null) {
-      navigate('/');
+    if (state == null) {
+      navigate('/verifymail');
     }
     console.log(state)
   }, []);

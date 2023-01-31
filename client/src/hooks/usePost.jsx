@@ -3,7 +3,7 @@ import axios from 'axios';
 import useAuthContext from './useAuthContext';
 
 export default function usePost() {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const {user} = useAuthContext()
 
   const { accessToken } = user;
   const createPost = async (body) => {

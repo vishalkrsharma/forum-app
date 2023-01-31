@@ -10,7 +10,7 @@ import { AuthContext } from '../context/AuthContext';
 import logo from '../assets/logo.png';
 import { Dropdown } from './index';
 
-export default function TopBar() {
+export default function TopBar(props) {
   const ref = useRef();
   const location = useLocation();
   const [showLabel, setShowLabel] = useState(true);
@@ -46,7 +46,7 @@ export default function TopBar() {
           <div>
             <AiOutlineSearch />
           </div>
-          <Dropdown />
+          <Dropdown username = {props.userData.username} />
         </div>
       </div>
       {!showLabel ? (

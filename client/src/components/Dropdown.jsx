@@ -3,8 +3,9 @@ import { AiOutlineSetting, AiOutlineUser, AiOutlineLogout } from 'react-icons/ai
 import { Link } from 'react-router-dom';
 
 import useLogout from '../hooks/useLogout';
+import Avatar from './Avatar';
 
-export default function Dropdown() {
+export default function Dropdown(props) {
   const ref = useRef();
   const [showMenu, setShowMenu] = useState(false);
   const { logout } = useLogout();
@@ -27,9 +28,12 @@ export default function Dropdown() {
 
   return (
     <>
-      <div className='dropdown__icon relative' style={{ height: '30px' }} onClick={() => setShowMenu(!showMenu)} ref={ref}>
-        <button type='button'>
-          <AiOutlineUser />
+      <div className='dropdown__icon relative content-center align-middle ' style={{ height: '30px' }} onClick={() => setShowMenu(!showMenu)} ref={ref}>
+        <button type='button' className='flex content-center align-middle '>
+          {/* <span className=' text-lg pr-2 ' >{props.username}</span> */}
+          <Avatar name = {props.username} variant= "beam" size={30} />
+          
+          
         </button>
         {showMenu ? (
           <div className='dropdown__menu bg-white absolute top-12 -right-3 rounded-lg shadow-lg text-base z-10 w-48'>
