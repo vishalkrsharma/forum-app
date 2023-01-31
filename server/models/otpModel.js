@@ -58,11 +58,11 @@ OTPSchema.statics.sendotp = async function(otp , email){
 
 OTPSchema.statics.verifyOTP = async function(otp , email){
   const userOTP = await this.findOne({email , otp})
-  const date = new Date()
+  console.log(userOTP)
   if(!userOTP){
     throw Error('Incorrect OTP')
   }
-  if(date.getTime() > userOTP.expiresAt.getTime()){
+  if(new Date().getTime() > userOTP.expiresAt.getTime()){
     await this.deleteMany({email : email})
     throw Error('OTP expired try again')
   }

@@ -43,9 +43,7 @@ form > input {
   width: 0.8rem;
 }
 
-::-webkit-scrollbar-track {
-  background-color: var(--color-white);
-}
+
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--color-primary);

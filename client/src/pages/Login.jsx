@@ -7,16 +7,12 @@ import useLogin from '../hooks/useLogin';
 import logoWithLabel from '../assets/logo-with-label.png';
 
 export default function Login() {
+  
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login, error, isLoading } = useLogin();
   const [isVisible, setIsVisible] = useState(false);
-  useEffect(() => {
-    if (localStorage.getItem('user') !== null) {
-      navigate('/');
-    }
-  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();

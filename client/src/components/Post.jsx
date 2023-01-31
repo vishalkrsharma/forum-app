@@ -14,7 +14,7 @@ export default function Post() {
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic sit tempore maxime possimus error provident necessitatibus saepe quam harum magni!';
 
   return (
-    <div className='bg-white rounded-lg p-2'>
+    <div className=' border-b-2 border-diffused bg-white my-2 rounded-lg p-2'>
       <div className='postHeader flex items-center justify-between p-1'>
         <div className='postInfo flex items-center gap-3'>
           <Avatar variant='ring' name={name} />
