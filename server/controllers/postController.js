@@ -52,10 +52,10 @@ const getPostByGroups = async(req,res)=>{
     } 
 }
 
-const getPostByGroupId = async (req,res)=>{
-    const {groupId} = req.body
+const getPostByGroupName = async (req,res)=>{
+    const {groupName} = req.params
     try{
-        const posts = await Post.getByGroupId(groupId)
+        const posts = await Post.getByGroupName(groupName)
         res.status(200).json({error:false,message:"Success",data:posts})
     }catch(err){
         res.status(400).json({error:true,message:err.message})
@@ -88,4 +88,4 @@ const getPostByUserId = async(req,res)=>{
 }
 
 
-module.exports = {createUserPost,getAll,deletePost,getPostByGroups,getPostByUserId,getPostByGroupId,getPostByPostIds}
+module.exports = {createUserPost,getAll,deletePost,getPostByGroups,getPostByUserId,getPostByGroupName,getPostByPostIds}

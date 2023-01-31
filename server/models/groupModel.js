@@ -46,7 +46,7 @@ groupSchema.statics.getGroupById = async function(groupId){
 
 groupSchema.statics.getUserGroupsById = async function(groupIdArray){
     const groups = await this.find({'_id':{'$in':groupIdArray}})
-    if(!groups)throw Error("You haven't joined in any group")
+    if(groups.length===0)throw Error("You haven't joined in any group")
     return groups;
 }
 
@@ -77,7 +77,7 @@ groupSchema.statics.updateMembers = async function(user,groupId,state){
 
 groupSchema.statics.getGroupsByName = async function(groupName){
     const groups = await this.find({name:{$regex:new RegExp('^'+groupName+'.*','i')}})
-    if(!groups) throw Error("No groups found")
+    if(groups.length===0) throw Error("No groups found")
     return groups
 }
 
