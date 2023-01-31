@@ -30,6 +30,7 @@ const loginUser = async (req, res) => {
       message,
       accessToken,
       refreshToken,
+      username:obj['username']
     });
   } catch (err) {
     res.status(400).json({ error: true, message: err.message });

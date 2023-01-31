@@ -1,14 +1,11 @@
 const express = require('express')
-const { createUserPost,getAll,deletePost,getPostByGroups,getPostByUserId,getPostByGroupId, getPostByPostIds }=require('../controllers/postController')
+const { createUserPost,getAll,deletePost,getPostByGroups,getPostByUserId,getPostByGroupName, getPostByPostIds }=require('../controllers/postController')
 const {authenticate}=require('../middleware/userAuth')
 
 const router = express.Router()
 
 //CREATE POST
 router.post('/create',authenticate,createUserPost)
-
-//GET ALL POST 
-router.get('/getAll',authenticate,getAll)
 
 //DELETE POST
 router.delete('/delete',authenticate,deletePost)
@@ -20,7 +17,7 @@ router.get('/byUserId',authenticate,getPostByUserId)
 router.get('/byGroups',authenticate,getPostByGroups)
 
 //GET POST BY A SINGLE GROUP ID
-router.get('/byGroupId',authenticate,getPostByGroupId)
+router.get('/byGroupName/:groupName',authenticate,getPostByGroupName)
 
 //GET POST BY POST ID'S (LIST OF POST ID'S)
 router.get('/byPostId',authenticate,getPostByPostIds)
