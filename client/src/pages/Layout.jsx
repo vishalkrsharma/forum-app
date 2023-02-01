@@ -8,6 +8,7 @@ import useUser from '../hooks/useUser';
 export default function Layout() {
   const [userData, setUserData] = useState(null);
   const { getProfile } = useUser();
+  
   useEffect(() => {
     async function get() {
       await getProfile().then((res) => {

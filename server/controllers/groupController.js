@@ -23,7 +23,7 @@ const create = async(req,res)=>{
     try{
         const group = await Group.createGroup(name,about,image,userObj)
         await User.updateGroup({'_id':group._id,'name':group.name},userId,true)
-        res.status(200).json({error:true,message:"Success",data:group})
+        res.status(200).json({error:false,message:"Success",data:group})
     }catch(err){
         res.status(400).json({error:true,message:err.message})
     }
