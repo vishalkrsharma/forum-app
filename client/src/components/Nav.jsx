@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-import { BiSearch, BiMenuAltLeft } from 'react-icons/bi';
+import { BiMenuAltLeft } from 'react-icons/bi';
 import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
 import { MdPostAdd } from 'react-icons/md';
@@ -46,7 +46,7 @@ export default function TopBar(props) {
           <div>
             <AiOutlineSearch />
           </div>
-          <Dropdown username = {props.userData.username} />
+          <Dropdown username={props.userData.username} />
         </div>
       </div>
       {!showLabel ? (
