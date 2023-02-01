@@ -8,16 +8,16 @@ import useUser from '../hooks/useUser';
 export default function Layout() {
   const [userData, setUserData] = useState(null);
   const { getProfile } = useUser();
+  async function get() {
+    await getProfile().then((res) => {
+      const { data } = res;
+      setUserData(data);
+    });
+  }
   
   useEffect(() => {
-    async function get() {
-      await getProfile().then((res) => {
-        const { data } = res;
-        setUserData(data);
-      });
-    }
     get();
-  }, []);
+  },[]);
 
   return (
     <>

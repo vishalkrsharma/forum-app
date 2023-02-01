@@ -5,7 +5,7 @@ import { Avatar } from '../components/index';
 import useUser from '../hooks/useUser';
 
 export default function Profile() {
-  const userData = useOutletContext();
+  const [userData ,setUserData] = useOutletContext();
   console.log(userData);
 
   return (

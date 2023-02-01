@@ -40,7 +40,7 @@ groupSchema.statics.createGroup = async function(name,about,image,userObj){
 }
 
 groupSchema.statics.getGroupById = async function(groupId){
-    const group = await this.findOne({id : groupId})
+    const group = await this.findOne({_id : groupId})
     console.log("req id: ",groupId)
     console.log("fetched group id: ",group.id)
     if(!group)throw Error("No Such group exists")
