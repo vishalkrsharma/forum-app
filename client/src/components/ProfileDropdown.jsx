@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import useLogout from '../hooks/useLogout';
 import Avatar from './Avatar';
 
-export default function Dropdown(props) {
+export default function ProfileDropdown(props) {
   const ref = useRef();
   const [showMenu, setShowMenu] = useState(false);
   const { logout } = useLogout();
@@ -32,8 +32,6 @@ export default function Dropdown(props) {
         <button type='button' className='flex content-center align-middle '>
           {/* <span className=' text-lg pr-2 ' >{props.username}</span> */}
           <Avatar name = {props.username} variant= "beam" size={30} />
-          
-          
         </button>
         {showMenu ? (
           <div className='dropdown__menu bg-white absolute top-12 -right-3 rounded-lg shadow-lg text-base z-10 w-48'>

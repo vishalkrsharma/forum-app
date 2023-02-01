@@ -5,7 +5,7 @@ const { create ,getGroup,join,leave,getUserGroups,searchGroup } = require('../co
 
 router.post('/create',authenticate,create)
 
-router.get('/getById',authenticate,getGroup)
+router.post('/getgroup',authenticate,getGroup)
 
 router.post('/getUserGroups',authenticate,getUserGroups)
 
