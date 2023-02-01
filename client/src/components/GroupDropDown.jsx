@@ -28,7 +28,7 @@ export default function GroupDropdown(props) {
           <BiMenuAltLeft/>
         </button>
         {showMenu ? (
-          <div className='dropdown__menu bg-white absolute top-12 -left-3 rounded-lg shadow-lg text-base z-10 w-60'>
+          <div className='dropdown__menu bg-white absolute top-12 -left-3 rounded-lg shadow-lg text-base z-10 w-60 h-80 overflow-scroll'>
             <Link to='/createGroup' className='item py-2 px-5 flex justify-start items-center gap-4 border-diffused border-b-2 hover:bg-primary hover:text-white m-2 rounded-lg'>
               <BiPlus className='text-2xl' />
               Create a Group
