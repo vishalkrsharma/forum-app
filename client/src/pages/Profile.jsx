@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { Avatar } from '../components/index';
 
 import useUser from '../hooks/useUser';
 
 export default function Profile() {
-  const userData = useOutletContext()
-  console.log(userData)
-
+  const userData = useOutletContext();
+  console.log(userData);
 
   return (
     <div>

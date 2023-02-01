@@ -5,9 +5,8 @@ import { Nav } from '../components/index';
 import useAuthContext from '../hooks/useAuthContext';
 import useUser from '../hooks/useUser';
 
-
 export default function Layout() {
-  const [userData , setUserData] = useState(null)
+  const [userData, setUserData] = useState(null);
   const { getProfile } = useUser();
   useEffect(() => {
     async function get() {
@@ -20,11 +19,9 @@ export default function Layout() {
   }, []);
 
   return (
-    <> 
-      <main className='mt-16 px-2'>
-       {userData && <Outlet context={userData} />}
-      </main>
-      {userData &&<Nav userData = {userData} />}
+    <>
+      <main className='mt-16 px-2 lg:mx-96'>{userData && <Outlet context={userData} />}</main>
+      {userData && <Nav userData={userData} />}
     </>
   );
 }
