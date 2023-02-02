@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { AiOutlineDownCircle } from 'react-icons/ai';
-import { HiOutlineUserGroup } from 'react-icons/hi';
+import { AiOutlineDownCircle, AiOutlineGroup } from 'react-icons/ai';
+import { AiOutlineTeam } from 'react-icons/ai';
 import { useOutletContext } from 'react-router-dom';
 
 import usePost from '../hooks/usePost';
@@ -53,7 +53,7 @@ export default function NewPost(props) {
         >
           <div className='flex items-center justify-center gap-4'>
             {buttonPlaceholder[0] === null ? (
-              <HiOutlineUserGroup className='text-2xl' style={{ height: '30px' }} />
+              <AiOutlineTeam className='text-2xl' style={{ height: '30px' }} />
             ) : (
               <Avatar name={`${buttonPlaceholder[0]}`} variant='bauhaus' size={30} />
             )}
