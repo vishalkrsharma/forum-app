@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-import useLogin from '../hooks/useLogin';
+import useUser from '../hooks/useUser';
 
 import logoWithLabel from '../assets/logo-with-label.png';
 
 export default function Login() {
-  
-  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login, error, isLoading } = useLogin();
+  const { login, error, isLoading } = useUser();
   const [isVisible, setIsVisible] = useState(false);
 
   const submitHandler = async (e) => {
@@ -21,7 +19,7 @@ export default function Login() {
       password: password,
     };
     await login(body);
-    console.log(email, password);
+    alert(error.response.data.message);
   };
 
   return (
@@ -68,7 +66,7 @@ export default function Login() {
       </form>
       <div className='w-80 mx-auto text-center mt-5'>
         Don't have an account?&nbsp;&nbsp;
-        <Link className='text-secondary hover:text-primary' to={'/signup'}>
+        <Link className='text-secondary hover:text-primary' to={'/verifymail'}>
           Sign Up
         </Link>
       </div>

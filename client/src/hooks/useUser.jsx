@@ -1,9 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import useAuthContext from './useAuthContext';
 
 export default function useUser() {
-  const user = JSON.parse(localStorage.getItem('user'));
-  const { accessToken } = user;
+  const navigate = useNavigate();
+
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(null);
+  const { user, dispatch } = useAuthContext();
+
+  let accessToken = null;
+  if (user) {
+    accessToken = user.accessToken;
+  } else {
+    accessToken = null;
+  }
+  const login = async (body) => {
+    try {
+      const { data } = await axios.post('/api/user/login', body);
+      dispatch({ type: 'LOGIN', payload: data });
+      localStorage.setItem('user', JSON.stringify(data));
+      navigate('/');
+    } catch (err) {
+      setError(err);
+
+      console.log(err);
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem('user');
+    dispatch({ type: 'LOGOUT' });
+    navigate('/login');
+  };
+
+  const signup = async (body) => {
+    try {
+      const { data } = await axios.post('/api/user/register', body).then((res) => {
+        if (res.status) login(body);
+      });
+    } catch (err) {
+      setError(err);
+      console.log(err);
+    }
+  };
 
   const getProfile = async () => {
     try {
@@ -13,11 +54,29 @@ export default function useUser() {
           authorization: `Bearer ${accessToken}`,
         },
       });
+      console.log(data);
       return data;
     } catch (err) {
       console.log(err);
     }
   };
 
-  return { getProfile };
+  const verifyOTP = async (body) => {
+    try {
+      const { data } = await axios.post('/api/user/verifyotp', body);
+      return data;
+    } catch (err) {
+      setError(err);
+    }
+  };
+
+  const sendCode = async (body) => {
+    try {
+      const { data } = await axios.post('/api/user/sendotp', body);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return { login, logout, signup, error, isLoading, setIsLoading, setError, getProfile, verifyOTP, sendCode };
 }
