@@ -34,6 +34,10 @@ a {
   text-decoration: none;
 }
 
+button {
+  outline-color: transparent;
+}
+
 form > input {
   width: 100%;
 }
@@ -41,9 +45,8 @@ form > input {
 ::-webkit-scrollbar {
   position: fixed;
   width: 0.8rem;
+  border-radius: 0.5rem;
 }
-
-
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--color-primary);

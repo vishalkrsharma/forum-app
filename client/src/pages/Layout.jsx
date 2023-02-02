@@ -8,11 +8,10 @@ import useUser from '../hooks/useUser';
 export default function Layout() {
   const [userData, setUserData] = useState(null);
   const { getProfile } = useUser();
+
   async function get() {
-    await getProfile().then((res) => {
-      const { data } = res;
-      setUserData(data);
-    });
+    const { data } = await getProfile();
+    setUserData(data);
   }
 
   useEffect(() => {
@@ -21,7 +20,7 @@ export default function Layout() {
 
   return (
     <>
-      <main className='mt-16 px-2 lg:mx-96'>{userData && <Outlet context={[userData, setUserData]} />}</main>
+      <main className='mt-16 px-2'>{userData && <Outlet context={[userData, setUserData]} />}</main>
       {userData && <Nav userData={userData} />}
     </>
   );

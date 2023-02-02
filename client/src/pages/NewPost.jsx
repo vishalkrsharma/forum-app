@@ -44,7 +44,7 @@ export default function NewPost(props) {
   };
 
   return (
-    <div style={{ height: 'calc(100vh - 4rem)' }}>
+    <div className='max-w-3xl mx-auto' style={{ height: 'calc(100vh - 4rem)' }}>
       <div className='relative mb-2 py-2 inline-block' ref={ref}>
         <button
           type='button'

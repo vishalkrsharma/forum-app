@@ -21,12 +21,12 @@ export default function GroupDropdown(props) {
 
   return (
     <div className='dropdown__icon relative content-center align-middle' style={{ height: '30px' }} onClick={() => setShowMenu(!showMenu)} ref={ref}>
-      <button type='button' className={`flex content-center align-middle rounded-lg  ${showMenu ? 'bg-diffused' : ''}`}>
+      <button type='button' className={`flex content-center align-middle rounded-lg ${showMenu ? 'bg-diffused' : ''}`}>
         {/* <span className=' text-lg pr-2 ' >{props.username}</span> */}
         <BiMenuAltLeft />
       </button>
       {showMenu ? (
-        <div className='bg-white absolute top-12 -left-3 rounded-lg shadow-lg text-base z-10 w-60'>
+        <div className='bg-white absolute top-12 -left-3 shadow-lg text-base z-10 w-60 overflow-scroll h-96'>
           <Link
             to='/createGroup'
             className='item py-2 px-5 flex justify-start items-center gap-4 border-diffused hover:bg-primary hover:text-white m-2 rounded-lg'

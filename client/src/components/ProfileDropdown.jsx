@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { AiOutlineSetting, AiOutlineUser, AiOutlineLogout } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
-import useLogout from '../hooks/useLogout';
+import useUser from '../hooks/useUser';
 import Avatar from './Avatar';
 
 export default function ProfileDropdown(props) {
   const ref = useRef();
   const [showMenu, setShowMenu] = useState(false);
-  const { logout } = useLogout();
+  const { logout } = useUser();
 
   useEffect(() => {
     const clickOutside = (e) => {

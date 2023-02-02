@@ -53,7 +53,7 @@ export default function TopBar(props) {
           <BiUpArrowAlt className='m-4 text-3xl' />
         </div>
       ) : null}
-      {location.pathname === '/newpost' ? null : (
+      {location.pathname === '/newpost' || location.pathname === '/createGroup' ? null : (
         <Link
           to='/newpost'
           className='bg-primary p-4 rounded-2xl text-white fixed bottom-4 right-4 flex justify-center items-center gap-2 shadow-primary shadow-md'

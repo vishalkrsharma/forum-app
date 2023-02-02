@@ -4,6 +4,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { isEmail } from 'validator';
 import logoWithLabel from '../assets/logo-with-label.png';
 import axios from 'axios';
+import useUser from '../hooks/useUser';
 
 export default function VerifyMail() {
   const navigate = useNavigate();
@@ -14,36 +15,39 @@ export default function VerifyMail() {
   const [isDisable, setIsDisabled] = useState(false);
   const [incorrectCode, setIncorrectCode] = useState(false);
 
+  const { verifyOTP, sendCode, error, isLoading } = useUser();
+
   useEffect(() => {
     if (localStorage.getItem('user') !== null) {
       navigate('/');
     }
   }, []);
 
-  const verifyotp = async (e) => {
+  const verifyOTPHandler = async (e) => {
     e.preventDefault();
     const body = {
       email: email,
-      otp : code,
+      otp: code,
     };
-    console.log(body);
-    const { data } = await axios.post('/api/user/verifyotp', body);
-    navigate('/signup' , {state:{
-      email : email,
-      validated : 'Valid'
-    }})
+    const { data } = await verifyOTP(body);
+    console.log(data);
+    navigate('/signup', {
+      state: {
+        email: email,
+        validated: 'Valid',
+      },
+    });
   };
 
-  const sendCode = async (e) => {
+  const sendCodeHandler = async (e) => {
     e.preventDefault();
-    setIsDisabled(true);
     const body = {
       email: email,
     };
-    const {
-      data
-    } = await axios.post('/api/user/sendotp', body);
-    console.log(data)
+    const { data } = await axios.post('/api/user/sendotp', body);
+    if (!data.error) {
+      setIsDisabled(!isDisable);
+    }
   };
 
   return (
@@ -76,7 +80,7 @@ export default function VerifyMail() {
         <button
           className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer'
           type='submit'
-          onClick={sendCode}
+          onClick={sendCodeHandler}
           disabled={isDisable}
         >
           Send Code
@@ -90,7 +94,7 @@ export default function VerifyMail() {
             className='border-secondary border-2 p-2 px-3 rounded-lg focus:border-primary w-full'
             type={isVisible ? 'text' : 'password'}
             placeholder='Code'
-            disabled = {!isDisable}
+            disabled={!isDisable}
             onChange={(e) => {
               setCode(e.target.value);
             }}
@@ -100,7 +104,12 @@ export default function VerifyMail() {
             {isVisible ? <AiOutlineEye className='text-primary' /> : <AiOutlineEyeInvisible />}
           </button>
         </div>
-        <button disabled = {!isDisable} className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer' type='submit' onClick={verifyotp}>
+        <button
+          disabled={!isDisable}
+          className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer'
+          type='submit'
+          onClick={verifyOTPHandler}
+        >
           Verify
         </button>
         {incorrectCode && (

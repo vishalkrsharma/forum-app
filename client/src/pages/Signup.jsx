@@ -4,18 +4,17 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { isEmail, isStrongPassword } from 'validator';
 
 import logoWithLabel from '../assets/logo-with-label.png';
-import useSignup from '../hooks/useSignup';
-import useLogin from '../hooks/useLogin';
+import useUser from '../hooks/useUser';
 
-export default function Signup({route}) {
-  const {state} = useLocation()
+export default function Signup({ route }) {
+  const { state } = useLocation();
   const navigate = useNavigate();
-  const { signup, error, loading } = useSignup();
-  const { login } = useLogin();
+  const { signup, error, loading, login } = useUser();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [email, setEmail] = useState('');
 
   const isStrongPasswordConditions = {
     minLength: 8,
@@ -26,10 +25,15 @@ export default function Signup({route}) {
   };
 
   useEffect(() => {
-    if (state == null) {
+    if (state) {
+      setEmail(state.email);
+      window.history.replaceState({ state: null }, document.title);
+    }
+    if (!state) {
       navigate('/verifymail');
     }
-    console.log(state)
+
+    console.log(state);
   }, []);
 
   const submitHandler = async (e) => {
@@ -39,7 +43,7 @@ export default function Signup({route}) {
       username: username,
       password: password,
     };
-    console.log(body)
+    console.log(body);
     if (password === confirmPassword) {
       await signup(body);
     }

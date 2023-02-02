@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import {  NewPost, Login, Signup, Home, Profile, Settings, VerifyMail, RequireAuth, Layout, CreateGroup, Group } from './pages/index';
+import { NewPost, Login, Signup, Home, Profile, Settings, VerifyMail, RequireAuth, Layout, CreateGroup, Group } from './pages/index';
 import useAuthContext from './hooks/useAuthContext';
 
 function App() {
@@ -11,16 +11,16 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/signup' element={!(user) ? <Signup /> : <Navigate to = "/"/>} />
-          <Route path='/verifymail' element={!user ? <VerifyMail /> : <Navigate to = "/"/>} />
-          <Route path='/login' element={!user ? <Login /> : <Navigate to = "/"/>} />
-          <Route  element={<RequireAuth />}>
-            <Route element={<Layout/>}>
+          <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/' />} />
+          <Route path='/verifymail' element={!user ? <VerifyMail /> : <Navigate to='/' />} />
+          <Route path='/login' element={!user ? <Login /> : <Navigate to='/' />} />
+          <Route element={<RequireAuth />}>
+            <Route element={<Layout />}>
               <Route path='/newpost' element={<NewPost />} />
               <Route path='/profile' element={<Profile />} />
-              <Route path="/groups/:id"  element ={<Group/>} />
+              <Route path='/groups/:id' element={<Group />} />
               <Route path='/settings' element={<Settings />} />
-              <Route path='/createGroup' element={<CreateGroup/>} />
+              <Route path='/createGroup' element={<CreateGroup />} />
               <Route index element={<Home />} />
             </Route>
           </Route>
