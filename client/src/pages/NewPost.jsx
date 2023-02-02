@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AiOutlineDownCircle } from 'react-icons/ai';
+import { HiOutlineUserGroup } from 'react-icons/hi';
+import { useOutletContext } from 'react-router-dom';
 
 import usePost from '../hooks/usePost';
+import { Avatar } from '../components/index';
 
-export default function NewPost() {
+export default function NewPost(props) {
   const ref = useRef();
+  const [userData, setUserData] = useOutletContext();
+  const { groups } = userData;
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
-  const [buttonPlaceholder, setButtonPlaceholder] = useState('Select a Group');
+  const [buttonPlaceholder, setButtonPlaceholder] = useState([null, 'Select a group']);
   const [showGroupMenu, setShowGroupMenu] = useState(false);
   const [groupName, setGroupName] = useState(null);
 
@@ -43,27 +48,41 @@ export default function NewPost() {
       <div className='relative mb-2 py-2 inline-block' ref={ref}>
         <button
           type='button'
-          className='border-2 border-primary p-2 w-52 font-medium rounded-xl flex items-center justify-between hover:bg-primary hover:text-white'
+          className='border-2 border-primary py-3 px-4 w-56 font-medium rounded-xl flex items-center justify-between hover:bg-primary hover:text-white'
           onClick={() => setShowGroupMenu(!showGroupMenu)}
         >
-          {buttonPlaceholder}
+          <div className='flex items-center justify-center gap-4'>
+            {buttonPlaceholder[0] === null ? (
+              <HiOutlineUserGroup className='text-2xl' style={{ height: '30px' }} />
+            ) : (
+              <Avatar name={`${buttonPlaceholder[0]}`} variant='bauhaus' size={30} />
+            )}
+            {buttonPlaceholder[1]}
+          </div>
           <AiOutlineDownCircle className='text-2xl' />
         </button>
         {showGroupMenu ? (
-          <div className='absolute top-14 shadow-md p-2 w-52 bg-white rounded-xl'>
-            {grpArr.map((group, idx) => (
-              <div
-                className='p-2 cursor-pointer hover:text-white hover:bg-primary rounded-xl'
-                key={idx}
-                onClick={() => {
-                  setGroupName(group);
-                  setShowGroupMenu(false);
-                  setButtonPlaceholder(group);
-                }}
-              >
-                {group}
-              </div>
-            ))}
+          <div className='bg-white absolute mt-4 top-16 rounded-lg shadow-lg text-base z-10 w-56 p-2 flex flex-col gap-2'>
+            {groups &&
+              groups.map((group, key) => {
+                {
+                  console.log(group);
+                }
+                return (
+                  <button
+                    type='button'
+                    key={group._id}
+                    className='item py-2 px-5 flex justify-start items-center gap-4 hover:bg-diffused rounded-lg'
+                    onClick={() => {
+                      setButtonPlaceholder([group.name, group.name]);
+                      setShowGroupMenu(false);
+                    }}
+                  >
+                    <Avatar name={`${group.name}`} variant='bauhaus' size={30} />
+                    {group.name}
+                  </button>
+                );
+              })}
           </div>
         ) : null}
       </div>
@@ -78,7 +97,7 @@ export default function NewPost() {
           placeholder='An interesting title'
           onChange={(e) => setPostTitle(e.target.value)}
         />
-        <label className='text-black font-medium  -mb-3' htmlFor='body' style={{ marginLeft: '.7rem' }}>
+        <label className='text-black font-medium -mb-3' htmlFor='body' style={{ marginLeft: '.7rem' }}>
           Body
         </label>
         <textarea

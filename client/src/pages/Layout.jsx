@@ -14,14 +14,14 @@ export default function Layout() {
       setUserData(data);
     });
   }
-  
+
   useEffect(() => {
     get();
-  },[]);
+  }, []);
 
   return (
     <>
-      <main className='mt-16 px-2 lg:mx-96'>{userData && <Outlet context={userData} />}</main>
+      <main className='mt-16 px-2 lg:mx-96'>{userData && <Outlet context={[userData, setUserData]} />}</main>
       {userData && <Nav userData={userData} />}
     </>
   );

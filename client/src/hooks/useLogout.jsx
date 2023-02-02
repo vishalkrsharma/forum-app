@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useAuthContext from './useAuthContext';
 
 export default function useLogout() {
-  const {dispatch} = useAuthContext();
+  const { dispatch } = useAuthContext();
   const navigate = useNavigate();
   //const user = JSON.parse(localStorage.getItem('user'));
   // const { user } = state;
@@ -19,7 +19,7 @@ export default function useLogout() {
     // });
     localStorage.removeItem('user');
     dispatch({ type: 'LOGOUT' });
-    navigate('/start');
+    navigate('/login');
   };
 
   return { logout };
