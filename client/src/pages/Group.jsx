@@ -2,39 +2,32 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useOutletContext, useParams } from 'react-router-dom';
 import { Avatar } from '../components/index';
-import useAuthContext from '../hooks/useAuthContext';
+import useGroup from '../hooks/useGroup';
 
 export default function Group() {
-  const userData = useOutletContext()
-  const {id} = useParams()
-  const {user} = useAuthContext()
-  const {accessToken} = user
-  const [groupData , setGroupdata] = useState()
+  const userData = useOutletContext();
+  const { id } = useParams();
 
-  useEffect(()=>{
-    async function getGroup(){
-      const body = {
-        groupId : id
-      }
-      try {
-        const { data : data   } = await axios.post('/api/group/getGroup', body, {
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${accessToken}`,
-          },
-        });
-        setGroupdata(data.data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    getGroup()
-  },[])
+  const { getGroup } = useGroup();
+  const [groupData, setGroupdata] = useState();
 
+  async function getGroupHandler(body) {
+    const { data } = await getGroup(body);
+    setGroupdata(data);
+  }
+
+  useEffect(() => {
+    const groupId = id;
+    const body = {
+      groupId,
+    };
+
+    getGroupHandler(body);
+  }, []);
 
   return (
     <div>
-     {!groupData ? null : (
+      {!groupData ? null : (
         <div className='userInfo text-center '>
           <div className=' bg-primary h-40 overflow-hidden -mb-11 rounded-lg max-w-xl m-auto'>
             <Avatar className='mx-auto ' name={groupData.name} variant='ring' size={600} square={true} />
