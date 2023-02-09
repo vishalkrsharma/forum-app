@@ -58,8 +58,8 @@ export default function usePost() {
         authorization: `Bearer ${accessToken}`,
       },
   });
-  console.log(data.data)
-  return data.data
+  console.log(data)
+  return data
   } catch (err) {
     console.log(err);
   }

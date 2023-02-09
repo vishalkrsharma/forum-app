@@ -18,6 +18,7 @@ export default function Home() {
       groups : groups
     }
     const { data } = await getuserGroupPost(body);
+    console.log(data)
     setuserGroupPostdata(data);
   }
 
