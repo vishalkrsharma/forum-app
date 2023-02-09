@@ -20,13 +20,50 @@ export default function usePost() {
     }
   };
 
-  const getUserPosts = async (body) => {
+  const getUserPosts = async () => {
     try {
-      const { data } = await axios.post('/api/post/getUserPost', body);
+      const { data } = await axios.get('/api/post/byUserId', {
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${accessToken}`,
+        },
+    });
+    console.log(data.data)
+    return data.data
     } catch (err) {
       console.log(err);
     }
   };
+
+  const getGroupPost = async (groupName) => {
+    try {
+      const { data } = await axios.get(`/api/post/byGroupName/${groupName}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${accessToken}`,
+        },
+    });
+    console.log(data.data)
+    return data.data
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+ const getuserGroupPost = async (body) =>{
+  try {
+    const { data } = await axios.post(`/api/post/byGroups`,body, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${accessToken}`,
+      },
+  });
+  console.log(data.data)
+  return data.data
+  } catch (err) {
+    console.log(err);
+  }
+ }
 
   const deletePost = async (body) => {
     try {
@@ -36,5 +73,5 @@ export default function usePost() {
     }
   };
 
-  return { createPost };
+  return { createPost , getUserPosts ,getGroupPost ,getuserGroupPost};
 }

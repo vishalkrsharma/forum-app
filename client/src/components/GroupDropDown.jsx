@@ -44,7 +44,7 @@ export default function GroupDropdown(props) {
           {groups &&
             groups.map((group, key) => {
               {
-                console.log(group);
+               // console.log(group);
               }
               return (
                 <Link

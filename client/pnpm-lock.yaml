@@ -7,6 +7,7 @@ specifiers:
   autoprefixer: ^10.4.13
   axios: ^1.2.2
   boring-avatars: ^1.7.0
+  javascript-time-ago: ^2.5.9
   postcss: ^8.4.21
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -19,6 +20,7 @@ specifiers:
 dependencies:
   axios: 1.2.2
   boring-avatars: 1.7.0
+  javascript-time-ago: 2.5.9
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.7.1_react@18.2.0
@@ -934,6 +936,12 @@ packages:
     engines: {node: '>=0.12.0'}
     dev: true
 
+  /javascript-time-ago/2.5.9:
+    resolution: {integrity: sha512-pQ8mNco/9g9TqWXWWjP0EWl6i/lAQScOyEeXy5AB+f7MfLSdgyV9BJhiOD1zrIac/lrxPYOWNbyl/IW8CW5n0A==}
+    dependencies:
+      relative-time-format: 1.1.6
+    dev: false
+
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -1198,6 +1206,10 @@ packages:
     dependencies:
       picomatch: 2.3.1
     dev: true
+
+  /relative-time-format/1.1.6:
+    resolution: {integrity: sha512-aCv3juQw4hT1/P/OrVltKWLlp15eW1GRcwP1XdxHrPdZE9MtgqFpegjnTjLhi2m2WI9MT/hQQtE+tjEWG1hgkQ==}
+    dev: false
 
   /resolve/1.22.1:
     resolution: {integrity: sha512-nBpuuYuY5jFsli/JIs1oldw6fOQCBioohqWZg/2hiaOybXOft4lonv85uDOKXdf8rhyK159cxU5cDcK/NKk8zw==}

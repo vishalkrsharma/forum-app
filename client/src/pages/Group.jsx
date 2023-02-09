@@ -1,19 +1,26 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useOutletContext, useParams } from 'react-router-dom';
-import { Avatar } from '../components/index';
+import { Avatar, Post } from '../components/index';
 import useGroup from '../hooks/useGroup';
+import usePost from '../hooks/usePost';
 
 export default function Group() {
-  const userData = useOutletContext();
   const { id } = useParams();
-
   const { getGroup } = useGroup();
+  const {getGroupPost} = usePost();
   const [groupData, setGroupdata] = useState();
+  const [groupPostData,setGroupPostData] = useState();
 
   async function getGroupHandler(body) {
     const { data } = await getGroup(body);
     setGroupdata(data);
+    getGroupPostHandler(data.name)
+  }
+  async function getGroupPostHandler(groupName){
+    const data = await getGroupPost(groupName)
+    console.log(data)
+    setGroupPostData(data)
   }
 
   useEffect(() => {
@@ -21,8 +28,8 @@ export default function Group() {
     const body = {
       groupId,
     };
-
     getGroupHandler(body);
+
   }, []);
 
   return (
@@ -36,6 +43,15 @@ export default function Group() {
             <Avatar className='mx-auto' name={groupData.name} variant='bauhaus' size={80} square={false} />
           </div>
           <div className='userName font-medium mt-2'>{groupData.name}</div>
+          <div className="text-left">
+            {groupPostData&&
+              groupPostData.map((userpost , key)=>{
+                return(
+                  <Post key={userpost._id} caption= {userpost.caption} title = {userpost.title} groupName = {userpost.groupName} username = {userpost.username} timestamps = {userpost.timestamps} />
+                )
+              })
+            }
+          </div>
         </div>
       )}
     </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AiOutlineDownCircle, AiOutlineGroup } from 'react-icons/ai';
 import { AiOutlineTeam } from 'react-icons/ai';
-import { useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
 import usePost from '../hooks/usePost';
 import { Avatar } from '../components/index';
@@ -15,8 +15,9 @@ export default function NewPost(props) {
   const [buttonPlaceholder, setButtonPlaceholder] = useState([null, 'Select a group']);
   const [showGroupMenu, setShowGroupMenu] = useState(false);
   const [groupName, setGroupName] = useState(null);
+  const [groupId, setGroupId] = useState(null)
+  const navigate = useNavigate()
 
-  const grpArr = ['grp1', 'grp2', 'grp3'];
 
   const { createPost } = usePost();
 
@@ -36,11 +37,13 @@ export default function NewPost(props) {
     e.preventDefault();
     const body = {
       groupName,
+      groupId,
       title: postTitle,
       caption: postBody,
     };
     await createPost(body);
     console.log(postTitle, postBody);
+    navigate('/')
   };
 
   return (
@@ -62,7 +65,7 @@ export default function NewPost(props) {
           <AiOutlineDownCircle className='text-2xl' />
         </button>
         {showGroupMenu ? (
-          <div className='bg-white absolute mt-4 top-16 rounded-lg shadow-lg text-base z-10 w-56 p-2 flex flex-col gap-2'>
+          <div className='bg-white absolute mt-4 top-16 rounded-lg shadow-lg text-base z-10 w-56 p-2 flex flex-col gap-2 max-h-60 overflow-scroll'>
             {groups &&
               groups.map((group, key) => {
                 {
@@ -75,6 +78,8 @@ export default function NewPost(props) {
                     className='item py-2 px-5 flex justify-start items-center gap-4 hover:bg-diffused rounded-lg'
                     onClick={() => {
                       setButtonPlaceholder([group.name, group.name]);
+                      setGroupName(group.name)
+                      setGroupId(group._id)
                       setShowGroupMenu(false);
                     }}
                   >
@@ -87,6 +92,30 @@ export default function NewPost(props) {
         ) : null}
       </div>
       <form className='flex flex-col justify-start gap-4'>
+        {/* <select name="group" id="group">
+        {groups &&
+              groups.map((group, key) => {
+                {
+                  console.log(group);
+                }
+                return (
+                  <option value={group.name} key = {group._id}>
+                    <button
+                    type='button'
+                    key={group._id}
+                    className='item py-2 px-5 flex justify-start items-center gap-4 hover:bg-diffused rounded-lg'
+                    onClick={() => {
+                      setButtonPlaceholder([group.name, group.name]);
+                      setShowGroupMenu(false);
+                    }}
+                  >
+                    <Avatar name={`${group.name}`} variant='bauhaus' size={30} />
+                    {group.name}
+                  </button>
+                  </option>
+                );
+              })}
+        </select> */}
         <label className='text-black font-medium -mb-3' htmlFor='title' style={{ marginLeft: '.7rem' }}>
           Give a title...
         </label>
