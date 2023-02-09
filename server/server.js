@@ -4,6 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
+
+//Routes
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
 const groupRoutes = require('./routes/group');

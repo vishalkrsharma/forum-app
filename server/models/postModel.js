@@ -82,7 +82,6 @@ postSchema.statics.createPost=async function(userId,username,group_id,title,capt
     return post;
 }
 
-
 postSchema.statics.deletePost = async function(postId,userId,groupId){
     const post=await this.deleteOne({postId})
     if(!post){
@@ -100,26 +99,25 @@ postSchema.statics.deletePost = async function(postId,userId,groupId){
 
 postSchema.statics.getByGroups = async function(groupIdArray){
     //THE IN QUERY WILL FIND ACCORDING TO MULTIPLE ID'S
-    const posts = await this.find({"_id":{"$in":groupIdArray}}).sort({timestamps:-1})
-    if(posts.length===0)throw Error("No Current Posts")
+    const posts = await this.find({"groupId":{"$in":groupIdArray}}).sort({timestamps:-1})
+    if(!posts)throw Error("No Current Posts")
     return posts
 }
 
 postSchema.statics.getByPostIds = async function(postIdArray){
     const posts = await this.find({"_id":{"$in":postIdArray}}).sort({timestamps:-1})
-    if(posts.length===0)throw Error("No Current Posts")
+    if(!posts)throw Error("No Current Posts")
     return posts
 }
 
-postSchema.statics.getByGroupName = async function(groupName){
-    const post = await this.find({groupName})
-    if(post.length===0) throw Error("This group hasn't posted yet")
+postSchema.statics.getByGroupId = async function(groupId){
+    const post = await this.find({groupId})
+    if(!post) throw Error("This group hasn't posted yet")
     return post
 }
-
 postSchema.statics.getByUserId = async function(userId){
     const posts = await this.find({userId})
-    if(posts.length===0) throw Error("No Posts") 
+    if(!posts)throw Error("No posts")
     return posts
 }
 
