@@ -51,6 +51,7 @@ export default function usePost() {
   };
 
  const getuserGroupPost = async (body) =>{
+  console.log(body)
   try {
     const { data } = await axios.post(`/api/post/byGroups`,body, {
       headers: {

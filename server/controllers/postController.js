@@ -40,17 +40,25 @@ const deletePost = async (req, res) => {
   }
 };
 
+const getPostByGroups = async (req, res) => {
+  const { groups } = req.body;
+  try {
+    const posts = await Post.getByGroups(groups);
+    res.status(200).json({ error: false, message: 'Success', data: posts });
+  } catch (err) {
+    res.status(400).json({ error: true, message: err.message });
+  }
+};
 
-
-const getPostByGroups = async(req,res)=>{
-    const {groups} = req.body
-    try{
-        const posts = await Post.getByGroups(groups)
-        res.status(200).json({error:false,message:"Success",data:posts})
-    }catch(err){
-        res.status(400).json({error:true,message:err.message})
-    } 
-}
+const getPostByGroupName = async (req, res) => {
+  const { groupName } = req.params;
+  try {
+    const posts = await Post.getByGroupName(groupName);
+    res.status(200).json({ error: false, message: 'Success', data: posts });
+  } catch (err) {
+    res.status(400).json({ error: true, message: err.message });
+  }
+};
 
 const getPostByPostIds = async (req, res) => {
   const { postIdArray } = req.body;

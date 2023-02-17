@@ -100,6 +100,7 @@ postSchema.statics.deletePost = async function(postId,userId,groupId){
 postSchema.statics.getByGroups = async function(groupIdArray){
     //THE IN QUERY WILL FIND ACCORDING TO MULTIPLE ID'S
     const posts = await this.find({"groupId":{"$in":groupIdArray}}).sort({timestamps:-1})
+    console.log(groupIdArray , posts)
     if(posts.length===0)throw Error("No Current Posts")
     return posts
 }
@@ -110,8 +111,8 @@ postSchema.statics.getByPostIds = async function(postIdArray){
     return posts
 }
 
-postSchema.statics.getByGroupId = async function(groupId){
-    const post = await this.find({groupId})
+postSchema.statics.getByGroupName = async function(groupName){
+    const post = await this.find({groupName})
     if(!post) throw Error("This group hasn't posted yet")
     return post
 }
