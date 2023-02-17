@@ -7,7 +7,7 @@ export default function useGroup() {
   const { accessToken } = user;
   const getGroup = async (body) => {
     try {
-      const { data } = await axios.post('/api/group/getGroup', body, {
+      const { data } = await axios.post('/api/group/getById', body, {
         headers: {
           'Content-Type': 'application/json',
           authorization: `Bearer ${accessToken}`,

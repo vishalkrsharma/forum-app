@@ -17,7 +17,7 @@ router.delete('/delete',authenticate,deletePost)
 router.get('/byUserId',authenticate,getPostByUserId)
 
 //GET POST OF USER BY GROUPID'S(LIST OF GROUPID'S)
-router.get('/byGroups',authenticate,getPostByGroups)
+router.post('/byGroups',authenticate,getPostByGroups)
 
 //GET POST BY A SINGLE GROUP ID
 router.get('/byGroupName/:groupName',authenticate,getPostByGroupName)

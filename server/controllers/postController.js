@@ -41,9 +41,9 @@ const deletePost = async (req, res) => {
 };
 
 const getPostByGroups = async (req, res) => {
-  const { groupIds } = req.body;
+  const { groups } = req.body;
   try {
-    const posts = await Post.getByGroups(groupIds);
+    const posts = await Post.getByGroups(groups);
     res.status(200).json({ error: false, message: 'Success', data: posts });
   } catch (err) {
     res.status(400).json({ error: true, message: err.message });
