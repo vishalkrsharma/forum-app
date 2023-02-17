@@ -12,6 +12,7 @@ module.exports = {
       warning: 'var(--color-warning)',
       black: 'var(--color-black)',
       bg: 'var(--color-bg)',
+      pink: 'var(--color-bg)',
     },
   },
   plugins: [],

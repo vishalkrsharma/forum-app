@@ -23,8 +23,10 @@ export default function Login() {
   };
 
   return (
-    <div className='mx-auto h-screen p-3'>
-      <img className='h-44 mx-auto' src={logoWithLabel} alt={logoWithLabel} />
+    <div className='mx-auto h-screen max-lg:p-3 lg:flex lg:justify-center lg:items-center'>
+      <div className='lg:h-full lg:w-1/2 lg:bg-bg flex justify-center items-center max-lg:mb-5'>
+        <img className='h-56 p-4 bg-white rounded-full' src={logoWithLabel} alt={logoWithLabel} />
+      </div>
       <form className='mx-auto flex justify-top items-center flex-col gap-7 w-80'>
         <div className='text-xl text-primary font-medium'>Log In</div>
         <div className='relative w-full'>
@@ -63,13 +65,13 @@ export default function Login() {
         >
           Log In
         </button>
+        <div className='w-80 mx-auto text-center mt-5'>
+          Don't have an account?&nbsp;&nbsp;
+          <Link className='text-secondary hover:text-primary' to={'/verifymail'}>
+            Sign Up
+          </Link>
+        </div>
       </form>
-      <div className='w-80 mx-auto text-center mt-5'>
-        Don't have an account?&nbsp;&nbsp;
-        <Link className='text-secondary hover:text-primary' to={'/verifymail'}>
-          Sign Up
-        </Link>
-      </div>
     </div>
   );
 }
