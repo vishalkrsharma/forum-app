@@ -24,7 +24,6 @@ export default function useUser() {
       navigate('/');
     } catch (err) {
       setError(err);
-
       console.log(err);
     }
   };

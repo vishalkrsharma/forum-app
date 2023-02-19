@@ -1,14 +1,15 @@
 import React from 'react';
 import { SlOptions } from 'react-icons/sl';
 import { Avatar } from './index';
-import {formatDistance} from 'date-fns'
+import { formatDistance } from 'date-fns';
+import PostDropdown from './PostDropdown';
 
 export default function Post(props) {
-  console.log(props)
+  console.log(props);
   const name = props.groupName;
   const user = props.username;
-  const date = new Date(props.timestamps)
-  const time = formatDistance(date, new Date(), { addSuffix: true })
+  const date = new Date(props.timestamps);
+  const time = formatDistance(date, new Date(), { addSuffix: true });
   const upvotes = 10;
 
   const title = props.title;
@@ -25,7 +26,7 @@ export default function Post(props) {
             </div>
           </div>
         </div>
-        <SlOptions className='mr-4 text-dark' />
+        <PostDropdown />
       </div>
       <div className='postBody p-1'>
         <div className='title leading-tight py-2 font-medium text-lg'>{title}</div>
