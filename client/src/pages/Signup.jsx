@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { isEmail, isStrongPassword } from 'validator';
+import { isStrongPassword } from 'validator';
 
 import logoWithLabel from '../assets/logo-with-label.png';
 import useUser from '../hooks/useUser';
@@ -129,7 +129,12 @@ export default function Signup({ route }) {
             </span>
           ) : null}
         </div>
-        <button className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer' type='submit' onClick={submitHandler}>
+        <button
+          className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer'
+          type='submit'
+          onClick={submitHandler}
+          disabled={isStrongPassword(password, isStrongPasswordConditions) && password === confirmPassword ? false : true}
+        >
           Sign Up
         </button>
         <div className='w-80 mx-auto text-center mt-5'>

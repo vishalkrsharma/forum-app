@@ -13,9 +13,9 @@ export default function VerifyMail() {
   const [isVisible, setIsVisible] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isDisable, setIsDisabled] = useState(false);
-  const [incorrectCode, setIncorrectCode] = useState(false);
+  const [error, setError] = useState(false);
 
-  const { verifyOTP, sendCode, error, isLoading } = useUser();
+  const { verifyOTP, sendCode, isLoading } = useUser();
 
   useEffect(() => {
     if (localStorage.getItem('user') !== null) {
@@ -31,12 +31,16 @@ export default function VerifyMail() {
     };
     const { data } = await verifyOTP(body);
     console.log(data);
-    navigate('/signup', {
-      state: {
-        email: email,
-        validated: 'Valid',
-      },
-    });
+    if (!data.error) {
+      navigate('/signup', {
+        state: {
+          email: email,
+          validated: 'Valid',
+        },
+      });
+    } else {
+      setError(data.error);
+    }
   };
 
   const sendCodeHandler = async (e) => {
@@ -45,7 +49,7 @@ export default function VerifyMail() {
       email: email,
     };
     const { data } = await axios.post('/api/user/sendotp', body);
-    if (!data.error) {
+    if (!data.error && isEmail(email)) {
       setIsDisabled(!isDisable);
     }
   };
@@ -91,16 +95,23 @@ export default function VerifyMail() {
           <label className='text-primary px-3 -mb-5 font-medium' htmlFor='password'>
             Enter Your Code
           </label>
-          <input
-            id='code'
-            className='border-secondary border-2 p-2 px-3 rounded-lg focus:border-primary w-full'
-            type={isVisible ? 'text' : 'password'}
-            placeholder='Code'
-            disabled={!isDisable}
-            onChange={(e) => {
-              setCode(e.target.value);
-            }}
-          />
+          <div className='relative w-full'>
+            <input
+              id='code'
+              className='border-secondary border-2 p-2 px-3 rounded-lg focus:border-primary w-full'
+              type={isVisible ? 'text' : 'password'}
+              placeholder='Code'
+              disabled={!isDisable}
+              onChange={(e) => {
+                setCode(e.target.value);
+              }}
+            />
+            {error ? (
+              <span className='text-warning absolute top-0 left-0 ml-3 text-sm' style={{ top: '2.75rem' }}>
+                Incorrect Code
+              </span>
+            ) : null}
+          </div>
 
           <button className='text-secondary text-2xl absolute' type='button' onClick={() => setIsVisible(!isVisible)} style={{ top: '34px', right: '10px' }}>
             {isVisible ? <AiOutlineEye className='text-primary' /> : <AiOutlineEyeInvisible />}
@@ -114,11 +125,7 @@ export default function VerifyMail() {
         >
           Verify
         </button>
-        {incorrectCode && (
-          <span className='text-warning absolute left-0 ml-3 text-sm' style={{ top: '4.25rem' }}>
-            Incorrect Code
-          </span>
-        )}
+
         <div className='w-80 mx-auto text-center mt-5'>
           Already have an account!&nbsp;&nbsp;
           <Link className='text-secondary hover:text-primary' to={'/login'}>

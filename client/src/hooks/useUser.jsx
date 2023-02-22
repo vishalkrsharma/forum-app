@@ -21,10 +21,13 @@ export default function useUser() {
       const { data } = await axios.post('/api/user/login', body);
       dispatch({ type: 'LOGIN', payload: data });
       localStorage.setItem('user', JSON.stringify(data));
+      setError(null);
       navigate('/');
+      return true;
     } catch (err) {
       setError(err);
       console.log(err);
+      return false;
     }
   };
 
@@ -62,10 +65,11 @@ export default function useUser() {
 
   const verifyOTP = async (body) => {
     try {
-      const { data } = await axios.post('/api/user/verifyotp', body);
+      const data = await axios.post('/api/user/verifyotp', body);
       return data;
     } catch (err) {
-      setError(err);
+      console.log(err);
+      return err.response;
     }
   };
 
