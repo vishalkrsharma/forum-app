@@ -19,7 +19,6 @@ export default function Login() {
       password: password,
     };
     await login(body);
-    alert(error.response.data.message);
   };
 
   return (
@@ -71,6 +70,7 @@ export default function Login() {
             Sign Up
           </Link>
         </div>
+        {error === null ? <></> : <div>{error.response.data.message}</div>}
       </form>
     </div>
   );

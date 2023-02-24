@@ -20,12 +20,11 @@ export default function PostDropdown(props) {
 
   return (
     <div className='dropdown__icon relative content-center align-middle' style={{ height: '30px' }} onClick={() => setShowMenu(!showMenu)} ref={ref}>
-      <button type='button' className={`flex content-center align-middle rounded-lg ${showMenu ? 'bg-diffused' : ''}`}>
-        {/* <span className=' text-lg pr-2 ' >{props.username}</span> */}
-        <SlOptions className='mr-4 text-dark' />
+      <button type='button' className={`p-2 flex content-center align-middle rounded-lg ${showMenu ? 'bg-diffused' : ''}`}>
+        <SlOptions className='text-dark' />
       </button>
       {showMenu ? (
-        <div className='bg-white absolute top-12 right-0 shadow-lg text-base z-10 text-dark rounded-lg'>
+        <div className='bg-white absolute top-9 right-0 shadow-lg text-base z-10 text-dark rounded-lg'>
           <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'>
             <FaPencilAlt />
             <div>Edit Post</div>

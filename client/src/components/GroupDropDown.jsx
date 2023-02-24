@@ -19,6 +19,8 @@ export default function GroupDropdown(props) {
     };
   }, [showMenu]);
 
+  console.log(groups);
+
   return (
     <div className='dropdown__icon relative content-center align-middle' style={{ height: '30px' }} onClick={() => setShowMenu(!showMenu)} ref={ref}>
       <button type='button' className={`flex content-center align-middle rounded-lg ${showMenu ? 'bg-diffused' : ''}`}>
@@ -26,7 +28,7 @@ export default function GroupDropdown(props) {
         <BiMenuAltLeft />
       </button>
       {showMenu ? (
-        <div className='bg-white absolute top-12 -left-3 shadow-lg text-base z-10 w-60 overflow-auto h-96'>
+        <div className='bg-white absolute top-12 -left-3 shadow-lg text-base z-10 w-60 overflow-auto max-h-96'>
           <Link
             to='/createGroup'
             className='item py-2 px-5 flex justify-start items-center gap-4 border-diffused hover:bg-primary hover:text-white m-2 rounded-lg'
@@ -34,24 +36,27 @@ export default function GroupDropdown(props) {
             <BiPlus className='text-2xl' style={{ height: '30px' }} />
             Create a Group
           </Link>
-          <div
-            className='line bg-diffused mx-auto'
-            style={{
-              height: '1px',
-              width: '90%',
-            }}
-          ></div>
+          {groups.length === 0 ? (
+            <></>
+          ) : (
+            <div
+              className='line bg-diffused mx-auto'
+              style={{
+                height: '1px',
+                width: '90%',
+              }}
+            ></div>
+          )}
           {groups &&
             groups.map((group, key) => {
-              {
-                // console.log(group);
-              }
+              console.log(group._id);
               return (
                 <Link
                   key={group._id}
-                  to={`/groups/${group._id}`}
-                  reloadDocument={true}
+                  to={`/groups/${group.name}`}
+                  // reloadDocument={true}
                   className='item py-2 px-5 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'
+                  state={{ id: group._id }}
                 >
                   <Avatar name={`${group.name}`} variant='bauhaus' size={30} />
                   {group.name}

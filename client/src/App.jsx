@@ -18,7 +18,7 @@ function App() {
             <Route element={<Layout />}>
               <Route path='/newpost' element={<NewPost />} />
               <Route path='/profile' element={<Profile />} />
-              <Route path='/groups/:id' element={<Group />} />
+              <Route path='/groups/:name' element={<Group />} />
               <Route path='/settings' element={<Settings />} />
               <Route path='/createGroup' element={<CreateGroup />} />
               <Route index element={<Home />} />

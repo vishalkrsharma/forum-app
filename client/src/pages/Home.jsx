@@ -5,39 +5,45 @@ import { Post } from '../components/index';
 import usePost from '../hooks/usePost';
 
 export default function Home() {
-  const [userGroupPostData , setuserGroupPostdata] = useState();
+  const [userGroupPostData, setuserGroupPostdata] = useState();
   const [userData] = useOutletContext();
-  const {getuserGroupPost} = usePost();
+  const { getuserGroupPost } = usePost();
 
   async function getUserGroupPostHandler() {
-    var groups = userData.groups.map(function(item) {
+    var groups = userData.groups.map(function (item) {
       return item['_id'];
     });
-    console.log(groups)
+    console.log(groups);
     const body = {
-      groups : groups
-    }
+      groups: groups,
+    };
     const { data } = await getuserGroupPost(body);
-    console.log(data)
+    console.log(data);
     setuserGroupPostdata(data);
   }
 
   useEffect(() => {
-    console.log(userData)
+    console.log(userData);
     getUserGroupPostHandler();
   }, []);
 
   return (
     <div>
-      <div className="text-left">
-            {userGroupPostData&&
-              userGroupPostData.map((userpost , key)=>{
-                return(
-                  <Post key={userpost._id} caption= {userpost.caption} title = {userpost.title} groupName = {userpost.groupName} username = {userpost.username} timestamps = {userpost.timestamps} />
-                )
-              })
-            }
-          </div>
+      <div className='text-left lg:w-1/2 mx-auto'>
+        {userGroupPostData &&
+          userGroupPostData.map((userpost, key) => {
+            return (
+              <Post
+                key={userpost._id}
+                caption={userpost.caption}
+                title={userpost.title}
+                groupName={userpost.groupName}
+                username={userpost.username}
+                timestamps={userpost.timestamps}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 }
