@@ -73,11 +73,30 @@ export default function useUser() {
     }
   };
 
+  // const sendCode = async (body) => {
+  //   // try {
+  //   const { data } = await axios
+  //     .post('/api/user/sendotp', body)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   //   console.log(data);
+  //   //   return data;
+  //   // } catch (err) {
+  //   //   console.log(err);
+  //   //   // return err.response;
+  //   // }
+  // };
+
   const sendCode = async (body) => {
     try {
-      const { data } = await axios.post('/api/user/sendotp', body);
+      const data = await axios.post('/api/user/sendotp', body);
+      return data;
     } catch (err) {
-      console.log(err);
+      return err;
     }
   };
 

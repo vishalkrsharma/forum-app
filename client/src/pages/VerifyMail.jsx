@@ -5,6 +5,7 @@ import { isEmail } from 'validator';
 import logoWithLabel from '../assets/logo-with-label.png';
 import axios from 'axios';
 import useUser from '../hooks/useUser';
+import { getError } from '../utils/getError';
 
 export default function VerifyMail() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function VerifyMail() {
       otp: code,
     };
     const { data } = await verifyOTP(body);
-    console.log(data);
+    console.log(data.error);
     if (!data.error) {
       navigate('/signup', {
         state: {
@@ -48,14 +49,19 @@ export default function VerifyMail() {
     const body = {
       email: email,
     };
-    const { data } = await axios.post('/api/user/sendotp', body);
-    if (!data.error && isEmail(email)) {
+    const data = await sendCode(body);
+    console.log(data);
+    if (!data.response.data.error && isEmail(email)) {
       setIsDisabled(!isDisable);
+    } else {
+      setError(getError(data));
     }
   };
 
+  console.log(error);
+
   return (
-    <div className='mx-auto h-screen max-lg:p-3 lg:flex lg:justify-center lg:items-center'>
+    <div className='mx-auto h-screen relative max-lg:p-3 lg:flex lg:justify-center lg:items-center'>
       <div className='lg:h-full lg:w-1/2 lg:bg-bg flex justify-center items-center max-lg:mb-5'>
         <img className='h-56 p-4 bg-white rounded-full' src={logoWithLabel} alt={logoWithLabel} />
       </div>
@@ -133,6 +139,7 @@ export default function VerifyMail() {
           </Link>
         </div>
       </form>
+      <div className='error absolute bottom-5 bg-white p-4 rounded-lg'>{error}</div>
     </div>
   );
 }
