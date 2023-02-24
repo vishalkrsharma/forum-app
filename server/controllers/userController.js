@@ -24,7 +24,7 @@ const loginUser = async (req, res) => {
 
     //register to userToken
 
-    const message = await Token.registerToken(obj, refreshToken);
+    const message = await Token.registerToken(obj["id"], refreshToken);
     res.status(200).json({
       error: false,
       message,
