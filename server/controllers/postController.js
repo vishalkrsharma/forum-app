@@ -24,7 +24,15 @@ const getAll = async (req, res) => {
     res.status(400).json({ error: true, message: err.message });
   }
 };
-
+const getPostByPostIds = async (req, res) => {
+  const { postIdArray } = req.body;
+  try {
+    const posts = await Post.getByPostIds(postIdArray);
+    res.status(200).json({ error: true, message: 'Success', data: posts });
+  } catch (err) {
+    res.status(400).json({ error: true, message: err.message });
+  }
+};
 const deletePost = async (req, res) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
