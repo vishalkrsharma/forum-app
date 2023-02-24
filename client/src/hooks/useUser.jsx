@@ -23,11 +23,11 @@ export default function useUser() {
       localStorage.setItem('user', JSON.stringify(data));
       setError(null);
       navigate('/');
-      return true;
+      return data;
     } catch (err) {
       setError(err);
       console.log(err);
-      return false;
+      return err.response;
     }
   };
 

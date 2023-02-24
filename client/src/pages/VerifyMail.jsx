@@ -29,9 +29,9 @@ export default function VerifyMail() {
       email: email,
       otp: code,
     };
-    const { data } = await verifyOTP(body);
-    // console.log(data.error);
-    if (!data.error) {
+    const data = await verifyOTP(body);
+    console.log(data);
+    if (!data.data.error) {
       navigate('/signup', {
         state: {
           email: email,
@@ -39,7 +39,7 @@ export default function VerifyMail() {
         },
       });
     } else {
-      setError(data.error);
+      setError(data.data.message);
     }
   };
 
@@ -110,11 +110,6 @@ export default function VerifyMail() {
                 setCode(e.target.value);
               }}
             />
-            {error ? (
-              <span className='text-warning absolute top-0 left-0 ml-3 text-sm' style={{ top: '2.75rem' }}>
-                Incorrect Code
-              </span>
-            ) : null}
           </div>
 
           <button className='text-secondary text-2xl absolute' type='button' onClick={() => setIsVisible(!isVisible)} style={{ top: '34px', right: '10px' }}>
