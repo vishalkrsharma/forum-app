@@ -3,18 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { isEmail } from 'validator';
 import logoWithLabel from '../assets/logo-with-label.png';
-import axios from 'axios';
 import useUser from '../hooks/useUser';
 import { getError } from '../utils/getError';
+import { ErrorNotification } from '../components/index';
 
 export default function VerifyMail() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isDisable, setIsDisabled] = useState(false);
-  const [error, setError] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [error, setError] = useState(null);
 
   const { verifyOTP, sendCode, isLoading } = useUser();
 
@@ -31,7 +30,7 @@ export default function VerifyMail() {
       otp: code,
     };
     const { data } = await verifyOTP(body);
-    console.log(data.error);
+    // console.log(data.error);
     if (!data.error) {
       navigate('/signup', {
         state: {
@@ -51,10 +50,10 @@ export default function VerifyMail() {
     };
     const data = await sendCode(body);
     console.log(data);
-    if (!data.response.data.error && isEmail(email)) {
-      setIsDisabled(!isDisable);
+    if (!data.data.error && isEmail(email)) {
+      setIsDisabled(!isDisabled);
     } else {
-      setError(getError(data));
+      setError(data.data.message);
     }
   };
 
@@ -76,10 +75,9 @@ export default function VerifyMail() {
             className='border-secondary border-2 py-2 px-3 rounded-lg focus:border-primary w-full'
             type='email'
             placeholder='Email'
-            disabled={isDisable}
+            disabled={isDisabled}
             onChange={(e) => {
               setEmail(e.target.value);
-              setIsEmailValid(isEmail(email));
             }}
           />
 
@@ -93,7 +91,7 @@ export default function VerifyMail() {
           className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer'
           type='submit'
           onClick={sendCodeHandler}
-          disabled={isDisable}
+          disabled={isDisabled}
         >
           Send Code
         </button>
@@ -107,7 +105,7 @@ export default function VerifyMail() {
               className='border-secondary border-2 p-2 px-3 rounded-lg focus:border-primary w-full'
               type={isVisible ? 'text' : 'password'}
               placeholder='Code'
-              disabled={!isDisable}
+              disabled={!isDisabled}
               onChange={(e) => {
                 setCode(e.target.value);
               }}
@@ -124,7 +122,7 @@ export default function VerifyMail() {
           </button>
         </div>
         <button
-          disabled={!isDisable}
+          disabled={!isDisabled}
           className='bg-primary text-white w-full h-10 rounded-lg mt-4 disabled:bg-secondary cursor-pointer'
           type='submit'
           onClick={verifyOTPHandler}
@@ -139,7 +137,7 @@ export default function VerifyMail() {
           </Link>
         </div>
       </form>
-      <div className='error absolute bottom-5 bg-white p-4 rounded-lg'>{error}</div>
+      {error ? <ErrorNotification error={error} setError={setError} /> : null}
     </div>
   );
 }
