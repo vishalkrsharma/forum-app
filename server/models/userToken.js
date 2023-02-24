@@ -21,9 +21,12 @@ const userTokenSchema = new Schema(
 )
 userTokenSchema.statics.registerToken = async function(id,refToken){
     const user = this.findOne({id})
+    
+    //if there is any user delete user
     if(user) await user.deleteOne();
+    //then create user's token table
+    
     const status =await this.create({userId:id,token:refToken})
-    console.log(status)
     if(!status)throw Error('Cannot store Token')
     return 'Success';
 }
@@ -34,8 +37,7 @@ userTokenSchema.statics.verifyToken = async function(refToken){
     return true;
 }
 userTokenSchema.statics.deleteToken = async function(userId){
-    const status = await this.findByIdAndRemove(userId)
-    console.log(status)
+    const status = await this.findOneAndRemove({userId:userId})
     if(!status)throw Error('you are logged out! Kindly login ')
     return status
 }

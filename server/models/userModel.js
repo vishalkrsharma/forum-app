@@ -67,7 +67,10 @@ userSchema.statics.login = async function(email,password){
         throw Error('Incorrect password')
     }
 
-    return user
+    return {
+        "id":user.id,
+        "username":user["username"],
+    }
 }
 //GET USER GROUPS
 userSchema.statics.getUserGroups = async function (userId){
