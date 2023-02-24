@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { ErrorNotification } from '../components/index';
 
 import useUser from '../hooks/useUser';
 
@@ -9,8 +10,9 @@ import logoWithLabel from '../assets/logo-with-label.png';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login, error, isLoading } = useUser();
+  const { login, isLoading } = useUser();
   const [isVisible, setIsVisible] = useState(false);
+  const [error, setError] = useState(null);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -18,7 +20,11 @@ export default function Login() {
       email: email,
       password: password,
     };
-    await login(body);
+    const data = await login(body);
+    console.log(data);
+    if (data.data.error) {
+      setError(data.data.message);
+    }
   };
 
   return (
@@ -70,8 +76,8 @@ export default function Login() {
             Sign Up
           </Link>
         </div>
-        {error === null ? <></> : <div>{error.response.data.message}</div>}
       </form>
+      {error ? <ErrorNotification error={error} setError={setError} /> : null}
     </div>
   );
 }

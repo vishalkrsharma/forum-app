@@ -2,7 +2,17 @@
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        bar: 'bar 5s linear',
+      },
+      keyframes: {
+        bar: {
+          '0%': { width: '0' },
+          '100%': { wdith: '100%' },
+        },
+      },
+    },
     colors: {
       primary: 'var(--color-primary)',
       secondary: 'var(--color-secondary)',

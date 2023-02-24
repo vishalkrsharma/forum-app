@@ -23,11 +23,11 @@ export default function useUser() {
       localStorage.setItem('user', JSON.stringify(data));
       setError(null);
       navigate('/');
-      return true;
+      return data;
     } catch (err) {
       setError(err);
       console.log(err);
-      return false;
+      return err.response;
     }
   };
 
@@ -94,9 +94,11 @@ export default function useUser() {
   const sendCode = async (body) => {
     try {
       const data = await axios.post('/api/user/sendotp', body);
+      // console.log(data);
       return data;
     } catch (err) {
-      return err;
+      // console.log(err.response);
+      return err.response;
     }
   };
 
