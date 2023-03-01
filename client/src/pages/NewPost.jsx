@@ -15,9 +15,8 @@ export default function NewPost(props) {
   const [buttonPlaceholder, setButtonPlaceholder] = useState([null, 'Select a group']);
   const [showGroupMenu, setShowGroupMenu] = useState(false);
   const [groupName, setGroupName] = useState(null);
-  const [groupId, setGroupId] = useState(null)
-  const navigate = useNavigate()
-
+  const [groupId, setGroupId] = useState(null);
+  const navigate = useNavigate();
 
   const { createPost } = usePost();
 
@@ -43,15 +42,15 @@ export default function NewPost(props) {
     };
     await createPost(body);
     console.log(postTitle, postBody);
-    navigate('/')
+    navigate('/');
   };
 
   return (
-    <div className='max-w-3xl mx-auto' style={{ height: 'calc(100vh - 4rem)' }}>
+    <div className='max-w-3xl mx-auto text-dark' style={{ height: 'calc(100vh - 4rem)' }}>
       <div className='relative mb-2 py-2 inline-block' ref={ref}>
         <button
           type='button'
-          className='border-2 border-primary py-3 px-4 w-56 font-medium rounded-xl flex items-center justify-between hover:bg-primary hover:text-white'
+          className='border-2 border-diffused py-3 px-4 w-56 font-medium rounded-xl flex items-center justify-between hover:bg-diffused hover:border-dark'
           onClick={() => setShowGroupMenu(!showGroupMenu)}
         >
           <div className='flex items-center justify-center gap-4'>
@@ -65,12 +64,9 @@ export default function NewPost(props) {
           <AiOutlineDownCircle className='text-2xl' />
         </button>
         {showGroupMenu ? (
-          <div className='bg-white absolute mt-4 top-16 rounded-lg shadow-lg text-base z-10 w-56 p-2 flex flex-col gap-2 max-h-60 overflow-scroll'>
+          <div className='bg-white absolute mt-4 top-16 rounded-lg shadow-lg text-base z-10 w-56 p-2 flex flex-col gap-2 max-h-60 overflow-auto'>
             {groups &&
               groups.map((group, key) => {
-                {
-                  console.log(group);
-                }
                 return (
                   <button
                     type='button'
@@ -78,8 +74,8 @@ export default function NewPost(props) {
                     className='item py-2 px-5 flex justify-start items-center gap-4 hover:bg-diffused rounded-lg'
                     onClick={() => {
                       setButtonPlaceholder([group.name, group.name]);
-                      setGroupName(group.name)
-                      setGroupId(group._id)
+                      setGroupName(group.name);
+                      setGroupId(group._id);
                       setShowGroupMenu(false);
                     }}
                   >
@@ -92,35 +88,11 @@ export default function NewPost(props) {
         ) : null}
       </div>
       <form className='flex flex-col justify-start gap-4'>
-        {/* <select name="group" id="group">
-        {groups &&
-              groups.map((group, key) => {
-                {
-                  console.log(group);
-                }
-                return (
-                  <option value={group.name} key = {group._id}>
-                    <button
-                    type='button'
-                    key={group._id}
-                    className='item py-2 px-5 flex justify-start items-center gap-4 hover:bg-diffused rounded-lg'
-                    onClick={() => {
-                      setButtonPlaceholder([group.name, group.name]);
-                      setShowGroupMenu(false);
-                    }}
-                  >
-                    <Avatar name={`${group.name}`} variant='bauhaus' size={30} />
-                    {group.name}
-                  </button>
-                  </option>
-                );
-              })}
-        </select> */}
         <label className='text-black font-medium -mb-3' htmlFor='title' style={{ marginLeft: '.7rem' }}>
           Give a title...
         </label>
         <input
-          className='border-secondary border-2 p-2 px-3 rounded-lg focus:border-primary'
+          className='border-secondary border-2 p-2 px-3 rounded-lg focus:border-dark'
           type='text'
           id='title'
           placeholder='An interesting title'
@@ -130,13 +102,13 @@ export default function NewPost(props) {
           Body
         </label>
         <textarea
-          className='h-60 border-secondary border-2 p-2 px-3 rounded-lg resize-none focus:border-primary'
+          className='h-60 border-secondary border-2 p-2 px-3 rounded-lg resize-none focus:border-dark'
           type='text'
           id='body'
           placeholder='What are you thinking about...'
           onChange={(e) => setPostBody(e.target.value)}
         />
-        <button className='wimx-auto w-full bg-primary text-white h-10 rounded-lg' type='submit' onClick={submitHandler}>
+        <button className='mx-auto w-full bg-primary text-white h-10 rounded-lg md:w-1/2' type='submit' onClick={submitHandler}>
           Post
         </button>
       </form>
