@@ -1,8 +1,8 @@
 import React from 'react';
-import { SlOptions } from 'react-icons/sl';
 import { Avatar } from './index';
 import { formatDistance } from 'date-fns';
 import PostDropdown from './PostDropdown';
+import { BiLike, BiComment } from 'react-icons/bi';
 
 export default function Post(props) {
   console.log(props);
@@ -31,6 +31,14 @@ export default function Post(props) {
       <div className='postBody p-1'>
         <div className='title leading-tight py-2 font-medium text-lg'>{title}</div>
         <div className='text-dark'>{body}</div>
+      </div>
+      <div className='flex justify-center items-center'>
+        <div className='py-3 rounded-xl flex justify-center items-center flex-1 hover:bg-diffused'>
+          <BiLike />
+        </div>
+        <div className='py-3 rounded-xl flex justify-center items-center flex-1 hover:bg-diffused'>
+          <BiComment />
+        </div>
       </div>
     </div>
   );
