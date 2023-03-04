@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const userTokenSchema = new Schema(
     {
         userId:{
-            type:Schema.Types.ObjectId,
+            type:String,
             required:true
         },
         token: {
@@ -25,8 +25,9 @@ userTokenSchema.statics.registerToken = async function(id,refToken){
     //if there is any user delete user
     if(user) await user.deleteOne();
     //then create user's token table
-    
+    console.log("here1")
     const status =await this.create({userId:id,token:refToken})
+    console.log("here2")
     if(!status)throw Error('Cannot store Token')
     return 'Success';
 }

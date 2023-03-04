@@ -43,6 +43,7 @@ const deletePost = async (req, res) => {
   try {
     const status = await Post.deletePost(postId, userId, groupId);
     if (status) res.status(200).json({ error: false, message: 'Post Deleted Successfully' });
+    else throw Error("Something went wrong!")
   } catch (err) {
     res.status(400).json({ error: true, message: err.message });
   }
@@ -52,16 +53,20 @@ const getPostByGroups = async (req, res) => {
   const { groups } = req.body;
   try {
     const posts = await Post.getByGroups(groups);
-    res.status(200).json({ error: false, message: 'Success', data: posts });
+    if(posts.length==0) res.status(200).json({ error: false, message: 'No Such Posts!', data: posts }); 
+    else res.status(200).json({ error: false, message: 'Success', data: posts });
+    
   } catch (err) {
     res.status(400).json({ error: true, message: err.message });
   }
 };
+
 const getPostByGroupName = async (req,res)=>{
     const {groupName} = req.params
     try{
         const posts = await Post.getByGroupName(groupName)
-        res.status(200).json({error:false,message:"Success",data:posts})
+        if(posts.length==0)res.status(200).json({error:false,message:"This Groups hasn't posted yet",data:posts})
+        else res.status(200).json({error:false,message:"Success",data:posts})
     }catch(err){
         res.status(400).json({error:true,message:err.message})
     }
@@ -75,7 +80,8 @@ const getPostByUserId = async (req, res) => {
 
   try {
     const posts = await Post.getByUserId(userId);
-    res.status(200).json({ error: false, message: 'Success', data: posts });
+    if(posts.length == 0)res.status(200).json({ error: false, message: 'No such posts!!', data: posts });
+    else res.status(200).json({ error: false, message: 'Success', data: posts });
   } catch (err) {
     res.status(400).json({ error: true, message: err.message });
   }
