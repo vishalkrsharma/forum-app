@@ -101,24 +101,31 @@ postSchema.statics.getByGroups = async function(groupIdArray){
     //THE IN QUERY WILL FIND ACCORDING TO MULTIPLE ID'S
     const posts = await this.find({"groupId":{"$in":groupIdArray}}).sort({timestamps:-1})
     console.log(groupIdArray , posts)
-    if(posts.length===0)throw Error("No Current Posts")
+    if(posts.length===0)return [];
     return posts
 }
 
 postSchema.statics.getByPostIds = async function(postIdArray){
     const posts = await this.find({"_id":{"$in":postIdArray}}).sort({timestamps:-1})
-    if(!posts)throw Error("No Current Posts")
+    if(!posts)return []
     return posts
+}
+
+postSchema.statics.getByPostId = async function(postId){
+    const post = await this.findOne({postId});
+    if(!post)return []
+    return post
 }
 
 postSchema.statics.getByGroupName = async function(groupName){
     const post = await this.find({groupName})
-    if(!post) throw Error("This group hasn't posted yet")
+    if(!post) return []
     return post
 }
+
 postSchema.statics.getByUserId = async function(userId){
     const posts = await this.find({userId})
-    if(!posts)throw Error("No posts")
+    if(!posts)return []
     return posts
 }
 

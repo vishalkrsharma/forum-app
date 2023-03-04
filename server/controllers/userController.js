@@ -14,17 +14,16 @@ const createToken = (payload, _key, expire) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const obj = await User.login(email, password);
-    console.log(obj);
+    const obj = await User.login(email,password);
 
     //create jwttoken
 
-    const accessToken = createToken({ username: obj['username'], id: obj['_id'] }, process.env.SECRET_KEY, { expiresIn: '2d' });
+    const accessToken = createToken({ username: obj['username'], id: obj['id'] }, process.env.SECRET_KEY, { expiresIn: '2d' });
     const refreshToken = createToken({ email: email }, process.env.REFRESH_KEY, { expiresIn: '30d' });
 
     //register to userToken
 
-    const message = await Token.registerToken(obj, refreshToken);
+    const message = await Token.registerToken(obj['id'], refreshToken);
     res.status(200).json({
       error: false,
       message,
@@ -39,7 +38,6 @@ const loginUser = async (req, res) => {
 // SIGNUP USER
 const signupUser = async (req, res) => {
   const { email, password, username } = req.body;
-  console.log(email, password, username);
   try {
     await User.signup(email, username, password);
     res.status(200).json({ error: false, message: 'Registered Successfully' });
