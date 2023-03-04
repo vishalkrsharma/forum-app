@@ -24,13 +24,12 @@ const loginUser = async (req, res) => {
 
     //register to userToken
 
-    const message = await Token.registerToken(obj["id"], refreshToken);
+    const message = await Token.registerToken(obj, refreshToken);
     res.status(200).json({
       error: false,
       message,
       accessToken,
       refreshToken,
-      username: obj['username'],
     });
   } catch (err) {
     res.status(400).json({ error: true, message: err.message });
@@ -78,22 +77,21 @@ const verifyToken = async (req, res) => {
 const sendotp = async (req, res) => {
   const otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
   const email = req.body.email;
-  try {
-    const expiresAt = await OTP.sendotp(otp, email);
-    // res.status(200).json({ error: false, expiresAt: expiresAt });
-    res.status(200).json({ error: false });
-  } catch (err) {
-    console.log(err);
+  try{
+    const expiresAt = await OTP.sendotp(otp, email)
+    res.status(200).json({error: false ,expiresAt : expiresAt})
+  }catch{
     res.status(400).json({ error: true, message: err.message });
   }
 };
 
 const verifyotp = async (req, res) => {
-  const { email, otp } = req.body;
-  try {
-    const resp = await OTP.verifyOTP(otp, email);
-    res.status(200).json({ error: false });
-  } catch (err) {
+  const {email , otp} = req.body
+  try{
+    const resp = await OTP.verifyOTP(otp , email )
+    console.log(resp)
+    res.status(200).json({error : false})
+  }catch(err){
     res.status(400).json({ error: true, message: err.message });
   }
 };
@@ -107,10 +105,9 @@ const getUserGroup = async (req, res) => {
   const data = jwt.decode(token, true);
   const userId = data['id'];
   console.log(data);
-
   try {
     const groups = await User.getUserGroups(userId);
-    res.status(200).json({ error: false, message: 'Success', groups: groups });
+    res.status(200).json({ error: false, groups: groups });
   } catch (err) {
     res.status(400).json({ error: true, message: err.message });
   }
