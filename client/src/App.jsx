@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { NewPost, Login, Signup, Home, Profile, Settings, VerifyMail, RequireAuth, Layout, CreateGroup, Group } from './pages/index';
+import { NewPost, Login, Signup, Home, Profile, Settings, VerifyMail, RequireAuth, Layout, CreateGroup, Group, PostPage } from './pages/index';
 import useAuthContext from './hooks/useAuthContext';
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
               <Route path='/groups/:name' element={<Group />} />
               <Route path='/settings' element={<Settings />} />
               <Route path='/createGroup' element={<CreateGroup />} />
+              <Route path='/post/:id' element={<PostPage />} />
               <Route index element={<Home />} />
             </Route>
           </Route>

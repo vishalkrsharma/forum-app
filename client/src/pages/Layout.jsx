@@ -20,7 +20,7 @@ export default function Layout() {
 
   return (
     <>
-      <main className='mt-16 px-2'>{userData && <Outlet context={[userData, setUserData]} />}</main>
+      <main className='mt-16 px-2 text-dark'>{userData && <Outlet context={[userData, setUserData]} />}</main>
       {userData && <Nav userData={userData} />}
     </>
   );

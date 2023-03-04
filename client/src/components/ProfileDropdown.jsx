@@ -26,8 +26,6 @@ export default function ProfileDropdown(props) {
     await logout();
   };
 
-  console.log(props);
-
   return (
     <>
       <div className='dropdown__icon relative content-center items-center' onClick={() => setShowMenu(!showMenu)} ref={ref}>

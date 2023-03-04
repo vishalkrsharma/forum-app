@@ -26,7 +26,6 @@ export default function useUser() {
       return data;
     } catch (err) {
       setError(err);
-      console.log(err);
       return err.response;
     }
   };
@@ -44,7 +43,6 @@ export default function useUser() {
       });
     } catch (err) {
       setError(err);
-      console.log(err);
     }
   };
 
@@ -56,10 +54,9 @@ export default function useUser() {
           authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log(data);
       return data;
     } catch (err) {
-      console.log(err);
+      return err;
     }
   };
 
@@ -68,36 +65,15 @@ export default function useUser() {
       const data = await axios.post('/api/user/verifyotp', body);
       return data;
     } catch (err) {
-      console.log(err);
       return err.response;
     }
   };
 
-  // const sendCode = async (body) => {
-  //   // try {
-  //   const { data } = await axios
-  //     .post('/api/user/sendotp', body)
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   //   console.log(data);
-  //   //   return data;
-  //   // } catch (err) {
-  //   //   console.log(err);
-  //   //   // return err.response;
-  //   // }
-  // };
-
   const sendCode = async (body) => {
     try {
       const data = await axios.post('/api/user/sendotp', body);
-      // console.log(data);
       return data;
     } catch (err) {
-      // console.log(err.response);
       return err.response;
     }
   };

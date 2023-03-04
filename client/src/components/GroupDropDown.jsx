@@ -19,8 +19,6 @@ export default function GroupDropdown(props) {
     };
   }, [showMenu]);
 
-  console.log(groups);
-
   return (
     <div className='dropdown__icon relative content-center align-middle' style={{ height: '30px' }} onClick={() => setShowMenu(!showMenu)} ref={ref}>
       <button type='button' className={`flex content-center align-middle rounded-lg ${showMenu ? 'bg-diffused' : ''}`}>

@@ -13,17 +13,14 @@ export default function Home() {
     var groups = userData.groups.map(function (item) {
       return item['_id'];
     });
-    console.log(groups);
     const body = {
       groups: groups,
     };
     const { data } = await getuserGroupPost(body);
-    console.log(data);
     setuserGroupPostdata(data);
   }
 
   useEffect(() => {
-    console.log(userData);
     getUserGroupPostHandler();
   }, []);
 

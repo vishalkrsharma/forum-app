@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useLocation, useOutletContext, useParams } from 'react-router-dom';
 import { Avatar, Post } from '../components/index';
@@ -7,16 +6,12 @@ import usePost from '../hooks/usePost';
 
 export default function Group(props) {
   const { name } = useParams();
-  // const { group } = useLocation();
   const { state } = useLocation();
   const { id } = state;
   const { getGroup } = useGroup();
   const { getGroupPost } = usePost();
   const [groupData, setGroupdata] = useState();
   const [groupPostData, setGroupPostData] = useState();
-
-  console.log(state);
-  console.log(useLocation());
 
   async function getGroupHandler(body) {
     const { data } = await getGroup(body);
@@ -47,7 +42,8 @@ export default function Group(props) {
           <div className='profileImg mx-auto inline-block rounded-full border-4 border-white'>
             <Avatar className='mx-auto' name={groupData.name} variant='bauhaus' size={80} square={false} />
           </div>
-          <div className='userName font-medium mt-2'>{groupData.name}</div>
+          <div className='font-medium mt-2'>{groupData.name}</div>
+          <div className='mt-2'>{groupData.about}</div>
           <div className='text-left'>
             {groupPostData &&
               groupPostData.map((userpost, key) => {
