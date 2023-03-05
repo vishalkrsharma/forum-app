@@ -59,3 +59,33 @@ form > input {
 ::-webkit-scrollbar-thumb:hover {
   border: 0;
 }
+
+.comment {
+  padding: .5rem;
+  border: 1px solid var(--color-diffused);
+  border-radius: .5rem;
+}
+
+.comment .header {
+  color: var(--color-primary);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .25rem;
+  font-size: .75em;
+}
+
+.comment .header .name {
+  font-weight: bold;
+}
+
+.comment .message {
+  white-space: pre-wrap;
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
+.comment .footer {
+  display: flex;
+  gap: .5rem;
+  margin-top: .5rem;
+}

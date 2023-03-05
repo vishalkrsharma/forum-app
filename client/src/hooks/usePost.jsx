@@ -52,6 +52,26 @@ export default function usePost() {
     }
   };
 
+  const getSinglePost = async (postIdArray) =>{
+    console.log(postIdArray)
+  try {
+    const { data } = await axios.post(`/api/post/byPostId`,postIdArray, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${accessToken}`,
+      },
+  });
+  console.log(data)
+  return data
+  } catch (err) {
+    console.log(err);
+  }
+  }
+
+  const getReplies = (id , commentsByParentId)=>{
+    // return commentsByParentId[id]
+  }
+
  const getuserGroupPost = async (body) =>{
   try {
     const response = await axios.post(`/api/post/byGroups`,body, {
@@ -81,5 +101,5 @@ export default function usePost() {
     }
   };
 
-  return { createPost , getUserPosts ,getGroupPost ,getuserGroupPost,deletePost};
+  return { createPost , getUserPosts ,getGroupPost ,getuserGroupPost ,getSinglePost, getReplies};
 }

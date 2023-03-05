@@ -30,7 +30,7 @@ export default function Profile() {
             {userPostData&&
               userPostData.map((userpost , key)=>{
                 return(
-                  <Post key={userpost._id} caption= {userpost.caption} title = {userpost.title} groupName = {userpost.groupName} username = {userpost.username} timestamps = {userpost.timestamps} />
+                  <Post key={userpost._id} caption= {userpost.caption} title = {userpost.title} groupName = {userpost.groupName} username = {userpost.username} timestamps = {userpost.timestamps} id = {userpost._id} />
                 )
               })
             }

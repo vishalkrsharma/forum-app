@@ -53,10 +53,9 @@ export default function GroupDropdown(props) {
               return (
                 <Link
                   key={group._id}
-                  to={`/groups/${group.name}`}
-                  // reloadDocument={true}
+                  to={`/groups/${group._id}`}
+                  reloadDocument={true}
                   className='item py-2 px-5 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'
-                  state={{ id: group._id }}
                 >
                   <Avatar name={`${group.name}`} variant='bauhaus' size={30} />
                   {group.name}
