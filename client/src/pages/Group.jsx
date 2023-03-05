@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { CgFontSpacing } from 'react-icons/cg';
 import { useLocation, useOutletContext, useParams } from 'react-router-dom';
 import { Avatar, Post } from '../components/index';
 import useGroup from '../hooks/useGroup';
@@ -12,6 +13,7 @@ export default function Group(props) {
   const { id } = state;
   const { getGroup } = useGroup();
   const { getGroupPost } = usePost();
+  const [description,setDescription] = useState();
   const [groupData, setGroupdata] = useState();
   const [groupPostData, setGroupPostData] = useState();
 
@@ -20,6 +22,7 @@ export default function Group(props) {
 
   async function getGroupHandler(body) {
     const { data } = await getGroup(body);
+    console.log(data)
     setGroupdata(data);
     getGroupPostHandler(data.name);
   }

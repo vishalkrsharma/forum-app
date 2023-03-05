@@ -31,13 +31,14 @@ const commentSchema = new Schema({
 commentSchema.statics.createComment = async function(message,user,parentId=null,postId){
     console.log(message,user,postId,parentId);
   
-    const post = await Post.findById(postId)
-    
-    if(!post) throw Error("The post is unavailable!!")
+    const post = await Post.findOne({postId})
+    console.log("55")
     console.log(post)
-    var cmts = post.comments;
+    if(!post) throw Error("The post is unavailable!!")
     
-    const comment = this.create({message:message,user:user,parentId:parentId,postId:postId})
+    var cmts = post.comments;
+    console.log(cmts)
+    const comment = await this.create({message:message,user:user,parentId:parentId,postId:postId})
 
     cmts.push(comment);
     const status = await Post.updateOne({_id:postId},{$set:{comments:cmts}},{upsert:false});
@@ -47,7 +48,7 @@ commentSchema.statics.createComment = async function(message,user,parentId=null,
 commentSchema.statics.getAllComments = async function(postId){
     console.log("in model")
     const comments = await this.find({postId})
-    if(!comments) throw Error("No Comments")
+    if(!comments) return []
     return comments
 }
 module.exports = mongoose.model("Comment",commentSchema)

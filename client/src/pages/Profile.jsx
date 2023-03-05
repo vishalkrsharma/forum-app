@@ -17,7 +17,7 @@ export default function Profile() {
 
   return (
     <div>
-      {!userData&&userPostData ? null : (
+      {!userData&&userPostData ? null: (
         <div className='userInfo text-center max-w-xl m-auto'>
           <div className=' bg-primary h-40 overflow-hidden -mb-11 rounded-lg '>
             <Avatar className='mx-auto ' name={userData.username} variant='marble' size={600} square={true} />

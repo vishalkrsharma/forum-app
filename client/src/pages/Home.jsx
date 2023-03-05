@@ -5,7 +5,8 @@ import { Post } from '../components/index';
 import usePost from '../hooks/usePost';
 
 export default function Home() {
-  const [userGroupPostData, setuserGroupPostdata] = useState();
+  const [userGroupPostData, setuserGroupPostdata] = useState([]);
+  const [message,setMessage] = useState("");
   const [userData] = useOutletContext();
   const { getuserGroupPost } = usePost();
 
@@ -13,28 +14,28 @@ export default function Home() {
     var groups = userData.groups.map(function (item) {
       return item['_id'];
     });
-    console.log(groups);
     const body = {
       groups: groups,
     };
-    const { data } = await getuserGroupPost(body);
-    console.log(data);
-    setuserGroupPostdata(data);
+    const response = await getuserGroupPost(body);
+    setMessage(response.message);
+    setuserGroupPostdata(response.data);
   }
 
   useEffect(() => {
-    console.log(userData);
     getUserGroupPostHandler();
   }, []);
 
   return (
     <div>
       <div className='text-left lg:w-1/2 mx-auto'>
-        {userGroupPostData &&
+        {userGroupPostData.length==0?<div>{message}</div>:
           userGroupPostData.map((userpost, key) => {
             return (
               <Post
-                key={userpost._id}
+                key={key}
+                postId={userpost._id}
+                groupId = {userpost.groupId}
                 caption={userpost.caption}
                 title={userpost.title}
                 groupName={userpost.groupName}
