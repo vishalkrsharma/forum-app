@@ -29,7 +29,7 @@ export default function Post(props) {
             <div>
               <div>{name}</div>
               <div className="text-dark text-xs">
-                {user} | {time}
+                {username} | {time}
               </div>
             </div>
           </div>

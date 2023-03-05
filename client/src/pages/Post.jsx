@@ -5,95 +5,39 @@ import { useParams } from 'react-router-dom';
 import { Avatar } from '../components';
 import CommentList from '../components/CommentList';
 import PostDropdown from '../components/PostDropdown';
+import { useCommentContext } from '../context/CommentContext';
 import usePost from '../hooks/usePost';
 
 export default function Post() {
   const [post , setPost] = useState(false)
   const {id} = useParams()
-  const { getSinglePost } = usePost();
-  const [comment,setComment] = useState()
-  const [rootComment , setRootComment] = useState([])
-
-  const commentsDummy = [{
-    message: "I am a root comment",
-    userId: "6403637f0fb114cc128cbdf8",
-    user :{
-      name : "Deb"
-    },
-    postId: "640432fd002a32a011ce2fcb",
-    commentId : "1",
-    parentId :null
-  },
-
-  {
-    message: "I am a nested comment",
-    userId: "6403637f0fb114cc128cbdf8",
-    postId: "640432fd002a32a011ce2fcb",
-    user :{
-      name : "notDeb"
-    },
-    commentId : "2",
-    parentId : "1"
-  },
-
-  {
-    message: "I am a nested nested comment",
-    userId: "6403637f0fb114cc128cbdf8",
-    user :{
-      name : "Deb"
-    },
-    postId: "640432fd002a32a011ce2fcb",
-    commentId : "3",
-    parentId : "2"
-  },
-
-  {
-    message: "I am another root comment",
-    userId: "6403637f0fb114cc128cbdf8",
-    user :{
-      name : "Deb"
-    },
-    postId: "640432fd002a32a011ce2fcb",
-    commentId : "4",
-    parentId :null
-  },
-
-  {
-    message: "I am a nested comment",
-    userId: "6403637f0fb114cc128cbdf8",
-    user :{
-      name : "NotDeb"
-    },
-    postId: "640432fd002a32a011ce2fcb",
-    commentId : "5",
-    parentId : "4"
-  },
-
-]
-  
+  const { getSinglePost , createComment } = usePost();
+  const {comments , setComments , rootComments} = useCommentContext()
+  const [message , setMessage] = useState("");
 
   const submitHandler = (e)=>{
     e.preventDefault();
-    
+    const body = {
+      id : id,
+      message : message
+    }
+    setMessage("")
+    createComment(body).then((res)=>{
+      setComments([res.data,...comments])
+    })
   }
 
   async function getPostHandler() {
     const body = [id]
     const  data = await getSinglePost(body);
     setPost(data.data)
-    const group = {}
-    commentsDummy.forEach(comment => {
-      group[comment.parentId] ||= []
-      group[comment.parentId].push(comment)
-    })
-    setRootComment(group[null])
   }
 
   useEffect(() => {
     getPostHandler();
   }, []);
   
-  return ( <div className=' container-center'>
+  return ( <div className=' container-centertext-left lg:w-1/2 mx-auto'>
   {!post ? null : ( 
   <div className="mx-auto border-b-2 border-diffused bg-white my-2 rounded-lg p-2 ">    
         <div className="postHeader flex items-center justify-between p-1">
@@ -126,19 +70,20 @@ export default function Post() {
       <form className='flex' onSubmit={submitHandler}>
       <input
           className='border-secondary border-2 p-2 px-3 rounded-lg focus:border-dark'
+          value = {message}
           type='text'
           id='comment'
           placeholder='Comment'
-          onChange={(e) => setComment(e.target.value)}
+          onChange={(e) => setMessage(e.target.value)}
         />
          <button className=' ml-2   p-3 bg-primary text-white  rounded-lg' type='submit' >
           Post
         </button>
       </form>
       <section>
-        {rootComment != null && rootComment.length > 0 &&(
+        {rootComments != null && rootComments.length > 0 &&(
           <div>
-            <CommentList comments={rootComment} />
+            <CommentList comments={rootComments} />
           </div>
         )}
       </section>
