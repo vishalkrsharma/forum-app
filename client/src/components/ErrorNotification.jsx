@@ -10,10 +10,10 @@ export default function ErrorNotification(props) {
   }, [error]);
 
   return (
-    <div className='error absolute bottom-5 bg-white p-3 px-4 rounded-lg shadow-sm shadow-dark opcatiy-5  text-dark'>
+    <div className='error absolute bottom-5 bg-white p-3 px-4 rounded-lg shadow-sm shadow-dark opcatiy-5 text-dark left-1/2 -translate-x-1/2'>
       <div className='flex justify-center items-center gap-3'>
         {error}
-        <div className='font-semibold hover:bg-diffused p-2' onClick={() => setError(false)}>
+        <div className='font-semibold rounded-lg hover:bg-diffused p-2' onClick={() => setError(false)}>
           <CgClose />
         </div>
       </div>

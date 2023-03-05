@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaPencilAlt, FaTrash } from 'react-icons/fa';
+import { MdOutlineReportGmailerrorred } from 'react-icons/md';
 import { SlOptions } from 'react-icons/sl';
 
 export default function PostDropdown(props) {
@@ -28,6 +29,10 @@ export default function PostDropdown(props) {
           <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'>
             <FaPencilAlt />
             <div>Edit Post</div>
+          </div>
+          <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'>
+            <MdOutlineReportGmailerrorred className='text-2xl' />
+            <div className='absolute left-12'>Report Post</div>
           </div>
           <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'>
             <FaTrash />
