@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar } from './index';
 import { formatDistance } from 'date-fns';
 import PostDropdown from './PostDropdown';
-import { BiLike, BiComment } from 'react-icons/bi';
+import { BiLike, BiDislike, BiComment, BiSave } from 'react-icons/bi';
 
 export default function Post(props) {
   console.log(props);
@@ -32,12 +32,22 @@ export default function Post(props) {
         <div className='title leading-tight py-2 font-medium text-lg'>{title}</div>
         <div className='text-dark'>{body}</div>
       </div>
-      <div className='flex justify-center items-center'>
-        <div className='py-3 rounded-xl flex justify-center items-center flex-1 hover:bg-diffused'>
+      <div className='flex justify-start items-center text-dark  text-xl'>
+        <div className='p-3 rounded-xl flex justify-center items-center gap-2 text-xl hover:bg-diffused'>
           <BiLike />
+          <div className='text-base'>Like</div>
         </div>
-        <div className='py-3 rounded-xl flex justify-center items-center flex-1 hover:bg-diffused'>
+        <div className='p-3 rounded-xl flex justify-center items-center gap-2 text-xl hover:bg-diffused'>
+          <BiDislike />
+          <div className='text-base'>Dislike</div>
+        </div>
+        <div className='p-3 rounded-xl flex justify-center items-center gap-2 text-xl hover:bg-diffused'>
           <BiComment />
+          <div className='text-base'>Comment</div>
+        </div>
+        <div className='p-3 rounded-xl flex justify-center items-center gap-2 text-xl hover:bg-diffused'>
+          <BiSave />
+          <div className='text-base'>Save</div>
         </div>
       </div>
     </div>

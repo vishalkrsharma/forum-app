@@ -40,14 +40,20 @@ export default function Group(props) {
   return (
     <div>
       {!groupData ? null : (
-        <div className='userInfo text-center '>
-          <div className=' bg-primary h-40 overflow-hidden -mb-11 rounded-lg max-w-xl m-auto'>
+        <div className='userInfo text-center text-dark'>
+          <div className='bg-primary h-40 overflow-hidden -mb-11 rounded-lg max-w-xl mx-auto'>
             <Avatar className='mx-auto ' name={groupData.name} variant='ring' size={600} square={true} />
           </div>
           <div className='profileImg mx-auto inline-block rounded-full border-4 border-white'>
             <Avatar className='mx-auto' name={groupData.name} variant='bauhaus' size={80} square={false} />
           </div>
-          <div className='userName font-medium mt-2'>{groupData.name}</div>
+          <div className='flex justify-between items-center'>
+            <div>
+              <div className='userName font-medium mt-2'>{groupData.name}</div>
+              <div className='userName font-medium mt-2'>{groupData.about}</div>
+            </div>
+            <button className='bg-primary text-white px-4 py-2 rounded-xl'>Join</button>
+          </div>
           <div className='text-left'>
             {groupPostData &&
               groupPostData.map((userpost, key) => {
