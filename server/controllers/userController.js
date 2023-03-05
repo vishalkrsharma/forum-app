@@ -28,6 +28,7 @@ const loginUser = async (req, res) => {
       error: false,
       message,
       accessToken,
+      "username":obj["username"],
       refreshToken,
     });
   } catch (err) {

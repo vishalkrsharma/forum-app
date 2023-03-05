@@ -10,9 +10,6 @@ router.post('/create',authenticate,createUserPost)
 //DELETE POST
 router.delete('/delete',authenticate,deletePost)
 
-//DELETE POST
-router.delete('/delete',authenticate,deletePost)
-
 // GET POST BY USER ID
 router.get('/byUserId',authenticate,getPostByUserId)
 

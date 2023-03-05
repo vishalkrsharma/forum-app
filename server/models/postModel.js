@@ -84,12 +84,14 @@ postSchema.statics.createPost=async function(userId,username,group_id,title,capt
 
 postSchema.statics.deletePost = async function(postId,userId,groupId){
     const post=await this.deleteOne({postId})
-    if(!post){
+    console.log(post.deletedCount)
+    if(post.deletedCount==0){
         throw Error('No such post available for the id specified')
     }
     try{
-        await User.deletePost(userId,postId)
-        await Group.deletePost(groupId,postId)
+        const checkUser = await User.deletePost(userId,postId)
+        const checkGroup = await Group.deletePost(groupId,postId)
+        if(checkUser && checkGroup)
         return true
     }catch(err){
         throw Error(err.message)

@@ -52,7 +52,9 @@ groupSchema.statics.getUserGroupsById = async function(groupIdArray){
 }
 
 groupSchema.statics.deletePost = async function(groupId,postId){
+    console.log("he")
     const group = await this.findOne({groupId})
+    console.log(group)
     if(!group)throw Error("Something went wrong plz try again")
     const groupPost = group.posts
     groupPost.remove(postId)
