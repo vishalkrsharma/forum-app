@@ -26,7 +26,6 @@ export default function useUser() {
       return data;
     } catch (err) {
       setError(err);
-      console.log(err);
       return err.response;
     }
   };
@@ -39,9 +38,14 @@ export default function useUser() {
 
   const signup = async (body) => {
     try {
-      const { data } = await axios.post('/api/user/register', body).then((res) => {
-        if (res.status) login(body);
-      });
+      const { data } = await axios.post('/api/user/register', body);
+      if(data.error == false){
+        const obj={
+          "email":body.email,
+          "password":body.password
+        }
+        login(obj)
+      }
     } catch (err) {
       setError(err);
       console.log(err);
@@ -56,7 +60,6 @@ export default function useUser() {
           authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log(data);
       return data;
     } catch (err) {
       console.log(err);

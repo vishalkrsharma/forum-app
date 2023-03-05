@@ -28,6 +28,7 @@ export default function usePost() {
           authorization: `Bearer ${accessToken}`,
         },
     });
+    
     console.log(data.data)
     return data.data
     } catch (err) {
@@ -43,6 +44,7 @@ export default function usePost() {
           authorization: `Bearer ${accessToken}`,
         },
     });
+    console.log("posts")
     console.log(data.data)
     return data.data
     } catch (err) {
@@ -51,28 +53,33 @@ export default function usePost() {
   };
 
  const getuserGroupPost = async (body) =>{
-  console.log(body)
   try {
-    const { data } = await axios.post(`/api/post/byGroups`,body, {
+    const response = await axios.post(`/api/post/byGroups`,body, {
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${accessToken}`,
       },
   });
-  console.log(data)
-  return data
+  return response.data
   } catch (err) {
     console.log(err);
   }
  }
 
   const deletePost = async (body) => {
+    console.log(body,accessToken)
     try {
-      const { data } = await axios.post('/api/post/deletePost', body);
+      const { data } = await axios.delete('/api/post/delete', {headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${accessToken}`,
+      },
+  },body
+        );
+      return data;
     } catch (err) {
       console.log(err);
     }
   };
 
-  return { createPost , getUserPosts ,getGroupPost ,getuserGroupPost};
+  return { createPost , getUserPosts ,getGroupPost ,getuserGroupPost,deletePost};
 }

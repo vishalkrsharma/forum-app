@@ -1,5 +1,6 @@
 const Post = require('../models/postModel');
 const jwt = require('jsonwebtoken');
+const Comment = require('../models/commentModel')
 
 const createUserPost = async (req, res) => {
   const authHeader = req.headers['authorization'];
@@ -87,4 +88,31 @@ const getPostByUserId = async (req, res) => {
   }
 };
 
-module.exports = { createUserPost, getAll, deletePost, getPostByGroups, getPostByUserId, getPostByGroupName, getPostByPostIds };
+const comment = async(req,res)=>{
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  const data = jwt.decode(token, true);
+  const userObj = {
+    "username":data["username"],
+    "id":data['id']
+  }
+  const postId = req.params.postId;
+  const {message,parentId} = req.body;
+  try{
+    const comment  =await Comment.createComment(message,userObj,parentId,postId);
+    res.status(200).json({error:false,message:"Commented Succesfully",data:comment});
+  }catch(e){
+    res.status(400).json({error:true,message:e.message})
+  }
+}
+const getComment = async(req,res)=>{
+  const postId = req.params.postId;
+  try{
+    const comments = await Comment.getAllComments(postId)
+    if(comments.length==0)res.status(200).json({error:false,message:"There are no comments!!",data:comments});
+    else res.status(200).json({error:false,message:"Success",data:comments})
+  }catch(e){
+    res.status(400).json({error:true,message:e.message})
+  }
+}
+module.exports = { createUserPost, getAll, deletePost, getPostByGroups, getPostByUserId, getPostByGroupName, getPostByPostIds ,comment,getComment};

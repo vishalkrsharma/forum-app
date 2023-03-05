@@ -1,5 +1,5 @@
 const express = require('express')
-const { createUserPost,getAll,deletePost,getPostByGroups,getPostByUserId,getPostByGroupName, getPostByPostIds }=require('../controllers/postController')
+const { createUserPost,getAll,deletePost,getPostByGroups,getPostByUserId,getPostByGroupName, getPostByPostIds, comment, getComment }=require('../controllers/postController')
 const {authenticate}=require('../middleware/userAuth')
 
 const router = express.Router()
@@ -22,8 +22,6 @@ router.get('/byGroupName/:groupName',authenticate,getPostByGroupName)
 //GET POST BY POST ID'S (LIST OF POST ID'S)
 router.get('/byPostId',authenticate,getPostByPostIds)
 
-router.post('/comment/:post',(req,res)=>{
-    res.status(200).json({id:req.params})
-})
-
+router.post('/comment/:postId',authenticate,comment)
+router.get('/comment/:postId',authenticate,getComment)
 module.exports =router
