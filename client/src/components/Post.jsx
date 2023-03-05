@@ -2,10 +2,10 @@ import React from 'react';
 import { Avatar } from './index';
 import { formatDistance } from 'date-fns';
 import PostDropdown from './PostDropdown';
-import { BiLike, BiComment, BiDislike } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
+import { BiLike, BiComment } from 'react-icons/bi';
 
 export default function Post(props) {
+  console.log(props);
   const name = props.groupName;
   const user = props.username;
   const date = new Date(props.timestamps);
@@ -32,14 +32,11 @@ export default function Post(props) {
         <div className='title leading-tight py-2 font-medium text-lg'>{title}</div>
         <div className='text-dark'>{body}</div>
       </div>
-      <div className='flex justify-start items-center'>
-        <div className='p-3 rounded-xl flex justify-center items-center hover:bg-diffused'>
+      <div className='flex justify-center items-center'>
+        <div className='py-3 rounded-xl flex justify-center items-center flex-1 hover:bg-diffused'>
           <BiLike />
         </div>
-        <div className='p-3 rounded-xl flex justify-center items-center hover:bg-diffused'>
-          <BiDislike />
-        </div>
-        <div className='p-3 rounded-xl flex justify-center items-center hover:bg-diffused'>
+        <div className='py-3 rounded-xl flex justify-center items-center flex-1 hover:bg-diffused'>
           <BiComment />
         </div>
       </div>

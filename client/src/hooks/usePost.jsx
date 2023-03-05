@@ -3,7 +3,7 @@ import axios from 'axios';
 import useAuthContext from './useAuthContext';
 
 export default function usePost() {
-  const { user } = useAuthContext();
+  const {user} = useAuthContext()
 
   const { accessToken } = user;
   const createPost = async (body) => {
@@ -14,9 +14,9 @@ export default function usePost() {
           authorization: `Bearer ${accessToken}`,
         },
       });
-      return data;
+      console.log(data);
     } catch (err) {
-      return err.response;
+      console.log(err);
     }
   };
 
@@ -27,9 +27,9 @@ export default function usePost() {
           'Content-Type': 'application/json',
           authorization: `Bearer ${accessToken}`,
         },
-      });
-      console.log(data.data);
-      return data.data;
+    });
+    console.log(data.data)
+    return data.data
     } catch (err) {
       console.log(err);
     }
@@ -42,27 +42,29 @@ export default function usePost() {
           'Content-Type': 'application/json',
           authorization: `Bearer ${accessToken}`,
         },
-      });
-      console.log(data.data);
-      return data.data;
+    });
+    console.log(data.data)
+    return data.data
     } catch (err) {
       console.log(err);
     }
   };
 
-  const getuserGroupPost = async (body) => {
-    try {
-      const { data } = await axios.post(`/api/post/byGroups`, body, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${accessToken}`,
-        },
-      });
-      return data;
-    } catch (err) {
-      return err.response;
-    }
-  };
+ const getuserGroupPost = async (body) =>{
+  console.log(body)
+  try {
+    const { data } = await axios.post(`/api/post/byGroups`,body, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${accessToken}`,
+      },
+  });
+  console.log(data)
+  return data
+  } catch (err) {
+    console.log(err);
+  }
+ }
 
   const deletePost = async (body) => {
     try {
@@ -72,5 +74,5 @@ export default function usePost() {
     }
   };
 
-  return { createPost, getUserPosts, getGroupPost, getuserGroupPost };
+  return { createPost , getUserPosts ,getGroupPost ,getuserGroupPost};
 }
