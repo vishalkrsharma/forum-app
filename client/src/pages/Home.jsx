@@ -6,7 +6,7 @@ import usePost from '../hooks/usePost';
 
 export default function Home() {
   const [userGroupPostData, setuserGroupPostdata] = useState([]);
-  const [message,setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [userData] = useOutletContext();
   const { getuserGroupPost } = usePost();
 
@@ -28,23 +28,26 @@ export default function Home() {
 
   return (
     <div>
-      <div className='text-left lg:w-1/2 mx-auto'>
-        {userGroupPostData.length==0?<div>{message}</div>:
+      <div className='text-left lg:w-1/2 mx-auto text-dark'>
+        {userGroupPostData.length == 0 ? (
+          <div>{message}</div>
+        ) : (
           userGroupPostData.map((userpost, key) => {
             return (
               <Post
                 key={key}
                 postId={userpost._id}
-                groupId = {userpost.groupId}
+                groupId={userpost.groupId}
                 caption={userpost.caption}
                 title={userpost.title}
                 groupName={userpost.groupName}
                 username={userpost.username}
                 timestamps={userpost.timestamps}
-                id = {userpost._id}
+                id={userpost._id}
               />
             );
-          })}
+          })
+        )}
       </div>
     </div>
   );
