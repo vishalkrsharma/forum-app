@@ -53,7 +53,7 @@ export default function NewPost(props) {
 
   return (
     <>
-      <div className='max-w-3xl mx-auto text-dark' style={{ height: 'calc(100vh - 4rem)' }}>
+      <div className='max-w-3xl mx-auto text-dark'>
         <div className='relative mb-2 py-2 inline-block' ref={ref}>
           <button
             type='button'
