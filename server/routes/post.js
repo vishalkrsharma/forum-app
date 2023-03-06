@@ -8,7 +8,7 @@ const router = express.Router()
 router.post('/create',authenticate,createUserPost)
 
 //DELETE POST
-router.delete('/delete',authenticate,deletePost)
+router.delete('/delete/:postId',authenticate,deletePost)
 
 // GET POST BY USER ID
 router.get('/byUserId',authenticate,getPostByUserId)

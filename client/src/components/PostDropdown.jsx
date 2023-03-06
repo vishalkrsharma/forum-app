@@ -12,8 +12,9 @@ export default function PostDropdown(props) {
   const { user, dispatch } = useAuthContext();
   const ref = useRef();
   const [showMenu, setShowMenu] = useState(false);
-  const [checkUser, setUser] = useState(false);
-  const { deletePost } = usePost();
+  const [checkUser,setUser] = useState(false);
+  const { deletePost } = usePost()
+
   useEffect(() => {
     if (user.username == username) {
       setUser(true);
@@ -28,16 +29,16 @@ export default function PostDropdown(props) {
       document.removeEventListener('mousedown', clickOutside);
     };
   }, [showMenu]);
-  const deletePostHandler = async () => {
-    console.log(postId, groupId);
+
+  const deletePostHandler = async()=>{
+    console.log(postId,groupId);
     const body = {
       postId: postId,
       groupId: groupId,
     };
     const response = await deletePost(body);
-    console.log(response);
-  };
-
+    if(response.message == "Post Deleted Successfully")window.location.reload(true)
+  }
   return (
     <div className='dropdown__icon relative content-center align-middle' onClick={() => setShowMenu(!showMenu)} ref={ref}>
       <button type='button' className={`p-3 flex content-center align-middle rounded-lg cursor-pointer ${showMenu ? 'bg-diffused' : ''}`}>

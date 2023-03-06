@@ -117,11 +117,12 @@ export default function usePost() {
   const deletePost = async (body) => {
     console.log(body,accessToken)
     try {
-      const { data } = await axios.delete('/api/post/delete', {headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${accessToken}`,
-      },
-  },body
+      const { data } = await axios.delete(`/api/post/delete/${body.postId}`, {
+          headers: {
+            'Content-Type' : 'application/json',
+            authorization : `Bearer ${accessToken}`,
+          },
+        }
         );
       return data;
     } catch (err) {
@@ -131,3 +132,6 @@ export default function usePost() {
 
   return { createPost , getUserPosts ,getGroupPost ,getuserGroupPost ,getSinglePost, getReplies , getComments ,createComment,deletePost};
 }
+/*
+
+*/ 

@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt')
 
-
 const userSchema = new Schema({
     email:{
         type:String,
@@ -89,10 +88,10 @@ userSchema.statics.getUserGroups = async function (userId){
 
 userSchema.statics.deletePost = async function(userId,postId){
     const user = await this.findOne({userId})
-    if(!group)throw Error("Something went wrong plz try again")
+    if(!user)throw Error("Something went wrong plz try again")
     const userPost = user.posts
     userPost.remove(postId)
-    const status = await this.updateOne({_id:userId},{'$set':{posts:groupPost}},{upsert:false})
+    const status = await this.updateOne({_id:userId},{'$set':{posts:userPost}},{upsert:false})
     if(!status) throw Error("Something went wrong plz try again")
     return true
 }
