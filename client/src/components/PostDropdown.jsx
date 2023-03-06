@@ -49,10 +49,7 @@ export default function PostDropdown(props) {
             <FaPencilAlt />
             <div>Edit Post</div>
           </div>
-          <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'>
-            <MdOutlineReportGmailerrorred className='text-2xl' />
-            <div className='absolute left-12'>Report Post</div>
-          </div>
+          
           <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'>
             <FaTrash />
             <div>Delete Post</div>
@@ -61,9 +58,9 @@ export default function PostDropdown(props) {
       ) :(
       <div className='bg-white absolute top-9 right-0 shadow-lg text-base z-10 text-dark rounded-lg'>
         <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'>
-          <VscReport color='red'/>
-          <div>Report</div>
-        </div>
+            <MdOutlineReportGmailerrorred className='text-2xl' />
+            <div className='absolute left-12'>Report Post</div>
+          </div>
       </div>
     ): null}
     </div>
