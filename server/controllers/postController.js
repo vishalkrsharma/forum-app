@@ -26,7 +26,7 @@ const getAll = async (req, res) => {
   }
 };
 const getPostByPostIds = async (req, res) => {
-  const { postIdArray } = req.body;
+  const  postIdArray  = req.body;
   try {
     const posts = await Post.getByPostIds(postIdArray);
     res.status(200).json({ error: true, message: 'Success', data: posts });

@@ -7,18 +7,12 @@ import useGroup from '../hooks/useGroup';
 import usePost from '../hooks/usePost';
 
 export default function Group(props) {
-  const { name } = useParams();
-  // const { group } = useLocation();
-  const { state } = useLocation();
-  const { id } = state;
+  const {id} = useParams();
   const { getGroup } = useGroup();
   const { getGroupPost } = usePost();
   const [description,setDescription] = useState();
   const [groupData, setGroupdata] = useState();
   const [groupPostData, setGroupPostData] = useState();
-
-  console.log(state);
-  console.log(useLocation());
 
   async function getGroupHandler(body) {
     const { data } = await getGroup(body);
@@ -68,6 +62,7 @@ export default function Group(props) {
                     groupName={userpost.groupName}
                     username={userpost.username}
                     timestamps={userpost.timestamps}
+                    id = {userpost._id}
                   />
                 );
               })}

@@ -41,6 +41,7 @@ export default function Home() {
                 groupName={userpost.groupName}
                 username={userpost.username}
                 timestamps={userpost.timestamps}
+                id = {userpost._id}
               />
             );
           })}

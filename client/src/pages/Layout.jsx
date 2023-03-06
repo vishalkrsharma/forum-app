@@ -19,9 +19,9 @@ export default function Layout() {
   }, []);
 
   return (
-    <>
+    <div className = "my-5">
       <main className='mt-16 px-2'>{userData && <Outlet context={[userData, setUserData]} />}</main>
       {userData && <Nav userData={userData} />}
-    </>
+    </div>
   );
 }

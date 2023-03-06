@@ -59,3 +59,96 @@ form > input {
 ::-webkit-scrollbar-thumb:hover {
   border: 0;
 }
+
+.comment {
+  padding: .5rem;
+  border: 1px solid var(--color-diffused);
+  border-radius: .5rem;
+}
+
+.comment .header {
+  color: var(--color-primary);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .25rem;
+  font-size: .75em;
+}
+
+.collapse-line {
+  border: none;
+  background: none;
+  padding: 0;
+  width: 15px;
+  margin-top: .5rem;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transform: translateX(-50%);
+}
+
+.collapse-line:hover::before,
+.collapse-line:focus-visible::before {
+  background-color: hsl(235, 100%, 60%);
+}
+
+.collapse-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background-color: var(--color-primary);
+  transition: background-color 100ms ease-in-out;
+}
+
+.hide {
+  display: none;
+}
+
+.comment .header .name {
+  font-weight: bold;
+}
+
+.comment .message {
+  white-space: pre-wrap;
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
+.comment .footer {
+  display: flex;
+  gap: .5rem;
+  margin-top: .5rem;
+}
+
+.comment-stack {
+  margin: .5rem 0;
+}
+
+.comment-stack:last-child {
+  margin-bottom: 0;
+}
+
+.nested-comments {
+  padding-left: 0.5rem;
+  flex-grow: 1;
+}
+.nested-comments-stack {
+  display: flex;
+}
+
+.btn {
+  padding: .5em 1em;
+  background: var(--color-primary);
+  border: none;
+  color: white;
+  border-radius: .5em;
+  font-size: .75em;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  --color: hsl(var(--hue), 100%, 74%);
+}
