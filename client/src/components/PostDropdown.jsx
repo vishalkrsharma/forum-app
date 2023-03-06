@@ -50,7 +50,7 @@ export default function PostDropdown(props) {
             <div>Edit Post</div>
           </div>
           
-          <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'>
+          <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg' onClick={deletePostHandler}>
             <FaTrash />
             <div>Delete Post</div>
           </div>

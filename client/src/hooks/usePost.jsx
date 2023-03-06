@@ -129,5 +129,5 @@ export default function usePost() {
     }
   };
 
-  return { createPost , getUserPosts ,getGroupPost ,getuserGroupPost ,getSinglePost, getReplies , getComments ,createComment};
+  return { createPost , getUserPosts ,getGroupPost ,getuserGroupPost ,getSinglePost, getReplies , getComments ,createComment,deletePost};
 }
