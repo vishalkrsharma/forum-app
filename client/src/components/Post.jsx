@@ -6,7 +6,6 @@ import { BiLike, BiDislike, BiComment, BiSave } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Post(props) {
-  console.log(props);
   const name = props.groupName;
   const groupId = props.groupId;
   const navigate = useNavigate();
@@ -14,7 +13,6 @@ export default function Post(props) {
   const username = props.username;
   const date = new Date(props.timestamps);
   const time = formatDistance(date, new Date(), { addSuffix: true });
-
   const id = props.id;
 
   const title = props.title;

@@ -39,10 +39,10 @@ const deletePost = async (req, res) => {
   const token = authHeader && authHeader.split(' ')[1];
   const data = jwt.decode(token, true);
   const userId = data['id'];
-  const { postId, groupId } = req.body;
-  console.log(postId, groupId, userId);
+  const postId = req.params.postId;
+  console.log(postId)
   try {
-    const status = await Post.deletePost(postId, userId, groupId);
+    const status = await Post.deletePost(postId, userId);
     if (status) res.status(200).json({ error: false, message: 'Post Deleted Successfully' });
     else throw Error("Something went wrong!")
   } catch (err) {

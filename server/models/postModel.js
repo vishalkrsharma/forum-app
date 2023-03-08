@@ -82,20 +82,24 @@ postSchema.statics.createPost=async function(userId,username,group_id,title,capt
     return post;
 }
 
-postSchema.statics.deletePost = async function(postId,userId,groupId){
-    const post=await this.deleteOne({postId})
-    console.log(post.deletedCount)
-    if(post.deletedCount==0){
-        throw Error('No such post available for the id specified')
+postSchema.statics.deletePost = async function(postId,userId){
+    console.log(postId)
+    const post=await this.findById(postId)
+    if(post){
+        const groupId = post.groupId
+        const status= await post.deleteOne()
+        if(status.deleteCount==0){
+            throw Error('Something went wrong')
+        }else{
+            console.log("here")
+            const checkUser = await User.deletePost(userId,postId)
+            console.log("here1")
+            const checkGroup = await Group.deletePost(groupId,postId)
+            if(checkUser && checkGroup)
+            return true
+        }
     }
-    try{
-        const checkUser = await User.deletePost(userId,postId)
-        const checkGroup = await Group.deletePost(groupId,postId)
-        if(checkUser && checkGroup)
-        return true
-    }catch(err){
-        throw Error(err.message)
-    }
+    return false;
 }
 
 
