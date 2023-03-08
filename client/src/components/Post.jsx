@@ -42,22 +42,15 @@ export default function Post(props) {
       <div className='flex justify-start items-center text-dark text-xl'>
         <div className='p-3 rounded-xl flex justify-center items-center gap-2 text-xl hover:bg-diffused cursor-pointer'>
           <BiLike />
-          <div className='text-base'>Like</div>
-        </div>
-        <div className='p-3 rounded-xl flex justify-center items-center gap-2 text-xl hover:bg-diffused cursor-pointer'>
-          <BiDislike />
-          <div className='text-base'>Dislike</div>
         </div>
         <div
           className='p-3 rounded-xl flex justify-center items-center gap-2 text-xl hover:bg-diffused cursor-pointer'
           onClick={() => navigate(`/posts/${id}`)}
         >
           <BiComment />
-          <div className='text-base'>Comment</div>
         </div>
         <div className='p-3 rounded-xl flex justify-center items-center gap-2 text-xl hover:bg-diffused cursor-pointer'>
           <BiSave />
-          <div className='text-base'>Save</div>
         </div>
         <PostDropdown username={username} postId={postId} groupId={groupId} />
       </div>
