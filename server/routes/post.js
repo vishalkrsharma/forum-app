@@ -20,7 +20,7 @@ router.post('/byGroups',authenticate,getPostByGroups)
 router.get('/byGroupName/:groupName',authenticate,getPostByGroupName)
 
 //GET POST BY POST ID'S (LIST OF POST ID'S)
-router.post('/byPostId',authenticate,getPostByPostIds)
+router.get('/byPostId',authenticate,getPostByPostIds)
 
 router.post('/comment/:postId',authenticate,comment)
 router.get('/comment/:postId',authenticate,getComment)

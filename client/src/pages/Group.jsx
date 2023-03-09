@@ -28,10 +28,8 @@ export default function Group(props) {
 
   useEffect(() => {
     const groupId = id;
-    const body = {
-      groupId,
-    };
-    getGroupHandler(body);
+   
+    getGroupHandler(groupId);
   }, []);
 
   return (
