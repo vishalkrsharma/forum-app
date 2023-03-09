@@ -32,7 +32,7 @@ const create = async(req,res)=>{
 
 //GET A SINGLE GROUP
 const getGroup = async (req,res)=>{
-    const {groupId} = req.body
+    const {groupId} = req.params
     try{
         const group = await Group.getGroupById(groupId)
         res.status(200).json({error:false,message:"Success",data:group})
@@ -44,10 +44,14 @@ const getGroup = async (req,res)=>{
 
 //GET GROUPS ACCORDING TO GROUP ID'S
 const getUserGroups = async (req,res)=>{
-    const {groupIds} = req.body
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    const data = jwt.decode(token,true)
+    const userId = data['userId']
     try{
-        const groups = await Group.getUserGroupsById(groupIds)
-        res.status(200).json({error:false,message:"Success",data:groups})
+        const groups = await Group.getUserGroupsById(userId)
+        if(groups.length==0)res.status(200).json({error:false,message:"You haven't joined in any group",data:groups})
+        else res.status(200).json({error:false,message:"Success",data:groups})
     }catch(err){
         res.status(400).json({error:true,message:err.message})
     }
@@ -102,7 +106,8 @@ const searchGroup = async (req,res)=>{
     const {groupName} = req.body
     try{
         const groupList = await Group.getGroupsByName(groupName)
-        res.status(200).json({error:false,message:'Success',data:groupList})
+        if(groupList.length==0)res.status(200).json({error:false,message:"No Groups available",data:groupList})
+        else res.status(200).json({error:false,message:'Success',data:groupList})
     }catch(err){
         res.status(400).json({error:true,message:err.message})
     }

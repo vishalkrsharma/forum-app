@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const User = require('../models/userModel')
 const Schema = mongoose.Schema
 
 const groupSchema = new Schema({
@@ -35,26 +35,29 @@ groupSchema.statics.createGroup = async function(name,about,image,userObj){
     const members=[]
     members.push(userObj)
     const group = await this.create({name:name,about:about,image:image,admin:userObj,members:members})
-    console.log(group)
     return group;
 }
 
 groupSchema.statics.getGroupById = async function(groupId){
+    console.log(groupId)
     const group = await this.findOne({_id : groupId})
     if(!group)throw Error("No Such group exists")
     return group;
 }
 
-groupSchema.statics.getUserGroupsById = async function(groupIdArray){
+groupSchema.statics.getUserGroupsById = async function(userId){
+    const user = await User.findOne({userId})
+    if(!user) throw Error('User is not defined')
+    groupIdArray = user.groups
     const groups = await this.find({'_id':{'$in':groupIdArray}})
-    if(groups.length===0)throw Error("You haven't joined in any group")
+    if(groups.length===0)return []
     return groups;
 }
 
+//remove the post that you have deleted
 groupSchema.statics.deletePost = async function(groupId,postId){
     console.log("he")
     const group = await this.findOne({groupId})
-    console.log(group)
     if(!group)throw Error("Something went wrong plz try again")
     const groupPost = group.posts
     groupPost.remove(postId)
@@ -63,6 +66,7 @@ groupSchema.statics.deletePost = async function(groupId,postId){
     return true
 }
 
+//add or remove a specific user from the group
 groupSchema.statics.updateMembers = async function(user,groupId,state){
     const group = await this.findById(groupId)
     
@@ -78,9 +82,10 @@ groupSchema.statics.updateMembers = async function(user,groupId,state){
     return true
 }
 
+//Search groups
 groupSchema.statics.getGroupsByName = async function(groupName){
     const groups = await this.find({name:{$regex:new RegExp('^'+groupName+'.*','i')}})
-    if(groups.length===0) throw Error("No groups found")
+    if(groups.length===0) []
     return groups
 }
 

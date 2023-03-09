@@ -26,9 +26,12 @@ const getAll = async (req, res) => {
   }
 };
 const getPostByPostIds = async (req, res) => {
-  const  postIdArray  = req.body;
+  const authHeaders = req.headers['authorization']
+  const token = authHeaders && authHeaders.split(' ')[1]
+  const user = jwt.decode(token,true)
+  const userId = user['id']
   try {
-    const posts = await Post.getByPostIds(postIdArray);
+    const posts = await Post.getByUserId(userId);
     res.status(200).json({ error: true, message: 'Success', data: posts });
   } catch (err) {
     res.status(400).json({ error: true, message: err.message });

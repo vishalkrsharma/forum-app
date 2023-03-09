@@ -83,7 +83,7 @@ postSchema.statics.createPost=async function(userId,username,group_id,title,capt
 }
 
 postSchema.statics.deletePost = async function(postId,userId){
-    console.log(postId)
+    console.log(postId,userId)
     const post=await this.findById(postId)
     if(post){
         const groupId = post.groupId
@@ -108,12 +108,6 @@ postSchema.statics.getByGroups = async function(groupIdArray){
     const posts = await this.find({"groupId":{"$in":groupIdArray}}).sort({timestamps:-1})
     console.log(groupIdArray , posts)
     if(posts.length===0)return [];
-    return posts
-}
-
-postSchema.statics.getByPostIds = async function(postIdArray){
-    const posts = await this.find({"_id":{"$in":postIdArray}}).sort({timestamps:-1})
-    if(!posts)return []
     return posts
 }
 
