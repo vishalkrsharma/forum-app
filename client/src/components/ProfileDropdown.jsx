@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AiOutlineSetting, AiOutlineUser, AiOutlineLogout } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-
+import { BsChevronDown } from 'react-icons/bs';
 import useUser from '../hooks/useUser';
 import Avatar from './Avatar';
 
@@ -30,10 +30,19 @@ export default function ProfileDropdown(props) {
 
   return (
     <>
-      <div className='dropdown__icon relative content-center items-center' onClick={() => setShowMenu(!showMenu)} ref={ref}>
-        <button type='button' className='flex justify-center gap-2 items-center hover:bg-diffused p-2 rounded-xl'>
-          <Avatar name={props.username} variant='beam' size={30} />
-          <div className='text-base flex justify-center items-center'>{props.username}</div>
+      <div
+        className={`dropdown__icon relative p-2 hover:bg-diffused flex rounded-xl ${showMenu ? 'bg-diffused' : ''}`}
+        onClick={() => setShowMenu(!showMenu)}
+        ref={ref}
+      >
+        <button type='button' className='flex justify-between gap-2 items-center w-48'>
+          <div className='flex gap-2'>
+            <Avatar name={props.username} variant='beam' size={30} />
+            <div className='text-base flex justify-center items-center'>{props.username}</div>
+          </div>
+          <div className='text-base'>
+            <BsChevronDown />
+          </div>
         </button>
         {showMenu ? (
           <div className='dropdown__menu bg-white absolute top-14 -right-3 rounded-lg shadow-lg text-base z-10 w-56'>

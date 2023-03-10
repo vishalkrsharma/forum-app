@@ -8,10 +8,11 @@ import { BiUpArrowAlt } from 'react-icons/bi';
 import logo from '../assets/logo.png';
 import { GroupDropdown, ProfileDropdown } from './index';
 
-export default function TopBar(props) {
+export default function Nav(props) {
   const ref = useRef();
   const location = useLocation();
   const [showLabel, setShowLabel] = useState(true);
+  const [searchString, setSearchString] = useState('');
 
   useEffect(() => {
     const scroll = (e) => {
@@ -40,10 +41,12 @@ export default function TopBar(props) {
             </p>
           </Link>
         </div>
-        <div className='flex items-center gap-4 p-2 pr-0'>
-          <AiOutlineSearch />
-          <ProfileDropdown username={props.userData.username} />
-        </div>
+        <input
+          className='w-96 rounded-lg p-2 px-3 bg-diffused flex justify-between items-center text-base placeholder:text-dark'
+          placeholder='Search Anything...'
+          onChange={(e) => setSearchString(e.target.value)}
+        />
+        <ProfileDropdown username={props.userData.username} />
       </div>
       {!showLabel ? (
         <div

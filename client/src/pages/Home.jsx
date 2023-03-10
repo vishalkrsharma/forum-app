@@ -30,7 +30,7 @@ export default function Home() {
     <div>
       <div className='text-left lg:w-1/2 mx-auto text-dark'>
         {userGroupPostData.length == 0 ? (
-          <div>{message}</div>
+          <div className='text-center'>{message}</div>
         ) : (
           userGroupPostData.map((userpost, key) => {
             return (
