@@ -4,16 +4,21 @@ import { MdOutlineReport } from 'react-icons/md';
 import { SlOptions } from 'react-icons/sl';
 import useAuthContext from '../hooks/useAuthContext';
 import usePost from '../hooks/usePost';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ErrorNotification } from './index';
 
 export default function PostDropdown(props) {
   const username = props.username;
   const groupId = props.groupId;
   const postId = props.postId;
+  const location = useLocation();
+  const navigate = useNavigate();
   const { user, dispatch } = useAuthContext();
   const ref = useRef();
   const [showMenu, setShowMenu] = useState(false);
-  const [checkUser,setUser] = useState(false);
-  const { deletePost } = usePost()
+  const [checkUser, setUser] = useState(false);
+  const { deletePost } = usePost();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (user.username == username) {
@@ -30,41 +35,50 @@ export default function PostDropdown(props) {
     };
   }, [showMenu]);
 
-  const deletePostHandler = async()=>{
-    console.log(postId,groupId);
+  console.log(location);
+
+  const deletePostHandler = async () => {
+    console.log(postId, groupId);
     const body = {
       postId: postId,
       groupId: groupId,
     };
     const response = await deletePost(body);
-    if(response.message == "Post Deleted Successfully")window.location.reload(true)
-  }
+    if (response.message === 'Post Deleted Successfully') {
+      setError('Post Deleted Successfully');
+      navigate('/');
+      window.location.reload(true);
+    }
+  };
   return (
-    <div className='dropdown__icon relative content-center align-middle' onClick={() => setShowMenu(!showMenu)} ref={ref}>
-      <button type='button' className={`p-3 flex content-center align-middle rounded-lg cursor-pointer ${showMenu ? 'bg-diffused' : ''}`}>
-        <SlOptions className='text-dark' />
-      </button>
-      {showMenu ? (
-        <div className='bg-white absolute top-13 right-0 shadow-lg text-base z-10 text-dark rounded-lg'>
-          {checkUser ? (
-            <>
+    <>
+      <div className='dropdown__icon relative content-center align-middle' onClick={() => setShowMenu(!showMenu)} ref={ref}>
+        <button type='button' className={`p-3 flex content-center align-middle rounded-lg cursor-pointer ${showMenu ? 'bg-diffused' : ''}`}>
+          <SlOptions className='text-dark' />
+        </button>
+        {showMenu ? (
+          <div className='bg-white absolute top-13 right-0 shadow-lg text-base z-10 text-dark rounded-lg'>
+            {checkUser ? (
+              <>
+                <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'>
+                  <FaPencilAlt />
+                  <div>Edit Post</div>
+                </div>
+                <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg' onClick={deletePostHandler}>
+                  <FaTrash />
+                  <div>Delete Post</div>
+                </div>
+              </>
+            ) : (
               <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'>
-                <FaPencilAlt />
-                <div>Edit Post</div>
+                <MdOutlineReport className='text-2xl' />
+                <div className='absolute left-12'>Report Post</div>
               </div>
-              <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg' onClick={deletePostHandler}>
-                <FaTrash />
-                <div>Delete Post</div>
-              </div>
-            </>
-          ) : (
-            <div className='item p-2 w-40 flex justify-start items-center gap-4 hover:bg-diffused m-2 rounded-lg'>
-              <MdOutlineReport className='text-2xl' />
-              <div className='absolute left-12'>Report Post</div>
-            </div>
-          )}
-        </div>
-      ) : null}
-    </div>
+            )}
+          </div>
+        ) : null}
+      </div>
+      {error ? <ErrorNotification error={error} setError={setError} /> : null}
+    </>
   );
 }
