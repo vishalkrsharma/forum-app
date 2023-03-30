@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { CgClose } from 'react-icons/cg';
 
 export default function ErrorNotification(props) {
